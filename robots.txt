@@ -1,0 +1,38 @@
+User-agent: *
+Allow: /
+# Articles stay out of the index until their placeholder photos are replaced
+# (the Press section is likewise commented out in index.html for launch).
+Disallow: /articles/
+
+# AI / answer-engine crawlers explicitly welcomed
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://www.asmarphotography.com/sitemap.xml
+
+# Structured summary for AI / answer engines
+# https://www.asmarphotography.com/llms.txt

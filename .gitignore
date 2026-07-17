@@ -1,0 +1,5 @@
+.DS_Store
+.wm_backup/
+_preview*.html
+*.py
+*.zip
