@@ -1817,6 +1817,9 @@ section{padding:4.25rem 8%}
   margin-bottom:-1px;
   transition:all .3s;
 }
+@media(max-width:768px){
+  .filter-btn{ padding:.85rem 1.3rem 1rem; font-size:.66rem; letter-spacing:.16em; }
+}
 .filter-btn.active,.filter-btn:hover{
   color:var(--gold);
   border-bottom-color:var(--gold);
@@ -3044,9 +3047,34 @@ nav#mainNav .nav-links .nav-cta:hover{ background:var(--gold-light);border-color
 nav#mainNav .nav-right{ gap:1.4rem; }
 nav#mainNav .music-nav-btn{ border-radius:50%; }
 @media(max-width:768px){
-  nav#mainNav{ top:.7rem; width:calc(100% - 1.4rem); padding:.6rem .7rem .6rem 1.2rem; }
+  /* transform:none is critical — a transformed ancestor breaks position:fixed on
+     the fullscreen menu, so we position the pill with left/right instead of
+     left:50% + translateX. */
+  nav#mainNav{ top:.7rem; left:.7rem; right:.7rem; width:auto; transform:none; padding:.6rem .7rem .6rem 1.2rem; }
+  nav#mainNav.scrolled{ transform:none; }
   nav#mainNav .nav-logo img{ height:48px !important; }
-  nav#mainNav .nav-links a{ font-size:1.05rem; }
+  nav#mainNav .nav-right{ gap:.6rem; }
+  /* FULLSCREEN MOBILE MENU — unscoped selectors because JS portals #navLinks out
+     to <body> when open (an ancestor transform OR backdrop-filter would otherwise
+     trap the fixed overlay to the pill's box). */
+  .nav-links{
+    display:none; position:fixed; inset:0; width:auto; margin:0; padding:2rem;
+    flex-direction:column; align-items:center; justify-content:center; gap:2.1rem;
+    background:rgba(8,8,7,.985); -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px);
+    z-index:200;
+  }
+  .nav-links.open{ display:flex; }
+  .nav-links a{ font-size:1.45rem; letter-spacing:.12em; color:var(--cream); }
+  .nav-links .nav-cta{ margin-top:.6rem; padding:.95rem 2.6rem; font-size:1rem; color:var(--dark);
+    background:var(--gold); border:1px solid var(--gold); border-radius:999px; }
+  /* keep only the hamburger (now an X) above the overlay so it can close it */
+  nav#mainNav.menu-open{
+    z-index:202; background:transparent; border-color:transparent; box-shadow:none;
+    -webkit-backdrop-filter:none; backdrop-filter:none;
+  }
+  nav#mainNav.menu-open .nav-logo,
+  nav#mainNav.menu-open .music-nav-btn{ opacity:0; pointer-events:none; }
+  nav#mainNav .nav-menu-btn{ color:var(--gold-light); }
 }
 
 /* ---- PERMANENT VIVID HERO COVER ---- */
@@ -4680,15 +4708,31 @@ window.addEventListener('scroll',()=>{
 
 // ── MOBILE MENU ──
 let menuOpen=false;
-function toggleMenu(){
-  menuOpen=!menuOpen;
-  document.getElementById('navLinks').classList.toggle('open',menuOpen);
+function setMenu(open){
+  menuOpen=open;
+  var nl=document.getElementById('navLinks');
+  // Portal the menu out of the pill (whose transform/backdrop-filter would trap a
+  // fixed overlay), then restore it to its exact spot on close.
+  if(open){
+    if(!nl._home){ nl._home=nl.parentNode; nl._next=nl.nextSibling; }
+    document.body.appendChild(nl);
+  } else if(nl._home){
+    nl._home.insertBefore(nl, nl._next);
+  }
+  nl.classList.toggle('open',open);
+  document.getElementById('mainNav').classList.toggle('menu-open',open);
+  document.body.style.overflow=open?'hidden':'';
   const l1=document.getElementById('menuLine1');
   const l2=document.getElementById('menuLine2');
   const l3=document.getElementById('menuLine3');
-  if(menuOpen){l1.style.transform='rotate(45deg) translateY(8px)';l2.style.opacity='0';l3.style.transform='rotate(-45deg) translateY(-8px)'}
+  if(open){l1.style.transform='rotate(45deg) translateY(8px)';l2.style.opacity='0';l3.style.transform='rotate(-45deg) translateY(-8px)'}
   else{l1.style.transform='';l2.style.opacity='';l3.style.transform=''}
 }
+function toggleMenu(){ setMenu(!menuOpen); }
+// tapping any menu link closes the overlay
+document.querySelectorAll('#navLinks a').forEach(function(a){
+  a.addEventListener('click',function(){ if(menuOpen) setMenu(false); });
+});
 document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{if(menuOpen)toggleMenu()}));
 
 /* FAQ accordion */
@@ -4998,22 +5042,36 @@ document.querySelectorAll('a,button,[onclick]').forEach(el=>{
       b.title=playing?'Pause music':'Play music';
     });
   }
+  // Only stay silent if the visitor has EXPLICITLY turned it off before.
+  var userStopped = localStorage.getItem('bgMusic')==='off';
+  setUI(false);
+
   window.toggleMusic=function(){
     if(audio.paused){
-      audio.play().then(function(){ setUI(true); localStorage.setItem('bgMusic','on'); }).catch(function(){});
+      userStopped=false; localStorage.setItem('bgMusic','on');
+      audio.play().then(function(){ setUI(true); }).catch(function(){});
     } else {
-      audio.pause(); setUI(false); localStorage.setItem('bgMusic','off');
+      userStopped=true; localStorage.setItem('bgMusic','off');
+      audio.pause(); setUI(false);
     }
   };
-  // resume for returning visitors who had it on, after their first interaction
-  if(localStorage.getItem('bgMusic')==='on'){
-    var resume=function(){
-      audio.play().then(function(){ setUI(true); }).catch(function(){});
-      window.removeEventListener('pointerdown',resume);
-      window.removeEventListener('keydown',resume);
-    };
-    window.addEventListener('pointerdown',resume);
-    window.addEventListener('keydown',resume);
+
+  // ── AUTOPLAY ON OPEN ──
+  // Browsers block audio-with-sound until the visitor interacts (mandatory on
+  // mobile), so: try immediately, and if blocked, start on the FIRST tap/scroll/
+  // key — effectively "plays the moment they touch the page". The floating +
+  // nav buttons let them stop or resume anytime.
+  if(!userStopped){
+    var EVENTS=['pointerdown','touchstart','keydown','scroll','click','wheel'];
+    function cleanup(){ EVENTS.forEach(function(ev){ window.removeEventListener(ev,kick,true); }); }
+    function kick(){
+      if(userStopped){ cleanup(); return; }
+      audio.play().then(function(){ setUI(true); cleanup(); }).catch(function(){});
+    }
+    audio.play().then(function(){ setUI(true); }).catch(function(){
+      // blocked — arm the first-interaction fallback
+      EVENTS.forEach(function(ev){ window.addEventListener(ev,kick,{passive:true,capture:true}); });
+    });
   }
 })();
 </script>
