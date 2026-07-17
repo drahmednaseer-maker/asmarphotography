@@ -1405,12 +1405,9 @@ nav.scrolled{
 .nav-menu-btn span{display:block;width:24px;height:1px;background:currentColor;transition:all .3s}
 
 /* MOBILE NAV */
-@media(max-width:768px){
+@media(max-width:1024px){
   nav{padding:1rem 1.5rem}
   nav.scrolled{padding:.8rem 1.5rem}
-  .nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8,8,8,.98);flex-direction:column;align-items:center;justify-content:center;gap:2rem;z-index:99}
-  .nav-links.open{display:flex}
-  .nav-links a{font-size:1rem}
   .nav-menu-btn{display:flex}
 }
 
@@ -1651,9 +1648,12 @@ section{padding:4.25rem 8%}
   margin-top:.5rem;
   display:block;
 }
+@media(max-width:768px){
+  section{padding:3rem 6%}
+}
 @media(max-width:600px){
   .stats-bar{grid-template-columns:repeat(2,1fr)}
-  section{padding:5rem 5%}
+  section{padding:2.75rem 5%}
 }
 
 /* ABOUT */
@@ -2077,11 +2077,44 @@ section{padding:4.25rem 8%}
   line-height:1.8;
   margin-top:1rem;
 }
+/* Horizontal filmstrip — keeps the 33-print shop to a single swipeable row
+   instead of an endless vertical grid. */
 .shop-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:1.5rem;
-  margin-top:2.5rem;
+  display:flex;
+  gap:1.2rem;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  padding:.4rem .2rem 1.4rem;
+  margin-top:2rem;
+  scrollbar-width:thin;
+  scrollbar-color:var(--gold) transparent;
+  -webkit-overflow-scrolling:touch;
+}
+.shop-grid::-webkit-scrollbar{ height:6px; }
+.shop-grid::-webkit-scrollbar-thumb{ background:rgba(200,169,110,.5); border-radius:6px; }
+.shop-item{
+  flex:0 0 auto;
+  width:min(80vw,300px);
+  scroll-snap-align:start;
+}
+.shop-hint{
+  margin-top:.2rem;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);
+}
+/* Mobile: turn tall multi-row grids into single swipeable rows to cut scroll length */
+@media(max-width:768px){
+  .awards-grid{
+    display:flex; gap:1rem; overflow-x:auto; scroll-snap-type:x mandatory;
+    padding:.3rem .2rem 1.2rem; margin-top:1.6rem;
+    scrollbar-width:thin; -webkit-overflow-scrolling:touch;
+  }
+  .awards-grid .award-card{ flex:0 0 auto; width:min(82vw,320px); scroll-snap-align:start; padding:1.8rem; }
+  .tour-routes{ display:flex; gap:1rem; overflow-x:auto; scroll-snap-type:x mandatory; padding:.2rem .2rem 1.2rem; }
+  .tour-routes .route-card{ flex:0 0 auto; width:min(78vw,300px); height:210px; scroll-snap-align:start; }
+  .tour-features{ grid-template-columns:1fr 1fr; gap:.9rem; margin-top:1.6rem; }
+  .tour-feature{ padding:1.3rem; }
+  .awards-grid::-webkit-scrollbar,.tour-routes::-webkit-scrollbar{ height:5px; }
+  .awards-grid::-webkit-scrollbar-thumb,.tour-routes::-webkit-scrollbar-thumb{ background:rgba(200,169,110,.5);border-radius:5px; }
 }
 .shop-item{
   cursor:none;
@@ -2459,49 +2492,53 @@ footer{
   border-top:1px solid var(--border);
   padding:4rem 8% 2rem;
 }
+/* Centred footer */
 .footer-inner{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr 1fr;
-  gap:4rem;
-  margin-bottom:4rem;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:flex-start;
+  text-align:center;
+  gap:3rem 4.5rem;
+  margin-bottom:3rem;
 }
+.footer-inner > *{ flex:0 1 auto; }
+.footer-brand{ flex-basis:100%; max-width:420px; display:flex; flex-direction:column; align-items:center; }
 .footer-brand .nav-logo{display:block;margin-bottom:1rem;line-height:0;}
 .footer-brand p{
   font-size:.85rem;
   color:var(--muted);
   line-height:1.8;
-  max-width:280px;
+  max-width:360px;
+  margin:0 auto;
 }
 .footer-col h4{
   font-size:.65rem;
   letter-spacing:.25em;
   text-transform:uppercase;
   color:var(--gold);
-  margin-bottom:1.5rem;
+  margin-bottom:1.2rem;
 }
 .footer-col ul{list-style:none}
-.footer-col ul li{margin-bottom:.8rem}
+.footer-col ul li{margin-bottom:.7rem}
 .footer-col ul li a{
   font-size:.85rem;
   color:var(--muted);
   transition:color .2s;
 }
 .footer-col ul li a:hover{color:var(--cream)}
+.socials{ justify-content:center; }
+.footer-contact{ align-items:center; }
 .footer-bottom{
-  display:flex;justify-content:space-between;align-items:center;
+  display:flex;flex-wrap:wrap;justify-content:center;align-items:center;text-align:center;
+  gap:.4rem 1.5rem;
   border-top:1px solid var(--border);
   padding-top:2rem;
   font-size:.75rem;
   color:rgba(138,132,120,.5);
 }
-@media(max-width:900px){
-  .footer-inner{grid-template-columns:1fr 1fr;gap:2rem}
-}
-@media(max-width:500px){
-  .footer-inner{grid-template-columns:1fr}
-}
 @media(max-width:600px){
-  .footer-bottom{flex-direction:column;justify-content:center;text-align:center;gap:.7rem}
+  .footer-inner{gap:2.4rem 3rem}
 }
 
 /* REVEAL ANIMATIONS */
@@ -3046,7 +3083,7 @@ nav#mainNav .nav-links .nav-cta{
 nav#mainNav .nav-links .nav-cta:hover{ background:var(--gold-light);border-color:var(--gold-light);color:var(--dark); }
 nav#mainNav .nav-right{ gap:1.4rem; }
 nav#mainNav .music-nav-btn{ border-radius:50%; }
-@media(max-width:768px){
+@media(max-width:1024px){
   /* transform:none is critical — a transformed ancestor breaks position:fixed on
      the fullscreen menu, so we position the pill with left/right instead of
      left:50% + translateX. */
@@ -3086,7 +3123,8 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   animation:heroDrift 22s ease-in-out infinite alternate;
 }
 @keyframes heroDrift{ from{transform:scale(1.02)} to{transform:scale(1.09)} }
-@media(max-width:768px){ .hero-cover{ background-position:64% center; } }
+@media(max-width:768px){ .hero-cover{ background-position:88% center; } }
+@media(max-width:480px){ .hero-cover{ background-position:92% center; } }
 /* Lighter, richer overlay so the photo stays vivid; readable text pocket bottom-left */
 .hero.cover-mode .hero-overlay{
   background:
@@ -3176,14 +3214,30 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   .slider-btn{ width:46px;height:46px; }
   .slider-btn.prev{ left:2px; } .slider-btn.next{ right:2px; }
 }
+
+/* ── FLOATING WHATSAPP (sitewide) ── */
+.wa-float{
+  position:fixed; right:1.5rem; bottom:1.5rem; z-index:150;
+  width:56px; height:56px; border-radius:50%;
+  background:#25D366; color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 10px 30px -6px rgba(37,211,102,.55), 0 4px 12px rgba(0,0,0,.4);
+  transition:transform .3s, box-shadow .3s;
+  animation:waPulse 2.6s ease-in-out infinite;
+}
+.wa-float:hover{ transform:scale(1.08); box-shadow:0 14px 38px -6px rgba(37,211,102,.7); }
+.wa-float svg{ width:30px; height:30px; }
+@keyframes waPulse{ 0%,100%{box-shadow:0 10px 30px -6px rgba(37,211,102,.55),0 0 0 0 rgba(37,211,102,.5)} 50%{box-shadow:0 10px 30px -6px rgba(37,211,102,.55),0 0 0 12px rgba(37,211,102,0)} }
+@media(max-width:768px){ .wa-float{ right:1rem; bottom:1rem; width:52px; height:52px; } .wa-float svg{ width:27px;height:27px; } }
+@media print{ .wa-float{ display:none; } }
 </style>
 </head>
 <body>
 
 <!-- PRELOADER -->
 <div class="preloader" id="preloader">
-  <div style="text-align:center">
-    <img src="assets/logo.png" style="height:280px;width:auto;display:block;margin:0 auto;" alt="Asmar's Photography">
+  <div style="text-align:center;width:100%;padding:0 6vw">
+    <img src="assets/logo.png" style="width:min(78vw,460px);height:auto;max-height:60vh;display:block;margin:0 auto;" alt="Asmar's Photography">
   </div>
   <div class="preloader-bar"></div>
 </div>
@@ -3198,6 +3252,11 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   <svg class="music-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
   <svg class="music-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
 </button>
+
+<!-- Floating WhatsApp (sitewide) -->
+<a class="wa-float" href="https://wa.me/923344334411?text=Hi%20Asmar%2C%20I%27d%20like%20to%20talk%20about%20your%20photography." target="_blank" rel="noopener" aria-label="Chat with Asmar on WhatsApp" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.74-.86-2-.95-.27-.1-.46-.15-.66.15-.19.29-.75.94-.92 1.13-.17.2-.34.22-.63.08-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.29-.02-.45.13-.6.13-.13.3-.34.44-.51.15-.17.2-.29.3-.49.1-.2.05-.37-.02-.52-.08-.15-.66-1.58-.9-2.16-.24-.56-.48-.48-.66-.49h-.56c-.2 0-.51.07-.78.37-.27.29-1.02 1-1.02 2.42 0 1.43 1.04 2.81 1.19 3.01.15.2 2.05 3.12 4.96 4.38.69.3 1.23.48 1.66.61.69.22 1.32.19 1.82.12.56-.09 1.74-.71 1.98-1.4.24-.68.24-1.27.17-1.4-.07-.13-.27-.2-.56-.35zM12.04 21.5h-.01a9.5 9.5 0 01-4.83-1.32l-.35-.21-3.6.94.96-3.51-.23-.36a9.44 9.44 0 01-1.45-5.04c0-5.23 4.26-9.49 9.51-9.49 2.54 0 4.92.99 6.72 2.79a9.4 9.4 0 012.78 6.71c-.01 5.23-4.27 9.49-9.5 9.49zm8.08-17.58A11.36 11.36 0 0012.04 0C5.5 0 .16 5.33.16 11.88c0 2.09.55 4.14 1.59 5.94L.06 24l6.32-1.66a11.87 11.87 0 005.66 1.44h.01c6.54 0 11.88-5.33 11.88-11.88 0-3.17-1.24-6.16-3.49-8.4z"/></svg>
+</a>
 
 <!-- NAVIGATION -->
 <nav id="mainNav">
@@ -4421,6 +4480,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
     </div>
 
   </div>
+  <div class="shop-hint reveal">← Swipe to browse all 33 prints →</div>
 
 </section>
 
