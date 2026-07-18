@@ -3148,6 +3148,60 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
 }
 .hero-badge::before{ content:'';width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold); }
 
+/* ── MOBILE HERO: photo panel on top (Asmar clearly visible) + text on solid
+      dark below it, so the picture AND the words are both fully readable. ── */
+@media(max-width:768px){
+  .hero.cover-mode{
+    display:block;
+    min-height:auto;
+    padding:0 0 2.6rem;
+  }
+  /* the heavy full-bleed scrim isn't needed once text sits on its own dark panel */
+  .hero.cover-mode .hero-overlay{ display:none; }
+  .hero.cover-mode .hero-bg{
+    position:relative;
+    height:50vh;
+    min-height:330px;
+  }
+  /* frame Asmar on the right with the glacier leading in from the left */
+  .hero.cover-mode .hero-cover{ background-position:85% center; }
+  /* darken the very top so the floating nav pill + logo stay legible over sky */
+  .hero.cover-mode .hero-bg::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:120px; z-index:1;
+    background:linear-gradient(180deg, rgba(6,6,6,.6), rgba(6,6,6,0));
+    pointer-events:none;
+  }
+  /* fade the photo's bottom edge into the dark page so it flows into the text */
+  .hero.cover-mode .hero-bg::after{
+    content:''; position:absolute; left:0; right:0; bottom:0; height:42%; z-index:1;
+    background:linear-gradient(180deg, rgba(6,6,6,0) 0%, rgba(6,6,6,.6) 60%, var(--dark) 100%);
+    pointer-events:none;
+  }
+  .hero.cover-mode .hero-content{
+    position:relative; z-index:2;
+    margin-top:1.4rem;
+    padding:0 6%;
+    max-width:none;
+  }
+  .hero.cover-mode .hero-title{
+    font-size:clamp(2.4rem,8.5vw,3.4rem);
+    margin-bottom:1rem;
+    text-shadow:none;
+  }
+  .hero.cover-mode .hero-sub{
+    font-size:1.02rem;
+    line-height:1.65;
+    color:rgba(240,235,226,.86);
+    max-width:none;
+    margin-bottom:1.6rem;
+    text-shadow:none;
+  }
+  .hero-badge{ margin-bottom:1rem; }
+  /* the nav pill already carries a play/pause button up top, so drop the
+     bottom-left floating one on phones (it collided with the Explore CTA). */
+  .music-toggle{ display:none !important; }
+}
+
 /* ---- PORTFOLIO → LARGE SLIDER ---- */
 /* ── PORTFOLIO 3D COVERFLOW SLIDER ── */
 .portfolio-viewport{ position:relative; margin-top:2.5rem; }
@@ -3301,6 +3355,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
     <div class="hero-actions">
       <a href="#portfolio" class="btn-primary">Explore Portfolio</a>
       <a href="#ted" class="btn-ghost">Watch the TEDx Talk ↗</a>
+      <a href="https://wa.me/923344334411?text=Hi%20Asmar%2C%20I%27d%20like%20to%20book%20you%20for%20a%20talk%20or%20speaking%20session." target="_blank" rel="noopener" class="btn-ghost">Book a Talk ↗</a>
       <a href="https://travelbug.pk" target="_blank" rel="noopener" class="btn-ghost">Photo Tours ↗</a>
     </div>
   </div>
@@ -3309,7 +3364,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
 
 <!-- FEATURED IN / AS SEEN ON (on the landing, right under the hero) -->
 <section class="featured-strip" id="seen-on">
-  <div class="featured-eyebrow">As Seen On</div>
+  <div class="featured-eyebrow">Featured On</div>
   <div class="featured-logos">
     <div class="brand brand-bbc" title="BBC"><span>B</span><span>B</span><span>C</span></div>
     <div class="brand brand-word brand-sony" title="Sony"><span class="w-main">SONY</span></div>
