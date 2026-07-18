@@ -2537,6 +2537,8 @@ footer{
   font-size:.75rem;
   color:rgba(138,132,120,.5);
 }
+.footer-credit{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(198,166,100,.35);transition:opacity .2s;}
+.footer-credit:hover{opacity:.75;}
 @media(max-width:600px){
   .footer-inner{gap:2.4rem 3rem}
 }
@@ -4737,6 +4739,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   <div class="footer-bottom">
     <span>© 2026 Asmar's Photography. All rights reserved.</span>
     <span>Sony Brand Ambassador · Pakistan</span>
+    <span>Designed by <a href="https://theagentech.com" target="_blank" rel="noopener" class="footer-credit">Theagentech.com</a></span>
   </div>
 </footer>
 
@@ -5102,6 +5105,25 @@ document.querySelectorAll('a,button,[onclick]').forEach(el=>{
       b.title=playing?'Pause music':'Play music';
     });
   }
+
+  // ── CROSS-PAGE CONTINUITY ──
+  // Remember the play position for this visit so the track picks up where it
+  // left off when the visitor moves to another page (e.g. the wall preview).
+  var resumeAt=parseFloat(sessionStorage.getItem('bgMusicTime')||'0')||0, seeked=false;
+  function applyResume(){
+    if(seeked) return;
+    if(resumeAt>0 && isFinite(audio.duration) && resumeAt<audio.duration){ try{ audio.currentTime=resumeAt; }catch(e){} }
+    seeked=true;
+  }
+  audio.addEventListener('loadedmetadata',applyResume);
+  var lastSave=-1;
+  audio.addEventListener('timeupdate',function(){
+    if(audio.paused) return;
+    var t=audio.currentTime|0;
+    if(t!==lastSave){ lastSave=t; try{ sessionStorage.setItem('bgMusicTime',audio.currentTime); }catch(e){} }
+  });
+  window.addEventListener('pagehide',function(){ if(!audio.paused){ try{ sessionStorage.setItem('bgMusicTime',audio.currentTime); }catch(e){} } });
+
   // Only stay silent if the visitor has EXPLICITLY turned it off before.
   var userStopped = localStorage.getItem('bgMusic')==='off';
   setUI(false);
@@ -5109,6 +5131,7 @@ document.querySelectorAll('a,button,[onclick]').forEach(el=>{
   window.toggleMusic=function(){
     if(audio.paused){
       userStopped=false; localStorage.setItem('bgMusic','on');
+      applyResume();
       audio.play().then(function(){ setUI(true); }).catch(function(){});
     } else {
       userStopped=true; localStorage.setItem('bgMusic','off');
