@@ -212,7 +212,6 @@
    "url": "https://www.asmarphotography.com/",
    "telephone": "+923344334411",
    "email": "info@asmarphotography.com",
-   "currenciesAccepted": "PKR, USD",
    "slogan": "I go where the map runs out.",
    "description": "Private, tailor-made photography tours of northern Pakistan for international and domestic photographers, and signed fine-art landscape prints — by Sony Brand Ambassador Asmar Hussain.",
    "founder": {
@@ -5127,14 +5126,15 @@ document.querySelectorAll('a,button,[onclick]').forEach(el=>{
   el.style.cursor='none';
 });
 
-// ── AMBIENT BACKGROUND MUSIC (normal speed, soft 20% volume, loops from 0:56) ──
+// ── AMBIENT BACKGROUND MUSIC — soft loop. Starts on open, PAUSES when the tab
+//    is hidden / minimised / the visitor switches to another app or browser, and
+//    RESUMES when they come back. Pause button stops it for good until pressed again.
 (function(){
   var audio=document.getElementById('bgAudio');
   var btns=[].slice.call(document.querySelectorAll('#musicToggle, #musicToggleNav'));
   if(!audio||!btns.length) return;
   audio.volume=0.04;              // very soft — 4% volume
-  audio.playbackRate=1.0;         // normal speed
-  // (track file is pre-trimmed to begin at 0:56; loops seamlessly)
+  audio.playbackRate=1.0;
   function setUI(playing){
     btns.forEach(function(b){
       b.classList.toggle('playing',playing);
@@ -5146,9 +5146,7 @@ document.querySelectorAll('a,button,[onclick]').forEach(el=>{
     });
   }
 
-  // ── CROSS-PAGE CONTINUITY ──
-  // Remember the play position for this visit so the track picks up where it
-  // left off when the visitor moves to another page (e.g. the wall preview).
+  // ── CROSS-PAGE CONTINUITY ── resume where the track was on the previous page
   var resumeAt=parseFloat(sessionStorage.getItem('bgMusicTime')||'0')||0, seeked=false;
   function applyResume(){
     if(seeked) return;
@@ -5156,46 +5154,62 @@ document.querySelectorAll('a,button,[onclick]').forEach(el=>{
     seeked=true;
   }
   audio.addEventListener('loadedmetadata',applyResume);
+  function savePos(){ try{ sessionStorage.setItem('bgMusicTime',audio.currentTime); }catch(e){} }
   var lastSave=-1;
   audio.addEventListener('timeupdate',function(){
     if(audio.paused) return;
     var t=audio.currentTime|0;
-    if(t!==lastSave){ lastSave=t; try{ sessionStorage.setItem('bgMusicTime',audio.currentTime); }catch(e){} }
+    if(t!==lastSave){ lastSave=t; savePos(); }
   });
-  window.addEventListener('pagehide',function(){ if(!audio.paused){ try{ sessionStorage.setItem('bgMusicTime',audio.currentTime); }catch(e){} } });
+  window.addEventListener('pagehide',function(){ if(!audio.paused) savePos(); });
 
-  // Only stay silent if the visitor has EXPLICITLY turned it off before.
-  var userStopped = localStorage.getItem('bgMusic')==='off';
+  var userStopped = localStorage.getItem('bgMusic')==='off'; // explicitly muted by visitor
+  var started=false;         // has playback ever begun?
+  var pausedBySystem=false;  // paused only because the tab lost focus/visibility
   setUI(false);
 
+  function play(){
+    applyResume();
+    return audio.play().then(function(){ started=true; pausedBySystem=false; setUI(true); }).catch(function(){});
+  }
+  function pause(bySystem){
+    if(!audio.paused){ savePos(); audio.pause(); }
+    pausedBySystem=!!bySystem;
+    setUI(false);
+  }
+
+  // Manual control — the floating + nav buttons (pause / play)
   window.toggleMusic=function(){
     if(audio.paused){
       userStopped=false; localStorage.setItem('bgMusic','on');
-      applyResume();
-      audio.play().then(function(){ setUI(true); }).catch(function(){});
+      play();
     } else {
       userStopped=true; localStorage.setItem('bgMusic','off');
-      audio.pause(); setUI(false);
+      pause(false);
     }
   };
 
-  // ── AUTOPLAY ON OPEN ──
-  // Browsers block audio-with-sound until the visitor interacts (mandatory on
-  // mobile), so: try immediately, and if blocked, start on the FIRST tap/scroll/
-  // key — effectively "plays the moment they touch the page". The floating +
-  // nav buttons let them stop or resume anytime.
-  if(!userStopped){
-    var EVENTS=['pointerdown','touchstart','keydown','scroll','click','wheel'];
-    function cleanup(){ EVENTS.forEach(function(ev){ window.removeEventListener(ev,kick,true); }); }
-    function kick(){
-      if(userStopped){ cleanup(); return; }
-      audio.play().then(function(){ setUI(true); cleanup(); }).catch(function(){});
-    }
-    audio.play().then(function(){ setUI(true); }).catch(function(){
-      // blocked — arm the first-interaction fallback
-      EVENTS.forEach(function(ev){ window.addEventListener(ev,kick,{passive:true,capture:true}); });
-    });
+  // ── PLAY ONLY WHILE THE PAGE IS ACTIVE ──
+  // Hidden tab, minimised window, or switching to another app/browser → pause.
+  // Coming back → resume (unless the visitor pressed pause themselves).
+  function onHide(){ if(!userStopped && !audio.paused) pause(true); }
+  function onShow(){ if(!userStopped && pausedBySystem) play(); }
+  document.addEventListener('visibilitychange',function(){ document.hidden?onHide():onShow(); });
+  window.addEventListener('blur',onHide);
+  window.addEventListener('focus',onShow);
+
+  // ── START ON OPEN ── try immediately; if the browser blocks sound until the
+  // visitor interacts, start on their very first tap / click / key press.
+  var EVENTS=['pointerdown','touchstart','keydown','click'];
+  function armGestures(){ EVENTS.forEach(function(ev){ window.addEventListener(ev,kick,{passive:true,capture:true}); }); }
+  function cleanup(){ EVENTS.forEach(function(ev){ window.removeEventListener(ev,kick,true); }); }
+  function kick(){
+    if(userStopped||started){ cleanup(); return; }
+    play().then(function(){ if(started) cleanup(); });
   }
+  // Attempt on open; browsers block autoplay-with-sound (and background tabs) until
+  // a real interaction, so if it doesn't take, the first tap/click/key starts it.
+  if(!userStopped){ play().then(function(){ if(!started) armGestures(); }); }
 })();
 </script>
 </body>

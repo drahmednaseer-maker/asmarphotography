@@ -303,31 +303,42 @@ selectPhoto(0);
     var t=audio.currentTime|0;
     if(t!==lastSave){ lastSave=t; try{ sessionStorage.setItem('bgMusicTime',audio.currentTime); }catch(e){} }
   });
-  window.addEventListener('pagehide',function(){ if(!audio.paused){ try{ sessionStorage.setItem('bgMusicTime',audio.currentTime); }catch(e){} } });
+  function savePos(){ try{ sessionStorage.setItem('bgMusicTime',audio.currentTime); }catch(e){} }
+  window.addEventListener('pagehide',function(){ if(!audio.paused) savePos(); });
 
   var userStopped = localStorage.getItem('bgMusic')==='off';
+  var started=false, pausedBySystem=false;
   setUI(false);
-  window.toggleMusic=function(){
-    if(audio.paused){
-      userStopped=false; localStorage.setItem('bgMusic','on');
-      applyResume();
-      audio.play().then(function(){ setUI(true); }).catch(function(){});
-    } else {
-      userStopped=true; localStorage.setItem('bgMusic','off');
-      audio.pause(); setUI(false);
-    }
-  };
-  if(!userStopped){
-    var EVENTS=['pointerdown','touchstart','keydown','scroll','click','wheel'];
-    function cleanup(){ EVENTS.forEach(function(ev){ window.removeEventListener(ev,kick,true); }); }
-    function kick(){
-      if(userStopped){ cleanup(); return; }
-      audio.play().then(function(){ setUI(true); cleanup(); }).catch(function(){});
-    }
-    audio.play().then(function(){ setUI(true); }).catch(function(){
-      EVENTS.forEach(function(ev){ window.addEventListener(ev,kick,{passive:true,capture:true}); });
-    });
+
+  function play(){
+    applyResume();
+    return audio.play().then(function(){ started=true; pausedBySystem=false; setUI(true); }).catch(function(){});
   }
+  function pause(bySystem){
+    if(!audio.paused){ savePos(); audio.pause(); }
+    pausedBySystem=!!bySystem; setUI(false);
+  }
+  window.toggleMusic=function(){
+    if(audio.paused){ userStopped=false; localStorage.setItem('bgMusic','on'); play(); }
+    else { userStopped=true; localStorage.setItem('bgMusic','off'); pause(false); }
+  };
+
+  // Play only while the page is active — pause on hide/blur, resume on return.
+  function onHide(){ if(!userStopped && !audio.paused) pause(true); }
+  function onShow(){ if(!userStopped && pausedBySystem) play(); }
+  document.addEventListener('visibilitychange',function(){ document.hidden?onHide():onShow(); });
+  window.addEventListener('blur',onHide);
+  window.addEventListener('focus',onShow);
+
+  // Start on open; if blocked, start on the first tap / click / key.
+  var EVENTS=['pointerdown','touchstart','keydown','click'];
+  function armGestures(){ EVENTS.forEach(function(ev){ window.addEventListener(ev,kick,{passive:true,capture:true}); }); }
+  function cleanup(){ EVENTS.forEach(function(ev){ window.removeEventListener(ev,kick,true); }); }
+  function kick(){
+    if(userStopped||started){ cleanup(); return; }
+    play().then(function(){ if(started) cleanup(); });
+  }
+  if(!userStopped){ play().then(function(){ if(!started) armGestures(); }); }
 })();
 </script>
 </body>
