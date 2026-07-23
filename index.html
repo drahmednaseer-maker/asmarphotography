@@ -2075,26 +2075,39 @@ section{padding:4.25rem 8%}
 .jf-read{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
 @media(max-width:820px){ .journal-feature{grid-template-columns:1fr} .journal-feature .jf-img{min-height:230px} .jf-body{padding:1.8rem} }
 
-/* ── JOURNAL POPOUT MODAL ── */
-.journal-modal{display:none;position:fixed;inset:0;background:rgba(6,6,6,.94);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);z-index:400;align-items:center;justify-content:center;padding:1.5rem}
-.journal-modal.open{display:flex}
-.jm-box{position:relative;background:var(--dark2);border:1px solid var(--border);border-radius:16px;max-width:560px;width:100%;max-height:92vh;overflow-x:hidden;overflow-y:auto;box-shadow:0 30px 80px -20px rgba(0,0,0,.85)}
-.jm-close{position:absolute;top:.8rem;right:.8rem;z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:rgba(8,8,8,.6);color:var(--cream);font-size:1.3rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:none;transition:.25s}
-.jm-close:hover{border-color:var(--gold);color:var(--gold)}
-.jm-img{width:100%;height:240px;object-fit:cover;display:block}
-.jm-body{padding:2rem}
-.jm-eyebrow{font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
-.jm-body h3{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.9rem;line-height:1.15;margin-bottom:.7rem}
-.jm-body h3 em{font-style:italic;color:var(--gold-light)}
-.jm-byline{font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem}
-.jm-byline b{color:var(--gold);font-weight:400}
-.jm-excerpt{font-size:.95rem;color:#d2ccc0;line-height:1.75;margin-bottom:1.6rem}
-.jm-actions{display:flex;flex-wrap:wrap;gap:.7rem}
-.jm-actions a{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:.8rem 1.5rem;border-radius:999px;transition:.25s;display:inline-flex;align-items:center;gap:.5rem;cursor:none}
-.jm-primary{background:var(--gold);color:#111;font-weight:500}
-.jm-primary:hover{background:var(--gold-light)}
-.jm-ghost{border:1px solid var(--border);color:var(--cream)}
-.jm-ghost:hover{border-color:var(--gold);color:var(--gold)}
+/* ── NEW-ARTICLE SLIDE-IN (from the right, non-blocking, auto-hides) ── */
+.journal-toast{
+  position:fixed; top:50%; right:1.2rem; transform:translate(calc(100% + 2rem), -50%);
+  width:min(360px, calc(100vw - 2rem)); z-index:350;
+  background:var(--dark2); border:1px solid var(--border); border-radius:16px; overflow:hidden;
+  box-shadow:0 26px 64px -18px rgba(0,0,0,.82);
+  opacity:0; pointer-events:none;
+  transition:transform .6s cubic-bezier(.22,1,.36,1), opacity .5s ease;
+}
+.journal-toast.show{ transform:translate(0, -50%); opacity:1; pointer-events:auto; }
+.jt-close{position:absolute;top:.6rem;right:.6rem;z-index:3;width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:rgba(8,8,8,.62);color:var(--cream);font-size:1.15rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:none;transition:.25s}
+.jt-close:hover{border-color:var(--gold);color:var(--gold)}
+.jt-link{display:block;color:inherit;text-decoration:none}
+.jt-imgwrap{position:relative;height:158px;overflow:hidden}
+.jt-imgwrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.jt-link:hover .jt-imgwrap img{transform:scale(1.05)}
+.jt-tag{position:absolute;top:.7rem;left:.7rem;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:#111;background:var(--gold);padding:.34rem .7rem;border-radius:999px;font-weight:700}
+.jt-body{padding:1.15rem 1.3rem 1.4rem}
+.jt-eyebrow{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.jt-title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.45rem;line-height:1.18;margin-bottom:.55rem}
+.jt-title em{font-style:italic;color:var(--gold-light)}
+.jt-excerpt{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
+.jt-cta{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.jt-link:hover .jt-cta{color:var(--gold-light)}
+.jt-progress{position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--gold);transform-origin:left;transform:scaleX(0)}
+.journal-toast.show .jt-progress{animation:jtCountdown 8s linear forwards}
+.journal-toast.paused .jt-progress{animation-play-state:paused}
+@keyframes jtCountdown{ from{transform:scaleX(1)} to{transform:scaleX(0)} }
+@media(max-width:600px){
+  .journal-toast{ top:auto; bottom:5.2rem; right:.7rem; left:.7rem; width:auto; transform:translateY(calc(100% + 6rem)); }
+  .journal-toast.show{ transform:translateY(0); }
+  .jt-imgwrap{height:120px}
+}
 
 /* SHOP */
 .shop-section{background:var(--dark)}
@@ -4119,23 +4132,24 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   </a>
 </section>
 
-<!-- JOURNAL POPOUT MODAL -->
-<div class="journal-modal" id="journalModal" onclick="if(event.target===this)closeJournal()">
-  <div class="jm-box" role="dialog" aria-modal="true" aria-label="Article preview">
-    <button class="jm-close" onclick="closeJournal()" aria-label="Close preview">&times;</button>
-    <img class="jm-img" src="articles/img/makran/08.jpg" alt="Sunset from the cliffs above Golden Beach, Gwadar">
-    <div class="jm-body">
-      <div class="jm-eyebrow">Photo Essay · Balochistan, Pakistan</div>
-      <h3>I Drove 5,000 km Round Trip to <em>See This</em></h3>
-      <div class="jm-byline">By <b>Muhammad Asmar Hussain</b> · Sony Brand Ambassador</div>
-      <p class="jm-excerpt">Five thousand kilometres — from Peshawar down the length of Pakistan to Karachi, then west along the Makran Coastal Highway until the road all but ran out at the Iranian border. The wildest, most beautiful coastline in Pakistan, in words and photographs.</p>
-      <div class="jm-actions">
-        <a class="jm-primary" href="articles/makran-coastal-highway-landscape.html">Read the Full Article ↗</a>
-        <a class="jm-ghost" href="#journal" onclick="closeJournal();return false;">Close</a>
-      </div>
+<!-- NEW-ARTICLE SLIDE-IN (from the right, non-blocking, auto-hides) -->
+<aside class="journal-toast" id="journalToast" aria-live="polite" aria-label="New article"
+       onmouseenter="pauseToast()" onmouseleave="resumeToast()">
+  <button class="jt-close" onclick="closeJournal()" aria-label="Dismiss">&times;</button>
+  <a class="jt-link" href="articles/makran-coastal-highway-landscape.html">
+    <div class="jt-imgwrap">
+      <img src="articles/img/makran/08.jpg" alt="Sunset from the cliffs above Golden Beach, Gwadar">
+      <span class="jt-tag">New Article</span>
     </div>
-  </div>
-</div>
+    <div class="jt-body">
+      <div class="jt-eyebrow">Field Notes · Balochistan</div>
+      <h3 class="jt-title">I Drove 5,000 km Round Trip to <em>See This</em></h3>
+      <p class="jt-excerpt">A photo-essay road trip along the Makran Coastal Highway to the edge of Iran.</p>
+      <span class="jt-cta">Read the Full Article →</span>
+    </div>
+  </a>
+  <div class="jt-progress"></div>
+</aside>
 
 <!-- PRINT SHOP -->
 <section class="shop-section" id="shop">
@@ -5123,15 +5137,36 @@ function closeLightbox(){
   document.body.style.overflow='';
 }
 // ── JOURNAL / FIELD NOTES POPOUT ──
-function openJournal(){ document.getElementById('journalModal').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeJournal(){ document.getElementById('journalModal').classList.remove('open'); document.body.style.overflow=''; }
+var journalTimer=null;
+var JOURNAL_HIDE_MS=8000;   // auto-hide after ~8s of no interaction
+function startJournalTimer(){ clearTimeout(journalTimer); journalTimer=setTimeout(closeJournal, JOURNAL_HIDE_MS); }
+function openJournal(){   // slide the card in from the right (does NOT block the page)
+  var t=document.getElementById('journalToast'); if(!t) return;
+  t.classList.remove('paused');
+  t.classList.add('show');
+  startJournalTimer();
+}
+function closeJournal(){  // slide it back out to the right
+  var t=document.getElementById('journalToast'); if(!t) return;
+  t.classList.remove('show');
+  clearTimeout(journalTimer);
+}
+function pauseToast(){ clearTimeout(journalTimer); var t=document.getElementById('journalToast'); if(t) t.classList.add('paused'); }
+function resumeToast(){
+  var t=document.getElementById('journalToast'); if(!t) return;
+  t.classList.remove('paused');
+  var p=t.querySelector('.jt-progress');           // restart the countdown bar so it matches the fresh timer
+  if(p){ p.style.animation='none'; void p.offsetWidth; p.style.animation=''; }
+  startJournalTimer();
+}
 
 // Announce the latest article automatically every time a visitor opens the site,
-// a moment after the hero has appeared.
+// a moment after the hero has appeared. It arrives from the right and, if no one
+// interacts with it, slides back out on its own.
 window.addEventListener('load', function(){
   setTimeout(function(){
-    var m=document.getElementById('journalModal');
-    if(m && !m.classList.contains('open')) openJournal();
+    var t=document.getElementById('journalToast');
+    if(t && !t.classList.contains('show')) openJournal();
   }, 1800);
 });
 
