@@ -5126,15 +5126,12 @@ function closeLightbox(){
 function openJournal(){ document.getElementById('journalModal').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeJournal(){ document.getElementById('journalModal').classList.remove('open'); document.body.style.overflow=''; }
 
-// Announce the latest article automatically when a visitor opens the site
-// (once per browser session, after the hero has appeared).
+// Announce the latest article automatically every time a visitor opens the site,
+// a moment after the hero has appeared.
 window.addEventListener('load', function(){
-  try{ if(sessionStorage.getItem('sawJournalPopup')==='1') return; }catch(e){}
   setTimeout(function(){
-    if(document.getElementById('journalModal') && !document.getElementById('journalModal').classList.contains('open')){
-      openJournal();
-      try{ sessionStorage.setItem('sawJournalPopup','1'); }catch(e){}
-    }
+    var m=document.getElementById('journalModal');
+    if(m && !m.classList.contains('open')) openJournal();
   }, 1800);
 });
 

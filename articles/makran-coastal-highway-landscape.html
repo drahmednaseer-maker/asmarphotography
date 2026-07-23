@@ -41,24 +41,36 @@ a{color:var(--gold);text-decoration:none}
 ::selection{background:rgba(200,169,110,.28)}
 
 /* top bar */
-.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.6rem;background:rgba(8,8,8,.72);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-.topbar .brand img{height:38px;width:auto;display:block}
-.topbar .tb-right{display:flex;align-items:center;gap:1.4rem}
-.topbar .back{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.topbar .back:hover{color:var(--gold)}
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 1.5rem;background:rgba(8,8,8,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.topbar .brand img{height:40px;width:auto;display:block}
+.tb-nav{display:flex;align-items:center;gap:1.3rem}
+.tb-nav a{font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:#d3cec2;white-space:nowrap;transition:color .25s}
+.tb-nav a:hover{color:var(--gold)}
+.tb-nav .tb-cta{padding:.5rem 1.15rem;border:1px solid var(--gold);border-radius:999px;color:var(--gold)}
+.tb-nav .tb-cta:hover{background:var(--gold);color:#111}
+.tb-burger{display:none;background:none;border:none;color:var(--cream);font-size:1.5rem;line-height:1;cursor:pointer;padding:.2rem .5rem}
+@media(max-width:1100px){
+  .tb-burger{display:block}
+  .tb-nav{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(8,8,8,.98);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.4rem 0;display:none}
+  .tb-nav.open{display:flex}
+  .tb-nav a{padding:.95rem 1.5rem;border-top:1px solid rgba(255,255,255,.05)}
+  .tb-nav .tb-cta{margin:.7rem 1.5rem;text-align:center;border-radius:999px}
+}
 
 /* hero */
 .hero{position:relative;min-height:92vh;min-height:92svh;display:flex;align-items:flex-end;overflow:hidden}
 .hero .bg{position:absolute;inset:0}
 .hero .bg img{width:100%;height:100%;object-fit:cover}
-.hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,6,.55) 0%,rgba(6,6,6,.15) 30%,rgba(6,6,6,.35) 62%,rgba(6,6,6,.95) 100%)}
+.hero .scrim{position:absolute;inset:0;background:
+  linear-gradient(93deg, rgba(3,4,6,.92) 0%, rgba(3,4,6,.72) 30%, rgba(3,4,6,.34) 54%, rgba(3,4,6,.05) 78%, rgba(3,4,6,0) 100%),
+  linear-gradient(180deg, rgba(3,4,6,.45) 0%, rgba(3,4,6,0) 24%, rgba(3,4,6,.12) 52%, rgba(3,4,6,.9) 100%)}
 .hero-inner{position:relative;z-index:2;width:100%;max-width:1000px;margin:0 auto;padding:0 1.6rem 4.5rem}
-.eyebrow{font-size:.7rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem;display:flex;align-items:center;gap:.7rem}
+.eyebrow{font-size:.7rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-light);margin-bottom:1.4rem;display:flex;align-items:center;gap:.7rem;text-shadow:0 1px 8px rgba(0,0,0,.7)}
 .eyebrow::before{content:'';width:26px;height:1px;background:var(--gold)}
-.hero h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.6rem,7vw,5.4rem);line-height:1.03;letter-spacing:-.01em;margin-bottom:1.3rem;text-shadow:0 2px 40px rgba(0,0,0,.5)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.6rem,7vw,5.4rem);line-height:1.03;letter-spacing:-.01em;margin-bottom:1.3rem;text-shadow:0 2px 30px rgba(0,0,0,.85), 0 1px 8px rgba(0,0,0,.6)}
 .hero h1 em{font-style:italic;color:var(--gold-light)}
-.hero .sub{font-size:clamp(1rem,2.2vw,1.28rem);color:#e8e2d6;max-width:40ch;line-height:1.6;margin-bottom:1.8rem;font-weight:300}
-.byline{font-size:.8rem;letter-spacing:.06em;color:#cfc9bd;text-transform:uppercase}
+.hero .sub{font-size:clamp(1rem,2.2vw,1.28rem);color:#efeae0;max-width:40ch;line-height:1.6;margin-bottom:1.8rem;font-weight:300;text-shadow:0 1px 14px rgba(0,0,0,.8)}
+.byline{font-size:.8rem;letter-spacing:.06em;color:#dad4c8;text-transform:uppercase;text-shadow:0 1px 10px rgba(0,0,0,.8)}
 .byline b{color:var(--gold);font-weight:400}
 .stat-strip{display:flex;flex-wrap:wrap;gap:1.6rem 2.6rem;margin-top:2.2rem;padding-top:1.6rem;border-top:1px solid rgba(200,169,110,.25)}
 .stat-strip .s{display:flex;flex-direction:column;gap:.15rem}
@@ -126,10 +138,18 @@ figcaption{font-size:.8rem;color:var(--muted);margin-top:.8rem;letter-spacing:.0
 <body>
 
 <div class="topbar">
-  <a class="brand" href="../index.html#journal"><img src="logo.png" alt="Asmar's Photography"></a>
-  <div class="tb-right">
-    <a class="back" href="../index.html#journal">← All Field Notes</a>
-  </div>
+  <a class="brand" href="../index.html#home"><img src="logo.png" alt="Asmar's Photography"></a>
+  <nav class="tb-nav" id="tbNav">
+    <a href="../index.html#home">Home</a>
+    <a href="../index.html#portfolio">Portfolio</a>
+    <a href="../index.html#ted">Talk</a>
+    <a href="../index.html#journal">Journal</a>
+    <a href="https://travelbug.pk" target="_blank" rel="noopener">Photo Tours ↗</a>
+    <a href="../index.html#awards">Awards</a>
+    <a href="../index.html#shop">Print Shop</a>
+    <a class="tb-cta" href="../index.html#contact">Book a Session</a>
+  </nav>
+  <button class="tb-burger" id="tbBurger" aria-label="Open menu" onclick="document.getElementById('tbNav').classList.toggle('open')">&#9776;</button>
 </div>
 
 <!-- HERO -->
