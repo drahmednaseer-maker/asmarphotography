@@ -3400,6 +3400,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   function playTed(el){
     var id = (window.TED_VIDEO_ID || "").trim();
     if(id){
+      if(window.pauseMusicForVideo) window.pauseMusicForVideo(); // stop bg music so the talk is heard
       el.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0" title="Pakistan Through the Lens — TEDx" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
     } else {
       window.open('https://www.youtube.com/results?search_query=Asmar+Hussain+TEDx+Pakistan+through+the+Lens','_blank','noopener');
@@ -5170,7 +5171,10 @@ document.querySelectorAll('a,button,[onclick]').forEach(el=>{
 
   function play(){
     applyResume();
-    return audio.play().then(function(){ started=true; pausedBySystem=false; setUI(true); }).catch(function(){});
+    return audio.play().then(function(){
+      if(userStopped){ audio.pause(); setUI(false); return; } // a pause won the race (e.g. TEDx video just started)
+      started=true; pausedBySystem=false; setUI(true);
+    }).catch(function(){});
   }
   function pause(bySystem){
     if(!audio.paused){ savePos(); audio.pause(); }
@@ -5188,6 +5192,10 @@ document.querySelectorAll('a,button,[onclick]').forEach(el=>{
       pause(false);
     }
   };
+
+  // Duck the background music out when the TEDx talk is played, and keep it off
+  // until the visitor presses play again. Not persisted, so future visits still start.
+  window.pauseMusicForVideo=function(){ userStopped=true; pause(false); };
 
   // ── PLAY ONLY WHILE THE PAGE IS ACTIVE ──
   // Hidden tab, minimised window, or switching to another app/browser → pause.
