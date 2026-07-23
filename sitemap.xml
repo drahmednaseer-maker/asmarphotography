@@ -145,4 +145,18 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://www.asmarphotography.com/articles/makran-coastal-highway-landscape.html</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/articles/img/makran/01.jpg</image:loc>
+      <image:title>The Makran Coastal Highway where the badlands meet the Arabian Sea</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/articles/img/makran/08.jpg</image:loc>
+      <image:title>Sunset over Golden Beach, Gwadar</image:title>
+    </image:image>
+  </url>
 </urlset>
