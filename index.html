@@ -1391,7 +1391,7 @@ nav.scrolled{
 .nav-menu-btn span{display:block;width:24px;height:1px;background:currentColor;transition:all .3s}
 
 /* MOBILE NAV */
-@media(max-width:1024px){
+@media(max-width:1200px){
   nav{padding:1rem 1.5rem}
   nav.scrolled{padding:.8rem 1.5rem}
   .nav-menu-btn{display:flex}
@@ -2060,6 +2060,7 @@ section{padding:4.25rem 8%}
   display:grid;grid-template-columns:1.12fr 1fr;gap:0;margin-top:2.5rem;
   border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--dark2);
   cursor:none;transition:border-color .3s,transform .3s;
+  text-decoration:none;color:inherit;
 }
 .journal-feature:hover{border-color:var(--gold);transform:translateY(-4px)}
 .journal-feature .jf-img{position:relative;min-height:360px;overflow:hidden}
@@ -3091,12 +3092,14 @@ nav#mainNav.scrolled{
 }
 nav#mainNav .nav-logo img{ height:74px !important; }
 nav#mainNav.scrolled .nav-logo img{ height:64px !important; }
-nav#mainNav .nav-links{ gap:1.9rem; }
+nav#mainNav .nav-links{ gap:1.2rem; flex-wrap:nowrap; }
+nav#mainNav .nav-links li{ flex-shrink:0; }
 nav#mainNav .nav-links a{
   color:rgba(248,244,238,.95);
-  font-size:.9rem;
+  font-size:.8rem;
   font-weight:400;
-  letter-spacing:.13em;
+  letter-spacing:.08em;
+  white-space:nowrap;
 }
 nav#mainNav .nav-links a:hover{ color:var(--gold-light); }
 nav#mainNav .nav-links .nav-cta{
@@ -3104,15 +3107,16 @@ nav#mainNav .nav-links .nav-cta{
   background:var(--gold);
   border:1px solid var(--gold);
   border-radius:999px;
-  padding:.82rem 1.9rem;
-  font-size:.82rem;
+  padding:.72rem 1.35rem;
+  font-size:.76rem;
   font-weight:600;
-  letter-spacing:.12em;
+  letter-spacing:.1em;
+  white-space:nowrap;
 }
 nav#mainNav .nav-links .nav-cta:hover{ background:var(--gold-light);border-color:var(--gold-light);color:var(--dark); }
 nav#mainNav .nav-right{ gap:1.4rem; }
 nav#mainNav .music-nav-btn{ border-radius:50%; }
-@media(max-width:1024px){
+@media(max-width:1200px){
   /* transform:none is critical — a transformed ancestor breaks position:fixed on
      the fullscreen menu, so we position the pill with left/right instead of
      left:50% + translateX. */
@@ -4100,9 +4104,8 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
     Travelogues and photo essays from the field — long drives, wild coastlines and the light that made them worth it.
   </p>
 
-  <div class="journal-feature reveal" onclick="openJournal()" role="button" tabindex="0"
-       aria-label="Open article preview: I Drove 5,000 km Round Trip to See This"
-       onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openJournal();}">
+  <a class="journal-feature reveal" href="articles/makran-coastal-highway-landscape.html"
+       aria-label="Read the article: I Drove 5,000 km Round Trip to See This">
     <div class="jf-img">
       <span class="jf-tag">Photo Essay · Balochistan</span>
       <img src="articles/img/makran/01.jpg" alt="The Makran Coastal Highway where badlands meet the turquoise Arabian Sea" loading="lazy">
@@ -4113,7 +4116,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       <p>From Peshawar to Karachi, then west along the Makran Coastal Highway to the edge of Iran — Hingol's badlands, the turquoise of Kund Malir, and the finest sunsets on the coast at Gwadar.</p>
       <span class="jf-read">Read the Story →</span>
     </div>
-  </div>
+  </a>
 </section>
 
 <!-- JOURNAL POPOUT MODAL -->
@@ -5122,6 +5125,18 @@ function closeLightbox(){
 // ── JOURNAL / FIELD NOTES POPOUT ──
 function openJournal(){ document.getElementById('journalModal').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeJournal(){ document.getElementById('journalModal').classList.remove('open'); document.body.style.overflow=''; }
+
+// Announce the latest article automatically when a visitor opens the site
+// (once per browser session, after the hero has appeared).
+window.addEventListener('load', function(){
+  try{ if(sessionStorage.getItem('sawJournalPopup')==='1') return; }catch(e){}
+  setTimeout(function(){
+    if(document.getElementById('journalModal') && !document.getElementById('journalModal').classList.contains('open')){
+      openJournal();
+      try{ sessionStorage.setItem('sawJournalPopup','1'); }catch(e){}
+    }
+  }, 1800);
+});
 
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){closeLightbox();closeShop();closeJournal();}
