@@ -1391,7 +1391,7 @@ nav.scrolled{
 .nav-menu-btn span{display:block;width:24px;height:1px;background:currentColor;transition:all .3s}
 
 /* MOBILE NAV */
-@media(max-width:1200px){
+@media(max-width:1000px){
   nav{padding:1rem 1.5rem}
   nav.scrolled{padding:.8rem 1.5rem}
   .nav-menu-btn{display:flex}
@@ -3087,8 +3087,8 @@ nav#mainNav{
   left:50%;
   transform:translateX(-50%);
   width:calc(100% - 2.5rem);
-  max-width:1180px;
-  padding:.7rem .8rem .7rem 1.6rem;
+  max-width:1220px;
+  padding:.55rem .7rem .55rem 1.2rem;
   border-radius:999px;
   background:rgba(14,13,11,.74);
   -webkit-backdrop-filter:blur(20px) saturate(1.2);
@@ -3100,18 +3100,18 @@ nav#mainNav{
 nav#mainNav.scrolled{
   top:.6rem;
   background:rgba(10,9,8,.92);
-  padding:.6rem .8rem .6rem 1.9rem;
+  padding:.5rem .7rem .5rem 1.4rem;
   border-color:rgba(200,169,110,.4);
 }
-nav#mainNav .nav-logo img{ height:74px !important; }
-nav#mainNav.scrolled .nav-logo img{ height:64px !important; }
-nav#mainNav .nav-links{ gap:1.2rem; flex-wrap:nowrap; }
+nav#mainNav .nav-logo img{ height:60px !important; }
+nav#mainNav.scrolled .nav-logo img{ height:52px !important; }
+nav#mainNav .nav-links{ gap:.85rem; flex-wrap:nowrap; }
 nav#mainNav .nav-links li{ flex-shrink:0; }
 nav#mainNav .nav-links a{
   color:rgba(248,244,238,.95);
-  font-size:.8rem;
+  font-size:.72rem;
   font-weight:400;
-  letter-spacing:.08em;
+  letter-spacing:.04em;
   white-space:nowrap;
 }
 nav#mainNav .nav-links a:hover{ color:var(--gold-light); }
@@ -3120,16 +3120,16 @@ nav#mainNav .nav-links .nav-cta{
   background:var(--gold);
   border:1px solid var(--gold);
   border-radius:999px;
-  padding:.72rem 1.35rem;
-  font-size:.76rem;
+  padding:.58rem 1.05rem;
+  font-size:.7rem;
   font-weight:600;
-  letter-spacing:.1em;
+  letter-spacing:.06em;
   white-space:nowrap;
 }
 nav#mainNav .nav-links .nav-cta:hover{ background:var(--gold-light);border-color:var(--gold-light);color:var(--dark); }
-nav#mainNav .nav-right{ gap:1.4rem; }
+nav#mainNav .nav-right{ gap:1rem; }
 nav#mainNav .music-nav-btn{ border-radius:50%; }
-@media(max-width:1200px){
+@media(max-width:1000px){
   /* transform:none is critical — a transformed ancestor breaks position:fixed on
      the fullscreen menu, so we position the pill with left/right instead of
      left:50% + translateX. */
