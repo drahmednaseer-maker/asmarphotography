@@ -1,11 +1,9 @@
 User-agent: *
 Allow: /
-# The older press articles stay out of the index until their placeholder photos
-# are replaced (that Press section is likewise commented out in index.html).
-# The Makran photo essay is finished and fully illustrated, so it IS indexable.
-Allow: /articles/makran-coastal-highway-landscape
-Allow: /articles/img/
-Disallow: /articles/
+# /articles/ is intentionally crawlable. Indexing is controlled per page by each
+# article's own <meta name="robots"> tag: the older press pieces are noindex until
+# their placeholder photos are replaced, the Makran photo essay is index,follow.
+# (A robots.txt Disallow would hide those noindex tags from Google, not help.)
 
 # AI / answer-engine crawlers explicitly welcomed
 User-agent: GPTBot
