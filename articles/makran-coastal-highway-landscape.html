@@ -4,6 +4,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>I Drove 5,000 km to See This — The Makran Coastal Highway | Asmar Hussain</title>
 <meta name="description" content="A photographer's 5,000 km round-trip road trip along Pakistan's Makran Coastal Highway (N-10) — Hingol, Kund Malir, Pasni, Gwadar, Pishukan, Ganz and Jiwani — in words and photographs by Muhammad Asmar Hussain, Sony Brand Ambassador.">
+<link rel="preload" as="image" href="img/makran/01-760.webp" type="image/webp" media="(max-width:760px)" fetchpriority="high">
+<link rel="preload" as="image" href="img/makran/01.webp" type="image/webp" media="(min-width:761px)" fetchpriority="high">
 <link rel="canonical" href="https://www.asmarphotography.com/articles/makran-coastal-highway-landscape">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="article">
@@ -16,7 +18,9 @@
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" media="print" onload="this.media='all';this.onload=null">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap"></noscript>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -87,7 +91,7 @@ article h2{font-family:'Cormorant Garamond',serif;font-weight:400;color:var(--cr
 article h2 em{font-style:italic;color:var(--gold-light)}
 
 /* figures */
-figure{margin:2.4rem 0}
+figure{margin:2.4rem 0;content-visibility:auto;contain-intrinsic-size:auto 520px}
 figure img{width:100%;height:auto;border-radius:10px;border:1px solid var(--border)}
 figcaption{font-size:.8rem;color:var(--muted);margin-top:.8rem;letter-spacing:.02em;line-height:1.6;padding-left:1rem;border-left:2px solid rgba(200,169,110,.4)}
 .bleed{position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;width:100vw;max-width:100vw;margin-top:3.5rem;margin-bottom:3.5rem}
@@ -98,16 +102,16 @@ figcaption{font-size:.8rem;color:var(--muted);margin-top:.8rem;letter-spacing:.0
 .pullquote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.35;color:var(--gold-light);text-align:center;margin:3rem auto;max-width:20ch}
 
 /* trip planner card */
-.planner{max-width:1000px;margin:4rem auto;padding:0 1.6rem}
+.planner{content-visibility:auto;contain-intrinsic-size:auto 700px;max-width:1000px;margin:4rem auto;padding:0 1.6rem}
 .planner-box{background:linear-gradient(160deg,rgba(20,19,16,.9),rgba(12,12,12,.9));border:1px solid var(--border);border-radius:16px;padding:2.4rem}
-.planner-box .h{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--gold-light);margin-bottom:.3rem}
+.planner-box .h{font-weight:400;font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--gold-light);margin-bottom:.3rem}
 .planner-box .sub{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem}
 .planner-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem 2.4rem}
-.planner-grid .pg h4{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;font-weight:500}
+.planner-grid .pg h3{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;font-weight:500}
 .planner-grid .pg p{font-size:.95rem;color:#d2ccc0;line-height:1.65;margin:0}
 
 /* tips */
-.tips{max-width:760px;margin:0 auto;padding:0 1.6rem}
+.tips{content-visibility:auto;contain-intrinsic-size:auto 420px;max-width:760px;margin:0 auto;padding:0 1.6rem}
 .tips ul{list-style:none;margin:1rem 0 0}
 .tips li{position:relative;padding-left:1.7rem;margin-bottom:1rem;font-size:1.02rem;color:#d5d0c4}
 .tips li::before{content:'';position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--gold)}
@@ -154,7 +158,7 @@ figcaption{font-size:.8rem;color:var(--muted);margin-top:.8rem;letter-spacing:.0
 
 <!-- HERO -->
 <header class="hero">
-  <div class="bg"><img src="img/makran/01.jpg" alt="Aerial view of the badlands meeting the turquoise Arabian Sea on the Makran coast, Balochistan" fetchpriority="high"></div>
+  <div class="bg"><picture><source media="(max-width:760px)" srcset="img/makran/01-760.webp" type="image/webp"><source srcset="img/makran/01.webp" type="image/webp"><img src="img/makran/01.jpg" alt="Aerial view of the badlands meeting the turquoise Arabian Sea on the Makran coast, Balochistan" fetchpriority="high" width="1500" height="908" decoding="async"></picture></div>
   <div class="scrim"></div>
   <div class="hero-inner">
     <div class="eyebrow">A Photographer's Journey · Balochistan, Pakistan</div>
@@ -172,7 +176,7 @@ figcaption{font-size:.8rem;color:var(--muted);margin-top:.8rem;letter-spacing:.0
 <article>
   <p class="lede"><span class="drop">S</span>ome journeys you measure in kilometres, and some in the light you were lucky enough to stand inside. This one was both — five thousand kilometres, from Peshawar down the length of Pakistan to Karachi, and then west along the Makran Coastal Highway until the road all but ran out at the Iranian border.</p>
 
-  <figure class="bleed"><img src="img/makran/02.jpg" alt="The empty Makran Coastal Highway curving through the Hingol badlands at golden hour" loading="lazy">
+  <figure class="bleed"><picture><source srcset="img/makran/02.webp" type="image/webp"><img src="img/makran/02.jpg" alt="The empty Makran Coastal Highway curving through the Hingol badlands at golden hour" loading="lazy" width="1492" height="954" decoding="async"></picture>
     <figcaption><span>The N-10 at last light. Seven hundred kilometres of empty road, hugging the Arabian Sea through a landscape that feels less like a country and more like another planet.</span></figcaption>
   </figure>
 
@@ -181,73 +185,73 @@ figcaption{font-size:.8rem;color:var(--muted);margin-top:.8rem;letter-spacing:.0
   <div class="kicker">Hingol National Park</div>
   <h2>The badlands where the road enters <em>another world</em></h2>
   <p>A few hours west of Karachi the highway plunges into Hingol National Park, the largest in Pakistan. The mountains here are soft rock — mud and sandstone — carved by wind and rare rain into spires and fluted walls.</p>
-  <figure><img src="img/makran/04.jpg" alt="Eroded badland spires and fluted rock walls of Hingol National Park, Balochistan" loading="lazy">
+  <figure><picture><source srcset="img/makran/04.webp" type="image/webp"><img src="img/makran/04.jpg" alt="Eroded badland spires and fluted rock walls of Hingol National Park, Balochistan" loading="lazy" width="1115" height="1277" decoding="async"></picture>
     <figcaption>Wind and rare rain carve the soft mud and sandstone into spires and fluted walls — Hingol National Park, the largest in Pakistan.</figcaption>
   </figure>
 
   <p>Somewhere among them stand the Princess of Hope and the Sphinx of Balochistan, and the Chandragup mud volcanoes that bubble grey mud beside the pilgrims' road to the Hinglaj Mata temple.</p>
 
-  <figure class="bleed"><img src="img/makran/03.jpg" alt="Blue hour over the Hingol badlands, ridges turning indigo beneath a rose sky">
+  <figure class="bleed"><picture><source srcset="img/makran/03.webp" type="image/webp"><img src="img/makran/03.jpg" alt="Blue hour over the Hingol badlands, ridges turning indigo beneath a rose sky" width="1543" height="922" decoding="async" loading="lazy"></picture>
     <figcaption><span>Blue hour in the Hingol badlands. As the sun drops, the ridges turn to indigo and the sky to rose — one of the most otherworldly sights on the whole coast.</span></figcaption>
   </figure>
 
   <div class="kicker">Kund Malir</div>
   <h2>Where the desert meets a <em>turquoise sea</em></h2>
   <p>Then the badlands break open and there it is: the sea. Kund Malir is the beach every photograph of this coast has promised — golden sand, water in impossible greens and blues, the desert mountains falling straight into the surf. I flew the drone at mid-morning, when the high sun turns the shallows to stained glass and a single truck on a kilometre of empty sand becomes the only thing in the frame.</p>
-  <figure><img src="img/makran/05.jpg" alt="Kund Malir beach — golden sand and turquoise water where the desert meets the Arabian Sea" loading="lazy">
+  <figure><picture><source srcset="img/makran/05.webp" type="image/webp"><img src="img/makran/05.jpg" alt="Kund Malir beach — golden sand and turquoise water where the desert meets the Arabian Sea" loading="lazy" width="1541" height="924" decoding="async"></picture>
     <figcaption>Kund Malir at mid-morning, when the high sun turns the shallows to stained glass.</figcaption>
   </figure>
 
   <div class="kicker">Pasni &amp; Astola Island</div>
   <h2>A fishing harbour and a <em>twilight moon</em></h2>
   <p>Further west lies Pasni, a working fishing harbour and the launch point for Astola Island, Pakistan's largest offshore island — a protected sanctuary of green turtles, sea snakes and nesting birds. I lingered into the blue hour, when the tide pulled back over the black reef and the sky turned to plum and rose beneath a rising moon.</p>
-  <figure><img src="img/makran/06.jpg" alt="Pasni at blue hour — a rising moon over the reef and harbour" loading="lazy">
+  <figure><picture><source srcset="img/makran/06.webp" type="image/webp"><img src="img/makran/06.jpg" alt="Pasni at blue hour — a rising moon over the reef and harbour" loading="lazy" width="1500" height="913" decoding="async"></picture>
     <figcaption>Pasni at blue hour — the tide pulled back over the black reef, the sky turning to plum and rose beneath a rising moon.</figcaption>
   </figure>
 
   <div class="kicker">Gwadar</div>
   <h2>Cliffs, a deep-water port, and the finest <em>sunsets on the coast</em></h2>
   <p>Gwadar is the beating heart of the modern Makran coast — a deep-water port on a hammerhead peninsula beneath the long ridge of Koh-e-Batil. We stayed up on the hill at PC Gwadar, the two great bays falling away on either side. Climb the western cliffs at evening and the Arabian Sea opens out gold to the horizon, silent but for the wind.</p>
-  <figure><img src="img/makran/07.jpg" alt="Gwadar's hammerhead peninsula and bays beneath the Koh-e-Batil ridge" loading="lazy">
+  <figure><picture><source srcset="img/makran/07.webp" type="image/webp"><img src="img/makran/07.jpg" alt="Gwadar's hammerhead peninsula and bays beneath the Koh-e-Batil ridge" loading="lazy" width="1500" height="951" decoding="async"></picture>
     <figcaption>Gwadar's hammerhead peninsula beneath the long ridge of Koh-e-Batil, the two great bays falling away on either side.</figcaption>
   </figure>
 
   <p class="pullquote">"This is the light I drove five thousand kilometres for."</p>
 
-  <figure class="bleed"><img src="img/makran/08.jpg" alt="Sunset from the cliffs above Golden Beach, Gwadar, over a calm Arabian Sea">
+  <figure class="bleed"><picture><source srcset="img/makran/08.webp" type="image/webp"><img src="img/makran/08.jpg" alt="Sunset from the cliffs above Golden Beach, Gwadar, over a calm Arabian Sea" width="1557" height="914" decoding="async" loading="lazy"></picture>
     <figcaption><span>Sunset from the cliffs above Golden Beach, Gwadar. This is the light I drove five thousand kilometres for.</span></figcaption>
   </figure>
 
   <div class="kicker">Pishukan</div>
   <h2>A hammerhead mountain <em>over the sea</em></h2>
   <p>West of Gwadar the highway reaches Pishukan — a fishing town and a long, quiet beach sheltered beneath a dramatic flat-topped headland, a hammerhead peninsula that juts into the sea and glows rose-gold at dusk.</p>
-  <figure><img src="img/makran/09.jpg" alt="Pishukan's flat-topped hammerhead headland glowing rose-gold above a turquoise bay" loading="lazy">
+  <figure><picture><source srcset="img/makran/09.webp" type="image/webp"><img src="img/makran/09.jpg" alt="Pishukan's flat-topped hammerhead headland glowing rose-gold above a turquoise bay" loading="lazy" width="1500" height="628" decoding="async"></picture>
     <figcaption>The flat-topped headland at Pishukan, glowing rose-gold at dusk above a long, quiet beach.</figcaption>
   </figure>
 
   <p>From the air the bay reads as four clean bands of colour: desert, cliff, sand and turquoise water — and below the headland, the fishing fleet that has worked this coast for thousands of years lies at anchor.</p>
 
-  <figure class="bleed"><img src="img/makran/10.jpg" alt="Aerial of the Pishukan fishing fleet at rest in water so clear each boat casts a shadow on the seabed">
+  <figure class="bleed"><picture><source srcset="img/makran/10.webp" type="image/webp"><img src="img/makran/10.jpg" alt="Aerial of the Pishukan fishing fleet at rest in water so clear each boat casts a shadow on the seabed" width="1500" height="895" decoding="async" loading="lazy"></picture>
     <figcaption><span>The Pishukan fishing fleet at rest in water so clear that, from above, every boat casts a shadow on the seabed. Fishing has sustained this coast for thousands of years.</span></figcaption>
   </figure>
 
   <div class="kicker">Ganz Beach</div>
   <h2>Where the badlands <em>run into the sea</em></h2>
   <p>A little further on lies Ganz Beach, where orange and white eroded badlands run straight into the deep blue of the Arabian Sea. Low pale cliffs stand over the water like the ramparts of a fort, and from their edge the sea opens out to the horizon — one of the most striking meetings of desert and ocean on the entire coast.</p>
-  <figure><img src="img/makran/11.jpg" alt="Ganz Beach — orange and white eroded badlands running into the deep blue Arabian Sea" loading="lazy">
+  <figure><picture><source srcset="img/makran/11.webp" type="image/webp"><img src="img/makran/11.jpg" alt="Ganz Beach — orange and white eroded badlands running into the deep blue Arabian Sea" loading="lazy" width="1500" height="981" decoding="async"></picture>
     <figcaption>Low pale cliffs stand over the water like the ramparts of a fort — Ganz Beach, one of the most striking meetings of desert and ocean on the entire coast.</figcaption>
   </figure>
 
   <div class="kicker">Jiwani</div>
   <h2>To the <em>edge of Iran</em></h2>
   <p>The road ends at Jiwani, a small windblown town on Gwadar Bay just fifteen kilometres from the Iranian border at Gabd — the very edge of the Pakistani coast, where the highway effectively runs out and the frontier begins.</p>
-  <figure><img src="img/makran/12.jpg" alt="Jiwani on Gwadar Bay near the Iranian border, mangroves and windblown shore" loading="lazy">
+  <figure><picture><source srcset="img/makran/12.webp" type="image/webp"><img src="img/makran/12.jpg" alt="Jiwani on Gwadar Bay near the Iranian border, mangroves and windblown shore" loading="lazy" width="1500" height="905" decoding="async"></picture>
     <figcaption>Jiwani, on Gwadar Bay — fifteen kilometres from the Iranian border at Gabd.</figcaption>
   </figure>
 
   <p>Jiwani holds some of the healthiest mangrove forests on the coast, and on its headland the ruins of a British WWII airfield still stand. Then there was nothing left to do but turn the car around and drive back into the light.</p>
 
-  <figure class="bleed"><img src="img/makran/13.jpg" alt="A coastal river bending through the badlands at last light on the road back from the border">
+  <figure class="bleed"><picture><source srcset="img/makran/13.webp" type="image/webp"><img src="img/makran/13.jpg" alt="A coastal river bending through the badlands at last light on the road back from the border" width="1475" height="965" decoding="async" loading="lazy"></picture>
     <figcaption><span>A coastal river bends through the badlands at last light, the wild interior of Balochistan glowing behind the sea on the road back from the border.</span></figcaption>
   </figure>
 </article>
@@ -255,15 +259,15 @@ figcaption{font-size:.8rem;color:var(--muted);margin-top:.8rem;letter-spacing:.0
 <!-- TRIP PLANNER -->
 <section class="planner">
   <div class="planner-box">
-    <div class="h">Plan Your Trip</div>
+    <h2 class="h">Plan Your Trip</h2>
     <div class="sub">The Makran Coastal Highway road trip</div>
     <div class="planner-grid">
-      <div class="pg"><h4>Best Time</h4><p>October to March — mild, dry and clear. Summer (May–August) is brutally hot with cyclone risk.</p></div>
-      <div class="pg"><h4>The Route</h4><p>Karachi → Kund Malir / Hingol (~4 hrs) → Ormara → Pasni → Gwadar (a full day more) → Pishukan, Golden Beach, Ganz → Jiwani (~2 hrs past Gwadar). From Peshawar, add the long haul through Sindh — my full round trip came to almost 5,000 km.</p></div>
-      <div class="pg"><h4>How Long</h4><p>6–8 days to see Hingol, shoot the beaches at good light and reach Jiwani.</p></div>
-      <div class="pg"><h4>Permits &amp; Safety</h4><p>Balochistan has security checkpoints and some areas need an NOC arranged in advance. Travel by day, carry extra fuel and water, and go with someone who knows the coast.</p></div>
-      <div class="pg"><h4>Where We Stayed</h4><p>Khoj Resort on Hub Beach (first night out of Karachi) and PC Gwadar — the Pearl-Continental on the hilltop above the town.</p></div>
-      <div class="pg"><h4>Gear That Mattered</h4><p>A drone (where legal) for the coastline from above, a tripod and ND filter for the long-exposure sea, a wide lens for the cliffs and a telephoto for the badland ridges.</p></div>
+      <div class="pg"><h3>Best Time</h3><p>October to March — mild, dry and clear. Summer (May–August) is brutally hot with cyclone risk.</p></div>
+      <div class="pg"><h3>The Route</h3><p>Karachi → Kund Malir / Hingol (~4 hrs) → Ormara → Pasni → Gwadar (a full day more) → Pishukan, Golden Beach, Ganz → Jiwani (~2 hrs past Gwadar). From Peshawar, add the long haul through Sindh — my full round trip came to almost 5,000 km.</p></div>
+      <div class="pg"><h3>How Long</h3><p>6–8 days to see Hingol, shoot the beaches at good light and reach Jiwani.</p></div>
+      <div class="pg"><h3>Permits &amp; Safety</h3><p>Balochistan has security checkpoints and some areas need an NOC arranged in advance. Travel by day, carry extra fuel and water, and go with someone who knows the coast.</p></div>
+      <div class="pg"><h3>Where We Stayed</h3><p>Khoj Resort on Hub Beach (first night out of Karachi) and PC Gwadar — the Pearl-Continental on the hilltop above the town.</p></div>
+      <div class="pg"><h3>Gear That Mattered</h3><p>A drone (where legal) for the coastline from above, a tripod and ND filter for the long-exposure sea, a wide lens for the cliffs and a telephoto for the badland ridges.</p></div>
     </div>
   </div>
 </section>
