@@ -3,7 +3,7 @@ Allow: /
 # The older press articles stay out of the index until their placeholder photos
 # are replaced (that Press section is likewise commented out in index.html).
 # The Makran photo essay is finished and fully illustrated, so it IS indexable.
-Allow: /articles/makran-coastal-highway-landscape.html
+Allow: /articles/makran-coastal-highway-landscape
 Allow: /articles/img/
 Disallow: /articles/
 
