@@ -3,3 +3,7 @@
 _preview*.html
 *.py
 *.zip
+# macOS artifacts (created when the repo lives on an external/exFAT drive)
+._*
+.Spotlight-V100
+.Trashes
