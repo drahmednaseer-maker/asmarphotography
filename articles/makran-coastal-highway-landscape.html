@@ -40,10 +40,17 @@
 @font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300 600;font-display:swap;src:url('../assets/fonts/cormorantgaramond-var.woff2') format('woff2-variations');}
 @font-face{font-family:'Jost';font-style:normal;font-weight:300 500;font-display:swap;src:url('../assets/fonts/jost-var.woff2') format('woff2-variations');}
 
+/* Metric-matched fallbacks. Even when a web font arrives after first paint, the
+   fallback already occupies the same space, so the hero text does not re-flow
+   (this is what kept desktop CLS at 0.355 on a cold, uncached load). */
+@font-face{font-family:'Cormorant Fallback';src:local('Times New Roman'),local('Times'),local('Liberation Serif');size-adjust:94.78%;ascent-override:97.49%;descent-override:30.28%;line-gap-override:0%;}
+@font-face{font-family:'Jost Fallback';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');size-adjust:92.67%;ascent-override:115.46%;descent-override:40.47%;line-gap-override:0%;}
+
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--gold:#c8a96e;--gold-light:#e8d5a3;--dark:#080808;--dark2:#0f0f0f;--cream:#f5f0e8;--muted:#8a8478;--border:#242424}
 html{scroll-behavior:smooth}
-body{background:var(--dark);color:var(--cream);font-family:'Jost',sans-serif;font-weight:300;line-height:1.85;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--dark);color:var(--cream);font-family:'Jost','Jost Fallback',sans-serif;font-weight:300;line-height:1.85;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:var(--gold);text-decoration:none}
 ::selection{background:rgba(200,169,110,.28)}
@@ -75,23 +82,23 @@ a{color:var(--gold);text-decoration:none}
 .hero-inner{position:relative;z-index:2;width:100%;max-width:1000px;margin:0 auto;padding:0 1.6rem 4.5rem}
 .eyebrow{font-size:.7rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-light);margin-bottom:1.4rem;display:flex;align-items:center;gap:.7rem;text-shadow:0 1px 8px rgba(0,0,0,.7)}
 .eyebrow::before{content:'';width:26px;height:1px;background:var(--gold)}
-.hero h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.6rem,7vw,5.4rem);line-height:1.03;letter-spacing:-.01em;margin-bottom:1.3rem;text-shadow:0 2px 30px rgba(0,0,0,.85), 0 1px 8px rgba(0,0,0,.6)}
+.hero h1{font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-weight:300;font-size:clamp(2.6rem,7vw,5.4rem);line-height:1.03;letter-spacing:-.01em;margin-bottom:1.3rem;text-shadow:0 2px 30px rgba(0,0,0,.85), 0 1px 8px rgba(0,0,0,.6)}
 .hero h1 em{font-style:italic;color:var(--gold-light)}
 .hero .sub{font-size:clamp(1rem,2.2vw,1.28rem);color:#efeae0;max-width:40ch;line-height:1.6;margin-bottom:1.8rem;font-weight:300;text-shadow:0 1px 14px rgba(0,0,0,.8)}
 .byline{font-size:.8rem;letter-spacing:.06em;color:#dad4c8;text-transform:uppercase;text-shadow:0 1px 10px rgba(0,0,0,.8)}
 .byline b{color:var(--gold);font-weight:400}
 .stat-strip{display:flex;flex-wrap:wrap;gap:1.6rem 2.6rem;margin-top:2.2rem;padding-top:1.6rem;border-top:1px solid rgba(200,169,110,.25)}
 .stat-strip .s{display:flex;flex-direction:column;gap:.15rem}
-.stat-strip .s b{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--gold-light);font-weight:400;line-height:1}
+.stat-strip .s b{font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-size:1.7rem;color:var(--gold-light);font-weight:400;line-height:1}
 .stat-strip .s span{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 
 /* article body */
 article{max-width:760px;margin:0 auto;padding:4.5rem 1.6rem 1rem}
-.lede{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3.4vw,1.9rem);line-height:1.5;color:#ece7dc;font-weight:300;margin-bottom:2.6rem}
+.lede{font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-size:clamp(1.4rem,3.4vw,1.9rem);line-height:1.5;color:#ece7dc;font-weight:300;margin-bottom:2.6rem}
 .lede .drop{float:left;font-size:4.2rem;line-height:.82;padding:.35rem .5rem 0 0;color:var(--gold);font-weight:500}
 article p{margin-bottom:1.5rem;font-size:1.075rem;color:#d9d4c9}
 .kicker{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin:3.4rem 0 .5rem}
-article h2{font-family:'Cormorant Garamond',serif;font-weight:400;color:var(--cream);font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.12;margin-bottom:1.3rem}
+article h2{font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-weight:400;color:var(--cream);font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.12;margin-bottom:1.3rem}
 article h2 em{font-style:italic;color:var(--gold-light)}
 
 /* figures */
@@ -103,12 +110,12 @@ figcaption{font-size:.8rem;color:var(--muted);margin-top:.8rem;letter-spacing:.0
 .bleed figcaption{max-width:760px;margin-left:auto;margin-right:auto;margin-top:1rem;padding:0 1.6rem;border-left:none;text-align:center}
 .bleed figcaption span{display:inline-block;border-left:2px solid rgba(200,169,110,.4);padding-left:1rem;text-align:left}
 
-.pullquote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.35;color:var(--gold-light);text-align:center;margin:3rem auto;max-width:20ch}
+.pullquote{font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-style:italic;font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.35;color:var(--gold-light);text-align:center;margin:3rem auto;max-width:20ch}
 
 /* trip planner card */
 .planner{content-visibility:auto;contain-intrinsic-size:auto 700px;max-width:1000px;margin:4rem auto;padding:0 1.6rem}
 .planner-box{background:linear-gradient(160deg,rgba(20,19,16,.9),rgba(12,12,12,.9));border:1px solid var(--border);border-radius:16px;padding:2.4rem}
-.planner-box .h{font-weight:400;font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--gold-light);margin-bottom:.3rem}
+.planner-box .h{font-weight:400;font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-size:1.9rem;color:var(--gold-light);margin-bottom:.3rem}
 .planner-box .sub{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem}
 .planner-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem 2.4rem}
 .planner-grid .pg h3{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;font-weight:500}
@@ -123,7 +130,7 @@ figcaption{font-size:.8rem;color:var(--muted);margin-top:.8rem;letter-spacing:.0
 /* CTA / author */
 .author{max-width:820px;margin:4rem auto 0;padding:2.4rem 1.6rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .author p{font-size:.98rem;color:#cfc9bd;margin-bottom:1.5rem}
-.author .who{color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-size:1.3rem}
+.author .who{color:var(--gold-light);font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-size:1.3rem}
 .cta-row{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.6rem}
 .btn{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:.85rem 1.6rem;border-radius:999px;transition:.25s}
 .btn-gold{background:var(--gold);color:#111;font-weight:500}
@@ -279,7 +286,7 @@ figcaption{font-size:.8rem;color:var(--muted);margin-top:.8rem;letter-spacing:.0
 <!-- TIPS -->
 <section class="tips">
   <div class="kicker" style="margin-top:0">From the Field</div>
-  <h2 style="font-family:'Cormorant Garamond',serif;font-weight:400;color:var(--cream);font-size:clamp(1.6rem,4vw,2.3rem);margin-bottom:.4rem">Photography tips</h2>
+  <h2 style="font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-weight:400;color:var(--cream);font-size:clamp(1.6rem,4vw,2.3rem);margin-bottom:.4rem">Photography tips</h2>
   <ul>
     <li>Shoot the badlands at sunrise and sunset — flat midday light kills the texture in the eroded rock.</li>
     <li>Midday is best for the water — the high sun is what turns the shallows that electric turquoise.</li>

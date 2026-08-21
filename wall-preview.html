@@ -41,9 +41,16 @@
 @font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300 600;font-display:swap;src:url('assets/fonts/cormorantgaramond-var.woff2') format('woff2-variations');}
 @font-face{font-family:'Jost';font-style:normal;font-weight:300 500;font-display:swap;src:url('assets/fonts/jost-var.woff2') format('woff2-variations');}
 
+/* Metric-matched fallbacks. Even when a web font arrives after first paint, the
+   fallback already occupies the same space, so the hero text does not re-flow
+   (this is what kept desktop CLS at 0.355 on a cold, uncached load). */
+@font-face{font-family:'Cormorant Fallback';src:local('Times New Roman'),local('Times'),local('Liberation Serif');size-adjust:94.78%;ascent-override:97.49%;descent-override:30.28%;line-gap-override:0%;}
+@font-face{font-family:'Jost Fallback';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');size-adjust:92.67%;ascent-override:115.46%;descent-override:40.47%;line-gap-override:0%;}
+
+
 :root{--gold:#c8a96e;--gold-light:#e8d5a3;--dark:#080808;--dark2:#0f0f0f;--dark3:#161616;--cream:#f5f0e8;--muted:#8a8478;--border:rgba(200,169,110,0.18);}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--dark);color:var(--cream);font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
+body{background:var(--dark);color:var(--cream);font-family:'Jost','Jost Fallback',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:1500px;margin:0 auto;padding:1.5rem 3.5% 5rem}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 1.4rem;margin-bottom:2.2rem;
@@ -55,7 +62,7 @@ a{color:inherit;text-decoration:none}
 .topbar .back:hover{background:var(--gold);color:var(--dark)}
 .head{text-align:center;margin-bottom:2rem}
 .eyebrow{font-size:.64rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
-h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.1}
+h1{font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-weight:300;font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.1}
 h1 em{font-style:italic;color:var(--gold)}
 .sub{color:var(--muted);max-width:660px;margin:1rem auto 0;line-height:1.8;font-size:1rem}
 .studio{display:grid;grid-template-columns:1fr 370px;gap:1.8rem;align-items:start}
@@ -103,7 +110,7 @@ h1 em{font-style:italic;color:var(--gold)}
 .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .thumb.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(200,169,110,.3)}
 .summary{background:rgba(200,169,110,.07);border:1px solid rgba(200,169,110,.3);border-radius:18px;padding:1.15rem 1.25rem}
-.summary h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:1.5rem;color:var(--cream);line-height:1.2}
+.summary h3{font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-style:italic;font-weight:400;font-size:1.5rem;color:var(--cream);line-height:1.2}
 .summary .loc{color:var(--muted);font-size:.8rem;margin-top:.2rem}
 .spec{margin-top:.9rem;font-size:.78rem;color:rgba(245,240,232,.8);line-height:1.85}
 .spec b{color:var(--gold-light);font-weight:500}
