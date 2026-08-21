@@ -47,7 +47,9 @@
 <meta name="color-scheme" content="dark">
 
 <!-- Preload LCP hero image -->
-<link rel="preload" as="image" href="assets/hero-slide-1.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-cover-640.webp" type="image/webp" media="(max-width:640px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-cover-900.webp" type="image/webp" media="(min-width:641px) and (max-width:900px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-cover.webp" type="image/webp" media="(min-width:901px)" fetchpriority="high">
 
 <!-- Comprehensive structured data for search, GEO/AEO & AI answer engines -->
 <script type="application/ld+json">
@@ -1225,7 +1227,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all';this.onload=null">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap"></noscript>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -1275,7 +1279,7 @@ a{color:inherit;text-decoration:none}
 }
 body:has(a:hover) .cursor-ring,
 body:has(button:hover) .cursor-ring{
-  transform:translate(-50%,-50%) scale(1.8);
+  width:58px;height:58px;
   opacity:1;
 }
 
@@ -2685,7 +2689,7 @@ footer{
   background:var(--dark2);
   z-index:9999;
   display:flex;align-items:center;justify-content:center;
-  transition:opacity .8s ease,visibility .8s ease;
+  transition:opacity .25s ease,visibility .25s ease;
 }
 .preloader.hidden{opacity:0;visibility:hidden}
 .preloader-text{
@@ -2710,7 +2714,7 @@ footer{
   position:absolute;bottom:0;left:0;
   height:2px;
   background:var(--gold);
-  animation:preloaderBar 2s ease-in-out forwards;
+  animation:preloaderBar .8s ease-in-out forwards;
 }
 @keyframes preloaderBar{
   from{width:0}
@@ -2952,7 +2956,7 @@ footer{
 .brand-natgeo .ng-2{ font-family:'Jost',sans-serif;font-weight:400;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.72); }
 /* All wordmarks white; only National Geographic keeps its colour (yellow rectangle above) */
 .brand-word .w-main{ color:#ffffff; }
-.brand-word .w-sub{ color:rgba(244,241,234,.5); }
+.brand-word .w-sub{ color:rgba(244,241,234,.62); }
 /* Diva Magazine keeps its serif treatment, in white */
 .brand-diva .w-main{ font-family:'Cormorant Garamond',serif; font-weight:600; letter-spacing:.04em; font-size:1.85rem; text-transform:none; color:#ffffff; }
 /* TEDx wordmark (white) */
@@ -3117,11 +3121,28 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
 .hero-cover{
   position:absolute;inset:0;
   background-image:url('assets/hero-cover.jpg');
+  background-image:-webkit-image-set(url('assets/hero-cover.webp') type('image/webp'), url('assets/hero-cover.jpg') type('image/jpeg'));
+  background-image:image-set(url('assets/hero-cover.webp') type('image/webp'), url('assets/hero-cover.jpg') type('image/jpeg'));
   background-size:cover;
   background-position:center center;
   animation:heroDrift 22s ease-in-out infinite alternate;
+  will-change:transform;
 }
 @keyframes heroDrift{ from{transform:scale(1.02)} to{transform:scale(1.09)} }
+@media(max-width:900px){
+  .hero-cover{
+    background-image:url('assets/hero-cover-900.jpg');
+    background-image:-webkit-image-set(url('assets/hero-cover-900.webp') type('image/webp'), url('assets/hero-cover-900.jpg') type('image/jpeg'));
+    background-image:image-set(url('assets/hero-cover-900.webp') type('image/webp'), url('assets/hero-cover-900.jpg') type('image/jpeg'));
+  }
+}
+@media(max-width:640px){
+  .hero-cover{
+    background-image:url('assets/hero-cover-640.jpg');
+    background-image:-webkit-image-set(url('assets/hero-cover-640.webp') type('image/webp'), url('assets/hero-cover-640.jpg') type('image/jpeg'));
+    background-image:image-set(url('assets/hero-cover-640.webp') type('image/webp'), url('assets/hero-cover-640.jpg') type('image/jpeg'));
+  }
+}
 @media(max-width:768px){ .hero-cover{ background-position:88% center; } }
 @media(max-width:480px){ .hero-cover{ background-position:92% center; } }
 /* Lighter, richer overlay so the photo stays vivid; readable text pocket bottom-left */
@@ -3283,6 +3304,21 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
 @keyframes waPulse{ 0%,100%{box-shadow:0 10px 30px -6px rgba(37,211,102,.55),0 0 0 0 rgba(37,211,102,.5)} 50%{box-shadow:0 10px 30px -6px rgba(37,211,102,.55),0 0 0 12px rgba(37,211,102,0)} }
 @media(max-width:768px){ .wa-float{ right:1rem; bottom:1rem; width:52px; height:52px; } .wa-float svg{ width:27px;height:27px; } }
 @media print{ .wa-float{ display:none; } }
+
+/* ── RENDER PERFORMANCE ──
+   Let the browser skip style, layout and paint for sections that are far below the
+   fold until they are scrolled near. With 33 shop cards and a 3D carousel in the
+   DOM this was the single largest source of main-thread Style & Layout work.
+   contain-intrinsic-size reserves the space so nothing shifts (CLS stays 0). */
+.press-section, .journal-section, .shop-section, #awards, #contact, footer, .ted-section{
+  content-visibility:auto;
+  contain-intrinsic-size:auto 900px;
+}
+/* the shop's horizontal filmstrip: skip off-screen cards too */
+.shop-item{ content-visibility:auto; contain-intrinsic-size:auto 300px auto 407px; }
+/* keep the hero and everything above the fold fully live */
+.hero, .featured-strip, .stats-bar, #about{ content-visibility:visible; }
+.visually-hidden{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 </style>
 </head>
 <body>
@@ -3329,7 +3365,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       <svg class="music-off" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
       <svg class="music-on" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
     </button>
-    <button class="nav-menu-btn" id="menuBtn" onclick="toggleMenu()">
+    <button class="nav-menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
       <span id="menuLine1"></span>
       <span id="menuLine2"></span>
       <span id="menuLine3"></span>
@@ -3338,6 +3374,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
 </nav>
 
 <!-- HERO -->
+<main id="main">
 <section class="hero cover-mode" id="home">
   <div class="hero-bg">
     <!-- Permanent cover photo. Replace assets/hero-cover.jpg with your own picture. -->
@@ -3446,7 +3483,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   <div class="about-grid">
     <div class="about-card reveal">
       <div class="about-img-wrap">
-        <img class="about-img" style="object-position:center top" src="assets/about-portrait.jpg" alt="Asmar Hussain - Sony Brand Ambassador" width="1225" height="1575">
+        <picture><source srcset="assets/about-portrait.webp" type="image/webp"><img class="about-img" style="object-position:center top" src="assets/about-portrait.jpg" alt="Asmar Hussain - Sony Brand Ambassador" width="700" height="900" loading="lazy" decoding="async"></picture>
         <div class="about-img-badge">
           <strong>18</strong>
           <span>Years of Art</span>
@@ -3490,7 +3527,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   <button class="slider-btn prev" onclick="slidePortfolio(-1)" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 18l-6-6 6-6"/></svg></button>
   <div class="portfolio-grid is-slider" id="portfolioGrid">
     <div class="portfolio-item p-hero" data-cat="landscape" data-idx="0" onclick="openLightboxIdx(0)">
-      <img src="gallery/passu-reflection.jpg" alt="Sunset at Haldi Cones, Shyok River, Khaplu, Ghanche — fine-art landscape photograph by Asmar Hussain" loading="eager" width="2500" height="1750">
+      <img src="gallery/passu-reflection.jpg" alt="Sunset at Haldi Cones, Shyok River, Khaplu, Ghanche — fine-art landscape photograph by Asmar Hussain" loading="lazy" decoding="async" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Landscape</span>
@@ -3501,7 +3538,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="landscape" data-idx="1" onclick="openLightboxIdx(1)">
-      <img src="gallery/cold-desert.jpg" alt="Cold Desert, Skardu, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="eager" width="2500" height="1750">
+      <img src="gallery/cold-desert.jpg" alt="Cold Desert, Skardu, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" decoding="async" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Landscape</span>
@@ -3512,7 +3549,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="mountain" data-idx="2" onclick="openLightboxIdx(2)">
-      <img src="gallery/passu-cones-sunset.jpg" alt="Passu Cones at Dusk, Hunza Valley, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="eager" width="2500" height="1750">
+      <img src="gallery/passu-cones-sunset.jpg" alt="Passu Cones at Dusk, Hunza Valley, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" decoding="async" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Mountain</span>
@@ -3523,7 +3560,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="landscape" data-idx="3" onclick="openLightboxIdx(3)">
-      <img src="gallery/altit-fort.jpg" alt="Altit Fort in Morning Mist, Hunza, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/altit-fort.jpg" alt="Altit Fort in Morning Mist, Hunza, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Landscape</span>
@@ -3534,7 +3571,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="mountain" data-idx="4" onclick="openLightboxIdx(4)">
-      <img src="gallery/deosai-plains.jpg" alt="Broghil Valley, Chitral — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/deosai-plains.jpg" alt="Broghil Valley, Chitral — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Mountain</span>
@@ -3545,7 +3582,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="landscape" data-idx="5" onclick="openLightboxIdx(5)">
-      <img src="gallery/autumn-river.jpg" alt="Autumn River, Ghizer Valley, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/autumn-river.jpg" alt="Autumn River, Ghizer Valley, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Landscape</span>
@@ -3556,7 +3593,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item p-hero" data-cat="landscape" data-idx="6" onclick="openLightboxIdx(6)">
-      <img src="gallery/spring-passu.jpg" alt="Spring Awakening, Passu, Passu, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/spring-passu.jpg" alt="Spring Awakening, Passu, Passu, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Landscape</span>
@@ -3567,7 +3604,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="landscape" data-idx="7" onclick="openLightboxIdx(7)">
-      <img src="gallery/misty-forest.jpg" alt="Morning Mist, Katpana Desert, Skardu — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/misty-forest.jpg" alt="Morning Mist, Katpana Desert, Skardu — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Landscape</span>
@@ -3578,7 +3615,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="landscape" data-idx="8" onclick="openLightboxIdx(8)">
-      <img src="gallery/desert-dawn.jpg" alt="Katpana Desert at Dawn, Katpana Desert, Skardu — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/desert-dawn.jpg" alt="Katpana Desert at Dawn, Katpana Desert, Skardu — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Landscape</span>
@@ -3589,7 +3626,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="landscape" data-idx="9" onclick="openLightboxIdx(9)">
-      <img src="gallery/autumn-indus.jpg" alt="Autumn on the Indus, Gilgit, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/autumn-indus.jpg" alt="Autumn on the Indus, Gilgit, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Landscape</span>
@@ -3600,7 +3637,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="landscape" data-idx="10" onclick="openLightboxIdx(10)">
-      <img src="gallery/aerial-blossoms.jpg" alt="Valley in Bloom, Machlu, Ghanche, Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/aerial-blossoms.jpg" alt="Valley in Bloom, Machlu, Ghanche, Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Landscape</span>
@@ -3611,7 +3648,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="landscape" data-idx="11" onclick="openLightboxIdx(11)">
-      <img src="gallery/ratti-gali.jpg" alt="Rainbow Lake, Domail, Minimarg — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/ratti-gali.jpg" alt="Rainbow Lake, Domail, Minimarg — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Landscape</span>
@@ -3622,7 +3659,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="wildlife" data-idx="12" onclick="openLightboxIdx(12)">
-      <img src="gallery/bears-deosai.jpg" alt="Brown Bears, Deosai, Deosai National Park — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/bears-deosai.jpg" alt="Brown Bears, Deosai, Deosai National Park — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Wildlife</span>
@@ -3633,7 +3670,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="landscape" data-idx="13" onclick="openLightboxIdx(13)">
-      <img src="gallery/neelum-valley.jpg" alt="Kumrat Valley at Sunset, Kumrat Valley, Upper Dir — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/neelum-valley.jpg" alt="Kumrat Valley at Sunset, Kumrat Valley, Upper Dir — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Landscape</span>
@@ -3644,7 +3681,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="portrait" data-idx="14" onclick="openLightboxIdx(14)">
-      <img src="gallery/generations.jpg" alt="Generations, Northern Pakistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/generations.jpg" alt="Generations, Northern Pakistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Portrait</span>
@@ -3655,7 +3692,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="portrait" data-idx="15" onclick="openLightboxIdx(15)">
-      <img src="gallery/woodsman.jpg" alt="The Woodsman, Northern Pakistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/woodsman.jpg" alt="The Woodsman, Northern Pakistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">Portrait</span>
@@ -3666,7 +3703,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="people" data-idx="16" onclick="openLightboxIdx(16)">
-      <img src="gallery/spring-herding.jpg" alt="Spring Herding, Hunza, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/spring-herding.jpg" alt="Spring Herding, Hunza, Gilgit-Baltistan — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">People</span>
@@ -3677,7 +3714,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </div>
     <div class="portfolio-item" data-cat="people" data-idx="17" onclick="openLightboxIdx(17)">
-      <img src="gallery/thar-journey.jpg" alt="The Daily Walk, Thar Desert, Sindh — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="2500" height="1750">
+      <img src="gallery/thar-journey.jpg" alt="The Daily Walk, Thar Desert, Sindh — fine-art landscape photograph by Asmar Hussain" loading="lazy" width="1600" height="1120">
       <div class="portfolio-overlay">
         <div class="portfolio-info">
           <span class="portfolio-cat">People</span>
@@ -3893,19 +3930,19 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   <h3 class="tours-routes-title reveal">Signature <em>Routes</em></h3>
   <div class="tour-routes">
     <a href="#contact" class="route-card reveal">
-      <img src="gallery/passu-cones-sunset.jpg" alt="Hunza and Passu Cones photography tour in northern Pakistan" loading="lazy" width="2500" height="1750">
+      <img src="gallery/passu-cones-sunset.jpg" alt="Hunza and Passu Cones photography tour in northern Pakistan" loading="lazy" width="1600" height="1120">
       <div class="route-card-label"><strong>Hunza, Nagar &amp; Passu</strong><span>Karakoram peaks &amp; autumn light</span></div>
     </a>
     <a href="#contact" class="route-card reveal">
-      <img src="gallery/deosai-plains.jpg" alt="Broghil Valley Chitral photography expedition Pakistan" loading="lazy" width="2500" height="1750">
+      <img src="gallery/deosai-plains.jpg" alt="Broghil Valley Chitral photography expedition Pakistan" loading="lazy" width="1600" height="1120">
       <div class="route-card-label"><strong>Broghil, Chitral</strong><span>High plains, lakes &amp; wildlife</span></div>
     </a>
     <a href="#contact" class="route-card reveal">
-      <img src="gallery/spring-passu.jpg" alt="Passu in spring landscape photography tour" loading="lazy" width="2500" height="1750">
+      <img src="gallery/spring-passu.jpg" alt="Passu in spring landscape photography tour" loading="lazy" width="1600" height="1120">
       <div class="route-card-label"><strong>Passu in Spring</strong><span>Blossoms &amp; rugged peaks</span></div>
     </a>
     <a href="#contact" class="route-card reveal">
-      <img src="gallery/ratti-gali.jpg" alt="Domail and Minimarg alpine lake photo tour" loading="lazy" width="2500" height="1750">
+      <img src="gallery/ratti-gali.jpg" alt="Domail and Minimarg alpine lake photo tour" loading="lazy" width="1600" height="1120">
       <div class="route-card-label"><strong>Domail &amp; Minimarg</strong><span>Alpine lakes &amp; green valleys</span></div>
     </a>
   </div>
@@ -4022,7 +4059,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </a>
     <a class="press-card reveal reveal-delay-1" href="articles/jewel-of-pakistan-gilgit-baltistan.html" style="text-decoration:none;color:inherit;display:block">
-      <img class="press-card-img" src="gallery/passu-cones-sunset.jpg" alt="Gilgit Baltistan" loading="lazy" width="2500" height="1750">
+      <img class="press-card-img" src="gallery/passu-cones-sunset.jpg" alt="Gilgit Baltistan" loading="lazy" width="1600" height="1120">
       <div class="press-card-body">
         <p class="press-pub">★ Lead Pakistan</p>
         <h3>Jewel of Pakistan: Gilgit-Baltistan</h3>
@@ -4031,7 +4068,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </a>
     <a class="press-card reveal reveal-delay-2" href="articles/alluring-wilderness-of-chitral-valley.html" style="text-decoration:none;color:inherit;display:block">
-      <img class="press-card-img" src="gallery/misty-forest.jpg" alt="Chitral Valley" loading="lazy" width="2500" height="1750">
+      <img class="press-card-img" src="gallery/misty-forest.jpg" alt="Chitral Valley" loading="lazy" width="1600" height="1120">
       <div class="press-card-body">
         <p class="press-pub">★ Lead Pakistan</p>
         <h3>The Alluring Wilderness of Chitral Valley: Beyond the Known Paths</h3>
@@ -4040,7 +4077,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </a>
     <a class="press-card reveal" href="articles/remains-of-the-day.html" style="text-decoration:none;color:inherit;display:block">
-      <img class="press-card-img" src="gallery/generations.jpg" alt="Remains of the Day" loading="lazy" width="2500" height="1750">
+      <img class="press-card-img" src="gallery/generations.jpg" alt="Remains of the Day" loading="lazy" width="1600" height="1120">
       <div class="press-card-body">
         <p class="press-pub">★ Lead Pakistan</p>
         <h3>"Remains of the Day": Devastation and Resilience of Flood Victims</h3>
@@ -4049,7 +4086,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       </div>
     </a>
     <a class="press-card reveal reveal-delay-1" href="articles/a-love-affair-with-nagar-valley.html" style="text-decoration:none;color:inherit;display:block">
-      <img class="press-card-img" src="gallery/passu-reflection.jpg" alt="Nagar Valley" loading="lazy" width="2500" height="1750">
+      <img class="press-card-img" src="gallery/passu-reflection.jpg" alt="Nagar Valley" loading="lazy" width="1600" height="1120">
       <div class="press-card-body">
         <p class="press-pub">★ Hum News</p>
         <h3>A Love Affair with Nagar Valley — A Journey Unfinished</h3>
@@ -4091,7 +4128,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   <button class="jt-close" onclick="closeJournal()" aria-label="Dismiss">&times;</button>
   <a class="jt-link" href="articles/makran-coastal-highway-landscape.html">
     <div class="jt-imgwrap">
-      <img src="articles/img/makran/08.jpg" alt="Sunset from the cliffs above Golden Beach, Gwadar">
+      <img data-src="articles/img/makran/08-card.webp" alt="Sunset from the cliffs above Golden Beach, Gwadar" loading="lazy" decoding="async" width="360" height="158">
       <span class="jt-tag">New Article</span>
     </div>
     <div class="jt-body">
@@ -4759,7 +4796,8 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
         <div class="form-group"><input type="email" placeholder="Email Address"></div>
       </div>
       <div class="form-group">
-        <select>
+        <label for="enquiryType" class="visually-hidden">Enquiry type</label>
+        <select id="enquiryType" name="enquiryType">
           <option value="" disabled selected>Enquiry Type</option>
           <option>Fine Art Print Order</option>
           <option>Landscape Photography Session</option>
@@ -4777,6 +4815,8 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
 </section>
 
 <!-- FOOTER -->
+</main>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
@@ -4842,29 +4882,64 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
 
 <script>
 // ── PRELOADER ──
-window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    document.getElementById('preloader').classList.add('hidden');
-  },2200);
-});
+// Hide shortly after the DOM is ready. It must NEVER wait for the 'load' event:
+// that waits for every photograph to download, which kept the screen covered and
+// left the page with no Largest Contentful Paint at all on slow connections.
+(function(){
+  var p=document.getElementById('preloader');
+  if(!p) return;
+  var done=false;
+  function hide(){
+    if(done) return; done=true;
+    p.classList.add('hidden');
+    setTimeout(function(){ p.style.display='none'; },300);
+  }
+  function armHide(){
+    // hide the moment the hero art is actually ready, else after a brief brand beat
+    var probe=new Image();
+    probe.onload=probe.onerror=function(){ hide(); };
+    var vw=window.innerWidth||900;
+    probe.src = vw<=640 ? 'assets/hero-cover-640.webp'
+              : vw<=900 ? 'assets/hero-cover-900.webp'
+                        : 'assets/hero-cover.webp';
+    setTimeout(hide,700);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',armHide);
+  else armHide();
+  setTimeout(hide,1800);   // hard safety cap
+})();
 
 // ── CURSOR ──
-const cur=document.getElementById('cursor');
-const ring=document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
-function animRing(){
-  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
-  ring.style.left=rx+'px';ring.style.top=ry+'px';
-  requestAnimationFrame(animRing);
-}
-animRing();
+// Only runs on devices that actually have a mouse. Previously the follow loop ran
+// forever on phones too — where the cursor is display:none — burning the main
+// thread every frame for nothing. It also now animates with transform (composited)
+// instead of left/top, which forced a layout on every single frame.
+(function(){
+  var cur=document.getElementById('cursor');
+  var ring=document.getElementById('cursorRing');
+  if(!cur||!ring) return;
+  var fine = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(!fine){ cur.style.display='none'; ring.style.display='none'; return; }
+  var mx=0,my=0,rx=0,ry=0,running=false;
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX; my=e.clientY;
+    cur.style.transform='translate3d('+mx+'px,'+my+'px,0) translate(-50%,-50%)';
+    if(!running){ running=true; requestAnimationFrame(animRing); }
+  },{passive:true});
+  function animRing(){
+    rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+    ring.style.transform='translate3d('+rx+'px,'+ry+'px,0) translate(-50%,-50%)';
+    // idle out once the ring has caught up, instead of looping forever
+    if(Math.abs(mx-rx)<0.5 && Math.abs(my-ry)<0.5){ running=false; return; }
+    requestAnimationFrame(animRing);
+  }
+})();
 
 // ── NAV SCROLL ──
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>{
   nav.classList.toggle('scrolled',window.scrollY>60);
-});
+},{passive:true});
 
 // ── MOBILE MENU ──
 let menuOpen=false;
@@ -4958,7 +5033,9 @@ const counterObs=new IntersectionObserver(entries=>{
 counters.forEach(c=>counterObs.observe(c));
 
 // ── PORTFOLIO 3D COVERFLOW (auto-run · pause on interaction · protected) ──
-(function(){
+// Deferred to idle time: laying out ~33 slides with 3D transforms was a ~167ms
+// long task landing right on first paint. The carousel is far below the fold.
+(window.requestIdleCallback||function(f){setTimeout(f,200);})(function(){
   var grid=document.getElementById('portfolioGrid');
   if(!grid) return;
   var items=[].slice.call(grid.querySelectorAll('.portfolio-item'));
@@ -5024,7 +5101,7 @@ counters.forEach(c=>counterObs.observe(c));
   window.addEventListener('resize',layout);
   window.addEventListener('load',function(){ setTimeout(layout,60); });
   layout(); start();
-})();
+});
 
 // ── LIGHTBOX ──
 const galleryPhotos=[
@@ -5095,6 +5172,8 @@ var JOURNAL_HIDE_MS=8000;   // auto-hide after ~8s of no interaction
 function startJournalTimer(){ clearTimeout(journalTimer); journalTimer=setTimeout(closeJournal, JOURNAL_HIDE_MS); }
 function openJournal(){   // slide the card in from the right (does NOT block the page)
   var t=document.getElementById('journalToast'); if(!t) return;
+  var im=t.querySelector('img[data-src]');          // load its photo only now
+  if(im){ im.src=im.getAttribute('data-src'); im.removeAttribute('data-src'); }
   t.classList.remove('paused');
   t.classList.add('show');
   startJournalTimer();

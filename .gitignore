@@ -7,3 +7,6 @@ _preview*.html
 ._*
 .Spotlight-V100
 .Trashes
+
+# untouched full-size originals kept locally (not for the web)
+_originals/
