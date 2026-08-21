@@ -47,6 +47,9 @@
 <meta name="color-scheme" content="dark">
 
 <!-- Preload LCP hero image -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/cormorantgaramond-var.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/jost-var.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/cormorantgaramond-i.woff2" crossorigin>
 <link rel="preload" as="image" href="assets/hero-cover-640.webp" type="image/webp" media="(max-width:640px)" fetchpriority="high">
 <link rel="preload" as="image" href="assets/hero-cover-900.webp" type="image/webp" media="(min-width:641px) and (max-width:900px)" fetchpriority="high">
 <link rel="preload" as="image" href="assets/hero-cover.webp" type="image/webp" media="(min-width:901px)" fetchpriority="high">
@@ -1225,12 +1228,18 @@
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all';this.onload=null">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap"></noscript>
 <style>
+/* Self-hosted variable fonts, latin subset. One file per family covers every
+   weight the site uses: 7 static faces (171KB) -> 3 variable files (70KB).
+   Same-origin + preloaded so they are ready before first paint, which is what
+   removed the hero-text reflow (desktop CLS was 0.29). */
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-display:swap;src:url('assets/fonts/cormorantgaramond-i.woff2') format('woff2-variations');}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300 600;font-display:swap;src:url('assets/fonts/cormorantgaramond-var.woff2') format('woff2-variations');}
+@font-face{font-family:'Jost';font-style:normal;font-weight:300 500;font-display:swap;src:url('assets/fonts/jost-var.woff2') format('woff2-variations');}
+
+/* self-hosted latin subsets — same origin, so they are ready before first paint
+   (loading them from fonts.gstatic.com made the hero text reflow: CLS 0.356) */
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --gold:#c8a96e;
@@ -3309,12 +3318,13 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
    fold until they are scrolled near. With 33 shop cards and a 3D carousel in the
    DOM this was the single largest source of main-thread Style & Layout work.
    contain-intrinsic-size reserves the space so nothing shifts (CLS stays 0). */
-.press-section, .journal-section, .shop-section, #awards, #contact, footer, .ted-section{
+.press-section, .journal-section, .shop-section, #awards, #contact, footer, .ted-section, .portfolio-section{
   content-visibility:auto;
   contain-intrinsic-size:auto 900px;
 }
 /* the shop's horizontal filmstrip: skip off-screen cards too */
 .shop-item{ content-visibility:auto; contain-intrinsic-size:300px 407px; }
+.portfolio-section{ contain-intrinsic-size:auto 780px; }
 /* keep the hero and everything above the fold fully live */
 .hero, .featured-strip, .stats-bar, #about{ content-visibility:visible; }
 .visually-hidden{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -5090,7 +5100,13 @@ counters.forEach(c=>counterObs.observe(c));
   // pause while the page is actively scrolling; resume once it settles
   window.addEventListener('scroll',function(){ paused=true; clearTimeout(scrollT); scrollT=setTimeout(function(){ paused=false; },650); },{passive:true});
 
-  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ inView=e.isIntersecting; }); },{threshold:.2});
+  var laidOut=false;
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+    inView=e.isIntersecting;
+    // the section is content-visibility:auto, so the first time it is actually
+    // rendered we re-run layout() now that clientWidth is real
+    if(e.isIntersecting && !laidOut){ laidOut=true; layout(); }
+  }); },{threshold:.2});
   io.observe(grid);
 
   document.querySelectorAll('.portfolio-filters .filter-btn').forEach(function(btn){
