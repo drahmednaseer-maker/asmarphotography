@@ -1530,8 +1530,9 @@ nav.scrolled{
 section{padding:4.25rem 8%}
 .section-label{
   display:flex;align-items:center;gap:1.5rem;
-  font-size:.65rem;
-  letter-spacing:.35em;
+  font-size:.95rem;
+  font-weight:500;
+  letter-spacing:.24em;
   text-transform:uppercase;
   color:var(--gold);
   margin-bottom:1.5rem;
@@ -1692,9 +1693,9 @@ section{padding:4.25rem 8%}
 .about-text{ position:relative; z-index:1; }
 .about-text .section-title{ font-size:clamp(1.7rem,3vw,2.5rem); }
 .about-text p{
-  font-size:.97rem;
-  line-height:1.8;
-  color:rgba(245,240,232,.82);
+  font-size:1.06rem;
+  line-height:1.85;
+  color:var(--body-copy,rgba(245,240,232,.82));
   margin-bottom:1.05rem;
 }
 .about-text p:first-of-type{
@@ -3072,8 +3073,8 @@ nav#mainNav.scrolled{
   padding:.5rem .7rem .5rem 1.4rem;
   border-color:rgba(200,169,110,.4);
 }
-nav#mainNav .nav-logo img{ height:60px !important; }
-nav#mainNav.scrolled .nav-logo img{ height:52px !important; }
+nav#mainNav .nav-logo img{ height:78px !important; }
+nav#mainNav.scrolled .nav-logo img{ height:66px !important; }
 nav#mainNav .nav-links{ gap:.85rem; flex-wrap:nowrap; }
 nav#mainNav .nav-links li{ flex-shrink:0; }
 nav#mainNav .nav-links a{
@@ -3104,7 +3105,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
      left:50% + translateX. */
   nav#mainNav{ top:.7rem; left:.7rem; right:.7rem; width:auto; transform:none; padding:.6rem .7rem .6rem 1.2rem; }
   nav#mainNav.scrolled{ transform:none; }
-  nav#mainNav .nav-logo img{ height:48px !important; }
+  nav#mainNav .nav-logo img{ height:58px !important; }
   nav#mainNav .nav-right{ gap:.6rem; }
   /* FULLSCREEN MOBILE MENU — unscoped selectors because JS portals #navLinks out
      to <body> when open (an ancestor transform OR backdrop-filter would otherwise
@@ -3472,6 +3473,25 @@ html[data-theme="light"]{ --footer-link:rgba(35,31,26,.9); }
 html[data-theme="light"] .footer-contact a:hover{ color:var(--gold); border-bottom-color:rgba(122,92,37,.5); }
 html[data-theme="light"] .nav-cta{ background:var(--gold); border-color:var(--gold); }
 html[data-theme="light"]{ --dim-text:rgba(58,52,44,.85); }
+
+/* ── light-mode fixes for colours that were hardcoded light ── */
+html[data-theme="light"]{ --body-copy:rgba(30,27,22,.9); }
+/* National Geographic wordmark is set in white */
+html[data-theme="light"] .ng-1{ color:#1a1713; }
+html[data-theme="light"] .ng-2{ color:rgba(26,23,19,.72); }
+/* the hero's ghost links sit on the photograph, so they stay light in both themes */
+html[data-theme="light"] .hero .btn-ghost{ color:#f5f0e8; border-bottom-color:rgba(245,240,232,.45); }
+html[data-theme="light"] .hero .btn-ghost:hover{ color:#e8d5a3; border-bottom-color:#e8d5a3; }
+/* about card headings/labels */
+html[data-theme="light"] .about-text .section-label{ color:var(--gold); }
+
+/* ── larger, more readable section eyebrows ── */
+.section-label::before, .section-label::after{ opacity:.65; }
+.about-text .section-label{ font-size:.98rem; letter-spacing:.2em; }
+
+/* ── FAQ: centre it instead of hanging to one side ── */
+.faq-list{ margin-left:auto; margin-right:auto; }
+.faq-q{ text-align:left; }
 </style>
 </head>
 <body>
