@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+/* applied before first paint so switching themes never flashes the wrong colour */
+(function(){try{
+  var t=localStorage.getItem('theme');
+  if(!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  if(t==='light') document.documentElement.setAttribute('data-theme','light');
+}catch(e){}})();
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="8hClIIdQbBsTJnbvz3K7K9HtOyd1DbDsoDyyXQQHqjA" />
@@ -1266,37 +1275,11 @@ body{
   font-family:'Jost','Jost Fallback',sans-serif;
   font-weight:300;
   overflow-x:hidden;
-  cursor:none;
+  cursor:default;
 }
 a{color:inherit;text-decoration:none}
 
 /* CUSTOM CURSOR */
-.cursor{
-  position:fixed;
-  width:10px;height:10px;
-  border-radius:50%;
-  background:var(--gold);
-  pointer-events:none;
-  z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:transform .1s;
-  mix-blend-mode:difference;
-}
-.cursor-ring{
-  position:fixed;
-  width:36px;height:36px;
-  border-radius:50%;
-  border:1px solid var(--gold);
-  pointer-events:none;
-  z-index:9998;
-  transform:translate(-50%,-50%);
-  transition:all .15s ease;
-  opacity:.6;
-}
-.cursor-ring.is-hot{
-  width:58px;height:58px;
-  opacity:1;
-}
 
 /* SCROLLBAR */
 ::-webkit-scrollbar{width:3px}
@@ -1345,7 +1328,7 @@ nav.scrolled{
   text-transform:uppercase;
   color:var(--muted);
   transition:color .3s;
-  cursor:none;
+  cursor:pointer;
 }
 .nav-links a:hover{color:var(--cream)}
 .nav-links .nav-cta{
@@ -1359,7 +1342,7 @@ nav.scrolled{
   color:var(--dark);
   border-color:var(--gold);
 }
-.nav-menu-btn{display:none;background:none;border:none;cursor:none;color:var(--cream);flex-direction:column;gap:5px;padding:14px;margin:-14px;-webkit-tap-highlight-color:transparent}
+.nav-menu-btn{display:none;background:none;border:none;cursor:pointer;color:var(--cream);flex-direction:column;gap:5px;padding:14px;margin:-14px;-webkit-tap-highlight-color:transparent}
 .nav-menu-btn span{display:block;width:24px;height:1px;background:currentColor;transition:all .3s}
 
 /* MOBILE NAV */
@@ -1461,10 +1444,20 @@ nav.scrolled{
   font-weight:500;
   letter-spacing:.15em;
   text-transform:uppercase;
-  padding:.9rem 2.2rem;
-  transition:all .3s;
-  cursor:none;
+  padding:1rem 2.4rem;
+  border-radius:999px;
+  border:1px solid transparent;
+  background-image:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 55%,#b7955c 100%);
+  box-shadow:0 10px 26px -10px rgba(200,169,110,.65), inset 0 1px 0 rgba(255,255,255,.35);
+  transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+  cursor:pointer;
 }
+.btn-primary:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.04);
+  box-shadow:0 16px 34px -10px rgba(200,169,110,.8), inset 0 1px 0 rgba(255,255,255,.45);
+}
+.btn-primary:active{ transform:translateY(0); }
 .btn-primary:hover{background:var(--gold-light)}
 .btn-ghost{
   display:inline-flex;align-items:center;gap:.8rem;
@@ -1476,7 +1469,7 @@ nav.scrolled{
   border-bottom:1px solid var(--border);
   padding-bottom:.2rem;
   transition:all .3s;
-  cursor:none;
+  cursor:pointer;
 }
 .btn-ghost:hover{color:var(--gold);border-color:var(--gold)}
 
@@ -1516,7 +1509,7 @@ nav.scrolled{
 .hero-dot{
   width:20px;height:2px;
   background:rgba(200,169,110,.3);
-  cursor:none;
+  cursor:pointer;
   transition:all .3s;
 }
 .hero-dot.active{
@@ -1769,7 +1762,7 @@ section{padding:4.25rem 8%}
   color:var(--muted);
   background:none;
   border:none;
-  cursor:none;
+  cursor:pointer;
   padding:.6rem 1.8rem .8rem;
   border-bottom:2px solid transparent;
   margin-bottom:-1px;
@@ -1792,7 +1785,7 @@ section{padding:4.25rem 8%}
   margin-bottom:1rem;
   position:relative;
   overflow:hidden;
-  cursor:none;
+  cursor:pointer;
   background:var(--dark3);
   display:block;
 }
@@ -1954,22 +1947,22 @@ section{padding:4.25rem 8%}
 
 /* PRESS FEATURES */
 .tours-section{background:var(--dark2)}
-.tours-intro{max-width:700px;margin:1.5rem 0 0;color:var(--muted);font-size:1.02rem;line-height:1.9}
+.tours-intro{max-width:760px;margin:1.5rem 0 0;color:var(--muted);font-size:1.12rem;line-height:1.9}
 .tour-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.5rem;margin-top:2.25rem}
 .tour-feature{border:1px solid var(--border);background:var(--dark3);padding:2rem;transition:border-color .3s,transform .3s}
 .tour-feature:hover{border-color:var(--gold);transform:translateY(-4px)}
 .tour-feature-icon{font-size:1.5rem;color:var(--gold);margin-bottom:1rem;line-height:1}
-.tour-feature h3{font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-weight:500;font-size:1.32rem;margin-bottom:.6rem;color:var(--cream)}
-.tour-feature p{font-size:.85rem;color:var(--muted);line-height:1.7}
-.tours-routes-title{font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-weight:400;font-size:2rem;color:var(--cream);margin:3rem 0 1.5rem;text-align:center}
+.tour-feature h3{font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-weight:500;font-size:1.55rem;margin-bottom:.7rem;color:var(--cream)}
+.tour-feature p{font-size:1rem;color:var(--muted);line-height:1.8}
+.tours-routes-title{font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-weight:400;font-size:2.3rem;color:var(--cream);margin:3rem 0 1.5rem;text-align:center}
 .tours-routes-title em{color:var(--gold);font-style:italic}
 .tour-routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem}
 .route-card{position:relative;overflow:hidden;height:270px;display:block;text-decoration:none;border:1px solid var(--border)}
 .route-card img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.25,.46,.45,.94);filter:brightness(.78)}
 .route-card:hover img{transform:scale(1.07);filter:brightness(.9)}
 .route-card-label{position:absolute;left:0;right:0;bottom:0;padding:1.5rem;background:linear-gradient(transparent,rgba(8,8,8,.94))}
-.route-card-label strong{display:block;font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-weight:500;font-size:1.3rem;color:var(--cream);margin-bottom:.2rem}
-.route-card-label span{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.route-card-label strong{display:block;font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-weight:500;font-size:1.5rem;color:var(--cream);margin-bottom:.25rem}
+.route-card-label span{font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
 .tours-cta{text-align:center;margin-top:3rem;padding:2.5rem 2rem;border:1px solid var(--gold);background:var(--dark3)}
 .tours-cta h3{font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-weight:400;font-size:2rem;color:var(--cream);margin-bottom:.7rem}
 .tours-cta p{color:var(--muted);font-size:.97rem;max-width:540px;margin:0 auto 1.6rem;line-height:1.8}
@@ -1984,7 +1977,7 @@ section{padding:4.25rem 8%}
   border:1px solid var(--border);
   background:var(--dark2);
   overflow:hidden;
-  cursor:none;
+  cursor:pointer;
   transition:transform .3s,border-color .3s;
 }
 .press-card:hover{
@@ -2021,7 +2014,7 @@ section{padding:4.25rem 8%}
 }
 .press-date{
   font-size:.7rem;
-  color:rgba(190,185,175,.72);
+  color:var(--dim-text,rgba(190,185,175,.72));
   margin-top:1rem;
   display:block;
 }
@@ -2031,14 +2024,14 @@ section{padding:4.25rem 8%}
 .journal-feature{
   display:grid;grid-template-columns:1.12fr 1fr;gap:0;margin-top:2.5rem;
   border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--dark2);
-  cursor:none;transition:border-color .3s,transform .3s;
+  cursor:pointer;transition:border-color .3s,transform .3s;
   text-decoration:none;color:inherit;
 }
 .journal-feature:hover{border-color:var(--gold);transform:translateY(-4px)}
 .journal-feature .jf-img{position:relative;min-height:360px;overflow:hidden}
 .journal-feature .jf-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s}
 .journal-feature:hover .jf-img img{transform:scale(1.05)}
-.jf-tag{position:absolute;top:1rem;left:1rem;z-index:2;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);background:rgba(8,8,8,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(200,169,110,.4);padding:.4rem .8rem;border-radius:999px}
+.jf-tag{position:absolute;top:1rem;left:1rem;z-index:2;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);background:rgba(var(--surface),.66);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(200,169,110,.4);padding:.4rem .8rem;border-radius:999px}
 .jf-body{padding:2.6rem;display:flex;flex-direction:column;justify-content:center}
 .jf-eyebrow{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
 .jf-body h3{font-family:'Cormorant Garamond','Cormorant Fallback',serif;font-weight:400;font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.14;margin-bottom:1rem}
@@ -2057,7 +2050,7 @@ section{padding:4.25rem 8%}
   transition:transform .6s cubic-bezier(.22,1,.36,1), opacity .5s ease;
 }
 .journal-toast.show{ transform:translate(0, -50%); opacity:1; pointer-events:auto; }
-.jt-close{position:absolute;top:.6rem;right:.6rem;z-index:3;width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:rgba(8,8,8,.62);color:var(--cream);font-size:1.15rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:none;transition:.25s}
+.jt-close{position:absolute;top:.6rem;right:.6rem;z-index:3;width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:rgba(var(--surface),.68);color:var(--cream);font-size:1.15rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.25s}
 .jt-close:hover{border-color:var(--gold);color:var(--gold)}
 .jt-link{display:block;color:inherit;text-decoration:none}
 .jt-imgwrap{position:relative;height:158px;overflow:hidden}
@@ -2130,7 +2123,7 @@ section{padding:4.25rem 8%}
   .awards-grid::-webkit-scrollbar-thumb,.tour-routes::-webkit-scrollbar-thumb{ background:rgba(200,169,110,.5);border-radius:5px; }
 }
 .shop-item{
-  cursor:none;
+  cursor:pointer;
   group:true;
   background:var(--dark2);
   border:1px solid var(--border);
@@ -2167,7 +2160,7 @@ section{padding:4.25rem 8%}
   text-transform:uppercase;
   border:none;
   padding:.8rem 2rem;
-  cursor:none;
+  cursor:pointer;
 }
 .shop-item-info{padding:1.5rem}
 .shop-item-info h3{
@@ -2211,7 +2204,7 @@ section{padding:4.25rem 8%}
   background:none;border:none;
   color:var(--muted);
   font-size:1.5rem;
-  cursor:none;
+  cursor:pointer;
   transition:color .2s;
   line-height:1;
   z-index:10;
@@ -2300,7 +2293,7 @@ section{padding:4.25rem 8%}
   font-size:.75rem;
   letter-spacing:.1em;
   padding:.5rem 1rem;
-  cursor:none;
+  cursor:pointer;
   transition:all .2s;
 }
 .size-opt.active,
@@ -2315,7 +2308,7 @@ section{padding:4.25rem 8%}
   background:none;
   border:1px solid var(--border);
   padding:.8rem .5rem;
-  cursor:none;
+  cursor:pointer;
   transition:all .2s;
 }
 .frame-opt.active,.frame-opt:hover{
@@ -2363,7 +2356,7 @@ section{padding:4.25rem 8%}
   font-weight:500;
   letter-spacing:.2em;
   text-transform:uppercase;
-  cursor:none;
+  cursor:pointer;
   transition:background .3s;
   margin-bottom:.8rem;
 }
@@ -2379,7 +2372,7 @@ section{padding:4.25rem 8%}
   font-weight:400;
   letter-spacing:.2em;
   text-transform:uppercase;
-  cursor:none;
+  cursor:pointer;
   transition:all .3s;
 }
 .btn-wishlist:hover{border-color:var(--gold);color:var(--gold)}
@@ -2432,12 +2425,18 @@ section{padding:4.25rem 8%}
   background:#25D366;color:#062b16;
   font-family:'Jost','Jost Fallback',sans-serif;font-weight:500;font-size:.85rem;
   letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
-  border-radius:2px;transition:transform .25s,box-shadow .25s,background .25s;
+  border-radius:999px;
+  padding:1rem 2rem;
+  background-image:linear-gradient(135deg,#37e37d 0%,#25D366 55%,#12b455 100%);
+  box-shadow:0 10px 26px -10px rgba(37,211,102,.6), inset 0 1px 0 rgba(255,255,255,.35);
+  transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
 }
 .wa-btn:hover{
-  background:#2ee676;transform:translateY(-2px);
-  box-shadow:0 8px 24px rgba(37,211,102,.35);
+  transform:translateY(-2px);
+  filter:brightness(1.05);
+  box-shadow:0 16px 34px -10px rgba(37,211,102,.75), inset 0 1px 0 rgba(255,255,255,.45);
 }
+.wa-btn:active{ transform:translateY(0); }
 .wa-btn svg{flex-shrink:0}
 .socials{
   display:flex;gap:1rem;
@@ -2452,7 +2451,7 @@ section{padding:4.25rem 8%}
   letter-spacing:.05em;
   color:var(--muted);
   transition:all .3s;
-  cursor:none;
+  cursor:pointer;
   flex:none;
 }
 .social-link svg{ width:17px;height:17px;display:block; }
@@ -2464,7 +2463,7 @@ section{padding:4.25rem 8%}
 }
 .footer-contact a{
   font-size:.86rem;
-  color:rgba(245,240,232,.8);
+  color:var(--footer-link,rgba(245,240,232,.8));
   transition:color .3s;
   width:fit-content;
   border-bottom:1px solid transparent;
@@ -2548,7 +2547,7 @@ footer{
   border-top:1px solid var(--border);
   padding-top:2rem;
   font-size:.75rem;
-  color:rgba(190,185,175,.72);
+  color:var(--dim-text,rgba(190,185,175,.72));
 }
 .footer-credit{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(198,166,100,.35);transition:opacity .2s;}
 .footer-credit:hover{opacity:.75;}
@@ -2603,7 +2602,7 @@ footer{
   border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   font-size:1rem;
-  cursor:none;
+  cursor:pointer;
   transition:all .3s;
   z-index:10;
 }
@@ -2617,7 +2616,7 @@ footer{
   width:52px;height:52px;
   border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  cursor:none;
+  cursor:pointer;
   transition:all .3s;
   z-index:10;
 }
@@ -2659,7 +2658,7 @@ footer{
 .quote-modal{
   display:none;
   position:fixed;inset:0;
-  background:rgba(8,8,8,.97);
+  background:rgba(var(--surface),.97);
   z-index:400;
   align-items:center;
   justify-content:center;
@@ -2784,13 +2783,11 @@ footer{
 /* Custom cursor is meaningless on touch screens — hide it so the gold dot
    doesn't float over content on phones/tablets. */
 @media (hover:none), (pointer:coarse){
-  .cursor, .cursor-ring{ display:none !important; }
 }
 
 @media (max-width:768px){
   /* Custom cursor off on small screens too (covers browsers/emulators that
      don't report pointer:coarse). */
-  .cursor, .cursor-ring{ display:none !important; }
 
   /* HERO — stack the call-to-actions and drop the vertical "Scroll" cue
      (it collided with the buttons and isn't useful on touch). */
@@ -2835,7 +2832,7 @@ footer{
   width:46px;height:46px;
   border-radius:50%;
   border:1px solid rgba(200,169,110,.45);
-  background:rgba(8,8,8,.55);
+  background:rgba(var(--surface),.62);
   -webkit-backdrop-filter:blur(8px);
   backdrop-filter:blur(8px);
   color:var(--gold);
@@ -2925,7 +2922,7 @@ footer{
   color:#f4f1ea;
   opacity:.95;
   transition:opacity .35s ease,transform .35s ease,filter .35s ease;
-  cursor:none;
+  cursor:default;
   line-height:1;
 }
 .brand:hover{ opacity:1; transform:translateY(-4px); filter:brightness(1.14) drop-shadow(0 6px 16px rgba(0,0,0,.5)); }
@@ -2998,7 +2995,7 @@ footer{
   aspect-ratio:16/9;
   border-radius:var(--radius-lg);
   overflow:hidden;
-  cursor:none;
+  cursor:pointer;
   box-shadow:0 40px 90px -30px rgba(0,0,0,.95);
   border:1px solid var(--border);
   background-size:cover;
@@ -3062,7 +3059,7 @@ nav#mainNav{
   max-width:1220px;
   padding:.55rem .7rem .55rem 1.2rem;
   border-radius:999px;
-  background:rgba(14,13,11,.74);
+  background:rgba(var(--surface),.78);
   -webkit-backdrop-filter:blur(12px) saturate(1.15);
   backdrop-filter:blur(12px) saturate(1.15);
   border:1px solid rgba(200,169,110,.28);
@@ -3071,7 +3068,7 @@ nav#mainNav{
 }
 nav#mainNav.scrolled{
   top:.6rem;
-  background:rgba(10,9,8,.92);
+  background:rgba(var(--surface),.94);
   padding:.5rem .7rem .5rem 1.4rem;
   border-color:rgba(200,169,110,.4);
 }
@@ -3115,7 +3112,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   .nav-links{
     display:none; position:fixed; inset:0; width:auto; margin:0; padding:2rem;
     flex-direction:column; align-items:center; justify-content:center; gap:2.1rem;
-    background:rgba(8,8,7,.985); -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px);
+    background:rgba(var(--surface),.985); -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px);
     z-index:200;
   }
   .nav-links.open{ display:flex; }
@@ -3285,7 +3282,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   border:1px solid rgba(200,169,110,.5);
   color:var(--gold-light);
   display:flex;align-items:center;justify-content:center;
-  cursor:none;
+  cursor:pointer;
   transition:background .3s,transform .3s,border-color .3s;
 }
 .slider-btn:hover{ background:var(--gold);color:var(--dark);border-color:var(--gold);transform:translateY(-50%) scale(1.08); }
@@ -3335,6 +3332,146 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
 /* keep the hero and everything above the fold fully live */
 .hero, .featured-strip, .stats-bar, #about{ content-visibility:visible; }
 .visually-hidden{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ── CENTRED SECTION HEADINGS ──
+   Every section now leads with a centred eyebrow, title and intro paragraph.
+   Long body copy stays left-aligned, which is easier to read. */
+.section-label{ justify-content:center; text-align:center; }
+.section-title{ text-align:center; }
+/* the short intro paragraph that follows a section title */
+.section-title + p,
+.tours-intro,
+.shop-intro,
+.press-section > p,
+.journal-section > p,
+#awards > p{
+  margin-left:auto; margin-right:auto; text-align:center;
+}
+/* section wrappers that were left-aligned blocks */
+.portfolio-filters{ justify-content:center; }
+.awards-head, .shop-head{ text-align:center; }
+/* the About card sits beside the portrait, so keep its paragraphs readable */
+.about-text p{ text-align:left; }
+
+/* the two tour call-to-actions, side by side and wrapping on small screens */
+.tours-cta-actions{ display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; margin-top:2rem; }
+.tours-cta-actions .wa-btn{ margin-top:0; }
+
+/* ══ DAY / NIGHT THEME ══════════════════════════════════════════════
+   Night is the default. Light mode re-points the same variables, so every
+   surface, border and body text follows automatically. Anything that sits on
+   top of a photograph (hero copy, portfolio overlays, route labels) keeps its
+   light colour in both themes — dark text over a photo is unreadable. */
+:root{
+  --surface:14,13,11;        /* rgb of floating chrome: nav pill, modals, toasts */
+  --shadow-strength:.85;
+  color-scheme:dark;
+}
+html[data-theme="light"]{
+  --gold:#7a5c25;
+  --gold-light:#5f4819;
+  --dark:#fbf9f5;
+  --dark2:#ffffff;
+  --dark3:#f5f2ec;
+  --dark4:#ebe6dc;
+  --cream:#171511;
+  --muted:#5d5750;
+  --border:rgba(120,95,45,.26);
+  --surface:255,255,255;
+  --shadow-strength:.14;
+  --card-shadow:0 18px 45px -22px rgba(60,50,35,.28);
+  --card-shadow-hover:0 30px 70px -25px rgba(60,50,35,.34), 0 0 0 1px rgba(138,106,47,.22);
+  color-scheme:light;
+}
+html[data-theme="light"] body{ background:var(--dark); color:var(--cream); }
+
+/* --- theme toggle button --- */
+.theme-toggle{
+  display:flex;align-items:center;justify-content:center;
+  width:38px;height:38px;flex-shrink:0;
+  border-radius:50%;
+  border:1px solid var(--border);
+  background:rgba(var(--surface),.55);
+  color:var(--gold);
+  cursor:pointer;
+  transition:background .25s,border-color .25s,transform .25s;
+}
+.theme-toggle:hover{ border-color:var(--gold); transform:rotate(-15deg); }
+.theme-toggle svg{ width:17px;height:17px; }
+.theme-toggle .icon-sun{ display:none; }
+html[data-theme="light"] .theme-toggle .icon-sun{ display:block; }
+html[data-theme="light"] .theme-toggle .icon-moon{ display:none; }
+
+/* --- keep copy that sits over photographs light in both themes --- */
+html[data-theme="light"] .hero-title,
+html[data-theme="light"] .hero-sub,
+html[data-theme="light"] .hero-badge,
+html[data-theme="light"] .hero-scroll,
+html[data-theme="light"] .portfolio-info,
+html[data-theme="light"] .portfolio-title,
+html[data-theme="light"] .portfolio-cat,
+html[data-theme="light"] .portfolio-location,
+html[data-theme="light"] .route-card-label,
+html[data-theme="light"] .route-card-label strong,
+html[data-theme="light"] .ted-caption,
+html[data-theme="light"] .ted-caption h3{
+  color:#f5f0e8;
+}
+html[data-theme="light"] .hero-title em,
+html[data-theme="light"] .route-card-label span{ color:#e8d5a3; }
+html[data-theme="light"] .hero-badge{ border-color:rgba(232,213,163,.5); background:rgba(8,8,8,.42); }
+/* the preloader is a brand moment — keep it dark either way */
+html[data-theme="light"] .preloader{ background:#0f0f0f; }
+
+/* --- light mode: things that were white-on-white --- */
+/* the signature logo is white artwork, so invert it on a light page */
+html[data-theme="light"] .nav-logo img,
+html[data-theme="light"] .footer-brand img,
+html[data-theme="light"] .topbar .brand img{ filter:invert(1) brightness(.28); }
+/* "Featured On" wordmarks are set in white */
+html[data-theme="light"] .brand-word .w-main{ color:#1a1713; }
+html[data-theme="light"] .brand-word .w-sub{ color:rgba(26,23,19,.62); }
+html[data-theme="light"] .brand-bbc span{ background:#141210; color:#fff; }
+html[data-theme="light"] .brand-natgeo .ng-text{ color:#1a1713; }
+html[data-theme="light"] .brand{ filter:none; }
+/* NatGeo keeps its yellow rectangle; everything else reads as ink */
+html[data-theme="light"] .brand-tedx .w-main sup{ color:var(--gold); }
+/* nav + menu links */
+html[data-theme="light"] nav#mainNav .nav-links a{ color:#241f18; }
+html[data-theme="light"] nav#mainNav .nav-links a:hover{ color:var(--gold); }
+html[data-theme="light"] nav#mainNav .nav-links .nav-cta{ color:#fff; }
+html[data-theme="light"] .nav-menu-btn span{ background:#241f18; }
+html[data-theme="light"] nav#mainNav{ box-shadow:0 12px 34px -18px rgba(60,50,35,.35); }
+/* controls */
+html[data-theme="light"] .music-nav-btn,
+html[data-theme="light"] .music-toggle,
+html[data-theme="light"] .theme-toggle{ color:var(--gold); border-color:rgba(120,95,45,.35); }
+/* cards and panels pick up the light surfaces */
+html[data-theme="light"] .shop-item,
+html[data-theme="light"] .tour-feature,
+html[data-theme="light"] .award-card,
+html[data-theme="light"] .faq-item,
+html[data-theme="light"] .press-card,
+html[data-theme="light"] .journal-feature,
+html[data-theme="light"] .jm-box,
+html[data-theme="light"] .journal-toast{ background:var(--dark2); }
+html[data-theme="light"] .tours-cta{ background:var(--dark3); }
+/* footer */
+html[data-theme="light"] footer{ background:var(--dark3); border-top:1px solid var(--border); }
+
+/* light mode: keep the gold *decorative* surfaces bright even though gold text is darker */
+html[data-theme="light"] .btn-primary{
+  background-image:linear-gradient(135deg,#e6d3a1 0%,#c9aa6f 55%,#b0904f 100%);
+  color:#26200f;
+  box-shadow:0 10px 26px -12px rgba(150,120,60,.55), inset 0 1px 0 rgba(255,255,255,.5);
+}
+html[data-theme="light"] .btn-primary:hover{ box-shadow:0 16px 32px -12px rgba(150,120,60,.65), inset 0 1px 0 rgba(255,255,255,.6); }
+html[data-theme="light"] .jt-tag{ background:#c8a96e; color:#241d0d; }
+html[data-theme="light"] .hero-badge::before{ box-shadow:none; }
+html[data-theme="light"]{ --footer-link:rgba(35,31,26,.9); }
+html[data-theme="light"] .footer-contact a:hover{ color:var(--gold); border-bottom-color:rgba(122,92,37,.5); }
+html[data-theme="light"] .nav-cta{ background:var(--gold); border-color:var(--gold); }
+html[data-theme="light"]{ --dim-text:rgba(58,52,44,.85); }
 </style>
 </head>
 <body>
@@ -3348,9 +3485,6 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
 </div>
 
 <!-- CURSOR -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <!-- AMBIENT MUSIC -->
 <audio id="bgAudio" src="assets/background-track.mp3" loop preload="none"></audio>
 <button id="musicToggle" class="music-toggle" onclick="toggleMusic()" aria-label="Play background music" title="Play music">
@@ -3377,6 +3511,10 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
       <li><a href="#shop">Print Shop</a></li>
       <li><a href="#contact" class="nav-cta">Book a Session</a></li>
     </ul>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch to light mode" title="Switch theme">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
     <button id="musicToggleNav" class="music-nav-btn" onclick="toggleMusic()" aria-label="Play background music" title="Play music">
       <svg class="music-off" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
       <svg class="music-on" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
@@ -3966,10 +4104,11 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   <div class="tours-cta reveal">
     <h3>Plan your Pakistan photography tour</h3>
     <p>All my tours and trips are run through <strong>Travelbug</strong>, the travel company I co-founded. Browse full itineraries, dates and booking there — or message me directly to craft a personalised route across northern Pakistan.</p>
-    <a href="https://travelbug.pk" target="_blank" rel="noopener" class="btn-primary" style="margin-bottom:1rem">Explore Tours on Travelbug.pk ↗</a>
-    <br>
+    <div class="tours-cta-actions">
+    <a href="https://travelbug.pk" target="_blank" rel="noopener" class="btn-primary">Explore Tours on Travelbug.pk ↗</a>
     <a href="https://wa.me/923344334411?text=Hi%20Asmar%2C%20I%27m%20interested%20in%20a%20photography%20tour%20of%20northern%20Pakistan." target="_blank" rel="noopener" class="wa-btn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.74-.86-2-.95-.27-.1-.46-.15-.65.15-.2.29-.75.94-.92 1.13-.17.2-.34.22-.63.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.29-.02-.45.13-.6.13-.13.3-.34.44-.51.15-.17.2-.29.3-.49.1-.2.05-.37-.02-.52-.08-.15-.65-1.57-.9-2.15-.24-.56-.48-.48-.65-.49l-.56-.01c-.2 0-.51.07-.78.37-.27.29-1.02 1-1.02 2.42 0 1.43 1.04 2.81 1.19 3 .15.2 2.05 3.13 4.97 4.39.69.3 1.23.48 1.65.61.69.22 1.32.19 1.82.12.56-.08 1.74-.71 1.98-1.4.24-.68.24-1.27.17-1.4-.07-.13-.27-.2-.56-.35zM12.04 21.5h-.01a9.5 9.5 0 01-4.84-1.33l-.35-.2-3.6.94.96-3.5-.23-.36a9.46 9.46 0 01-1.45-5.04c0-5.24 4.27-9.5 9.52-9.5 2.54 0 4.93.99 6.73 2.79a9.45 9.45 0 012.78 6.72c0 5.24-4.27 9.5-9.51 9.5zm8.1-17.6A11.43 11.43 0 0012.04.5C5.7.5.56 5.64.56 11.96c0 2.1.55 4.16 1.6 5.97L.5 23.5l5.7-1.5a11.45 11.45 0 005.84 1.6h.01c6.33 0 11.48-5.14 11.48-11.46 0-3.06-1.2-5.94-3.37-8.1z"/></svg>
       Inquire on WhatsApp</a>
+    </div>
   </div>
 </section>
 
@@ -4701,7 +4840,7 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
     <h2>Your Selection is Ready</h2>
     <p>WhatsApp should now be open with your chosen photograph, size and paper — including a link to the exact image. Just hit send, and Asmar will personally respond within 24–48 hours with a detailed quote. If WhatsApp didn't open, email him directly below.</p>
     <a href="mailto:info@asmarphotography.com" class="btn-primary" style="display:flex;justify-content:center;margin-top:1rem">Contact Directly ↗</a>
-    <button onclick="document.getElementById('quoteModal').classList.remove('open')" style="display:block;width:100%;margin-top:1rem;background:none;border:none;color:var(--muted);font-family:'Jost','Jost Fallback',sans-serif;font-size:.85rem;cursor:none;padding:.5rem">Close</button>
+    <button onclick="document.getElementById('quoteModal').classList.remove('open')" style="display:block;width:100%;margin-top:1rem;background:none;border:none;color:var(--muted);font-family:'Jost','Jost Fallback',sans-serif;font-size:.85rem;cursor:pointer;padding:.5rem">Close</button>
   </div>
 </div>
 
@@ -4925,37 +5064,6 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   setTimeout(hide,1800);   // hard safety cap
 })();
 
-// ── CURSOR ──
-// Only runs on devices that actually have a mouse. Previously the follow loop ran
-// forever on phones too — where the cursor is display:none — burning the main
-// thread every frame for nothing. It also now animates with transform (composited)
-// instead of left/top, which forced a layout on every single frame.
-(function(){
-  var cur=document.getElementById('cursor');
-  var ring=document.getElementById('cursorRing');
-  if(!cur||!ring) return;
-  var fine = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
-  if(!fine){ cur.style.display='none'; ring.style.display='none'; return; }
-  var mx=0,my=0,rx=0,ry=0,running=false;
-  document.addEventListener('mousemove',function(e){
-    mx=e.clientX; my=e.clientY;
-    cur.style.transform='translate3d('+mx+'px,'+my+'px,0) translate(-50%,-50%)';
-    if(!running){ running=true; requestAnimationFrame(animRing); }
-  },{passive:true});
-  document.addEventListener('mouseover',function(e){
-    if(e.target.closest && e.target.closest('a,button')) ring.classList.add('is-hot');
-  },{passive:true});
-  document.addEventListener('mouseout',function(e){
-    if(e.target.closest && e.target.closest('a,button')) ring.classList.remove('is-hot');
-  },{passive:true});
-  function animRing(){
-    rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
-    ring.style.transform='translate3d('+rx+'px,'+ry+'px,0) translate(-50%,-50%)';
-    // idle out once the ring has caught up, instead of looping forever
-    if(Math.abs(mx-rx)<0.5 && Math.abs(my-ry)<0.5){ running=false; return; }
-    requestAnimationFrame(animRing);
-  }
-})();
 
 // ── NAV SCROLL ──
 const nav=document.getElementById('mainNav');
@@ -5194,6 +5302,34 @@ function closeLightbox(){
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow='';
 }
+
+// ── DAY / NIGHT ──
+function applyTheme(t){
+  var r=document.documentElement, btn=document.getElementById('themeToggle');
+  if(t==='light') r.setAttribute('data-theme','light'); else r.removeAttribute('data-theme');
+  if(btn){
+    var next = t==='light' ? 'dark' : 'light';
+    btn.setAttribute('aria-label','Switch to '+next+' mode');
+    btn.title='Switch to '+next+' mode';
+  }
+  var meta=document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.setAttribute('content', t==='light' ? '#fbf9f5' : '#080808');
+}
+function toggleTheme(){
+  var isLight=document.documentElement.getAttribute('data-theme')==='light';
+  var next=isLight?'dark':'light';
+  try{ localStorage.setItem('theme',next); }catch(e){}
+  applyTheme(next);
+}
+applyTheme(document.documentElement.getAttribute('data-theme')==='light'?'light':'dark');
+// follow the system setting until the visitor picks one explicitly
+if(window.matchMedia){
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change',function(e){
+    var saved=null; try{ saved=localStorage.getItem('theme'); }catch(err){}
+    if(!saved) applyTheme(e.matches?'light':'dark');
+  });
+}
+
 // ── JOURNAL / FIELD NOTES POPOUT ──
 var journalTimer=null;
 var JOURNAL_HIDE_MS=8000;   // auto-hide after ~8s of no interaction
@@ -5318,10 +5454,7 @@ function submitContact(btn){
   setTimeout(()=>{btn.textContent='Send Message ↗';btn.style.background='';btn.style.color=''},3000);
 }
 
-// ── SMOOTH CURSOR for ALL clickables ──
-document.querySelectorAll('a,button,[onclick]').forEach(el=>{
-  el.style.cursor='none';
-});
+// (custom cursor removed — the browser's own arrow/pointer is used)
 
 // ── AMBIENT BACKGROUND MUSIC — soft loop. Starts on open, PAUSES when the tab
 //    is hidden / minimised / the visitor switches to another app or browser, and

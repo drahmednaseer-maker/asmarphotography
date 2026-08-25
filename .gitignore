@@ -10,3 +10,6 @@ _preview*.html
 
 # untouched full-size originals kept locally (not for the web)
 _originals/
+
+# personal photo folders kept on the drive, never deployed
+Kashmir Trip/
