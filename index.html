@@ -3720,16 +3720,33 @@ html[data-theme="light"] nav#mainNav.scrolled .music-nav-btn{ background:rgba(25
 /* ══ MASTHEAD TYPE ══ the signature is 3x the menu size, because the artwork
    carries 34% transparent padding - a literal 2x box renders ink the same
    height as the menu text.                                              */
-nav#mainNav .nav-links a{ font-size:.82rem !important; letter-spacing:.15em; }
-nav#mainNav .nav-logo img{ height:74px !important; }
-nav#mainNav.scrolled .nav-logo img{ height:58px !important; }
+/* The signature leads the masthead. It is a wide mark (2.84:1), so height
+   drives width fast and the right-hand links are what run out of room first -
+   the padding, link gaps and button below are tightened to buy that space.
+   125px of box renders about 83px of visible signature, because the artwork
+   carries 34% transparent padding inside its own file. */
+nav#mainNav{ padding-left:2rem !important; padding-right:2rem !important; }
+nav#mainNav .nav-links{ gap:.95rem !important; }
+nav#mainNav .nav-links a{ font-size:.78rem !important; letter-spacing:.09em; }
+nav#mainNav .nav-cta{ padding:.52rem .9rem !important; }
+nav#mainNav .nav-logo img{ height:125px !important; }
+nav#mainNav.scrolled .nav-logo img{ height:92px !important; }
+@media(max-width:1250px){
+  nav#mainNav .nav-logo img{ height:104px !important; }
+  nav#mainNav.scrolled .nav-logo img{ height:80px !important; }
+}
 @media(max-width:1100px){
-  nav#mainNav .nav-links a{ font-size:.74rem !important; }
-  nav#mainNav .nav-logo img{ height:60px !important; }
+  nav#mainNav .nav-links a{ font-size:.72rem !important; }
+  nav#mainNav .nav-logo img{ height:92px !important; }
+  nav#mainNav.scrolled .nav-logo img{ height:72px !important; }
 }
 @media(max-width:860px){
-  nav#mainNav .nav-logo img{ height:52px !important; }
-  nav#mainNav.scrolled .nav-logo img{ height:46px !important; }
+  /* only the burger, the signature and the theme toggle share this row */
+  nav#mainNav .nav-logo img{ height:72px !important; }
+  nav#mainNav.scrolled .nav-logo img{ height:60px !important; }
+}
+@media(max-width:400px){
+  nav#mainNav .nav-logo img{ height:62px !important; }
 }
 
 /* ══ MOBILE SHEET ══ */
@@ -5481,9 +5498,14 @@ document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',
     track.innerHTML = html;
     track.style.animationDuration = (FRAMES.length * 5.2) + 's';
   }
-  var idle = window.requestIdleCallback || function(fn){ return setTimeout(fn, 200); };
-  if (document.readyState === 'complete') idle(build);
-  else window.addEventListener('load', function(){ idle(build); });
+  /* requestIdleCallback can be starved indefinitely on a busy page, so give it
+     a hard timeout - the strip must appear whether or not idle time arrives. */
+  function schedule(){
+    if (window.requestIdleCallback) requestIdleCallback(build, {timeout: 1200});
+    else setTimeout(build, 200);
+  }
+  if (document.readyState === 'complete') schedule();
+  else window.addEventListener('load', schedule);
   /* pointer events rather than :hover alone - a tap can latch :hover on a
      touch screen and leave the strip frozen for good */
   function hold(on){ rail.classList.toggle('paused', on); }
