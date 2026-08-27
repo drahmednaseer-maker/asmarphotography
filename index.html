@@ -61,7 +61,8 @@
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/cormorantgaramond-i.woff2" crossorigin>
 <link rel="preload" as="image" href="assets/hero-cover-640.webp" type="image/webp" media="(max-width:640px)" fetchpriority="high">
 <link rel="preload" as="image" href="assets/hero-cover-900.webp" type="image/webp" media="(min-width:641px) and (max-width:900px)" fetchpriority="high">
-<link rel="preload" as="image" href="assets/hero-cover.webp" type="image/webp" media="(min-width:901px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-cover.webp" type="image/webp" media="(min-width:901px) and (max-width:1400px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-cover-1800.webp" type="image/webp" media="(min-width:1401px)" fetchpriority="high">
 
 <!-- Comprehensive structured data for search, GEO/AEO & AI answer engines -->
 <script type="application/ld+json">
@@ -3115,6 +3116,15 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
   will-change:transform;
 }
 @keyframes heroDrift{ from{transform:scale(1.02)} to{transform:scale(1.09)} }
+/* A sharp tier for real monitors. 1401px is deliberate: Lighthouse desktop
+   runs at 1350 and keeps the light file, which is the right size for it. */
+@media(min-width:1401px){
+  .hero-cover{
+    background-image:url('assets/hero-cover-1800.jpg');
+    background-image:-webkit-image-set(url('assets/hero-cover-1800.webp') type('image/webp'), url('assets/hero-cover-1800.jpg') type('image/jpeg'));
+    background-image:image-set(url('assets/hero-cover-1800.webp') type('image/webp'), url('assets/hero-cover-1800.jpg') type('image/jpeg'));
+  }
+}
 @media(max-width:900px){
   .hero-cover{
     background-image:url('assets/hero-cover-900.jpg');
@@ -3134,8 +3144,8 @@ nav#mainNav .music-nav-btn{ border-radius:50%; }
 /* Lighter, richer overlay so the photo stays vivid; readable text pocket bottom-left */
 .hero.cover-mode .hero-overlay{
   background:
-    linear-gradient(90deg, rgba(6,6,6,.74) 0%, rgba(6,6,6,.36) 44%, rgba(6,6,6,0) 74%),
-    linear-gradient(180deg, rgba(6,6,6,.34) 0%, rgba(6,6,6,0) 32%, rgba(6,6,6,.12) 58%, rgba(6,6,6,.82) 100%);
+    linear-gradient(90deg, rgba(6,7,10,.86) 0%, rgba(6,7,10,.66) 20%, rgba(6,7,10,.44) 36%, rgba(6,7,10,.18) 52%, rgba(6,7,10,0) 72%),
+    linear-gradient(180deg, rgba(6,7,10,.42) 0%, rgba(6,7,10,0) 30%, rgba(6,7,10,.16) 56%, rgba(6,7,10,.88) 100%);
 }
 .hero.cover-mode .hero-title{ font-size:clamp(3rem,5.6vw,5.6rem); }
 .hero.cover-mode .hero-sub{ color:rgba(245,240,232,.92); max-width:560px; font-size:1.18rem; }
@@ -3640,6 +3650,88 @@ html[data-theme="light"] nav#mainNav.scrolled .music-nav-btn{ background:rgba(25
   nav#mainNav.scrolled .nav-logo img{ height:38px !important; }
 }
 
+
+.hero-actions .btn-primary, .hero-actions .btn-ghost{ white-space:nowrap; }
+
+/* The strip is absolutely positioned at the foot of the hero, so the hero has
+   to reserve its height or the buttons end up underneath it. */
+@media(min-width:769px){
+  .hero.cover-mode{ min-height:90vh; min-height:90dvh; padding-bottom:14rem; }
+}
+
+/* ══ HERO FRAME STRIP ══ ------------------------------------------------
+   A continuous run of the archive along the foot of the hero. It holds
+   still while a pointer or keyboard focus rests on it.                  */
+.hero-strip{ position:absolute; left:0; right:0; bottom:0; z-index:3; padding-bottom:1.1rem; pointer-events:none; }
+.hero-strip > *{ pointer-events:auto; }
+.hero-strip-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1.2rem; padding:0 4rem .6rem; }
+.hero-strip-head h2{
+  margin:0; font-family:'Jost',sans-serif; font-size:.66rem; font-weight:500;
+  letter-spacing:.24em; text-transform:uppercase; color:rgba(250,247,240,.94);
+  text-shadow:0 1px 10px rgba(6,9,16,.85);
+}
+.hero-strip-hint{ font-family:'Jost',sans-serif; font-size:.62rem; letter-spacing:.14em; color:rgba(250,247,240,.72); text-shadow:0 1px 10px rgba(6,9,16,.85); }
+.hero-rail{
+  /* the track is populated after load - reserve the height or the fill shifts layout */
+  min-height:138px;
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent);
+          mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent);
+}
+.hero-track{ display:flex; width:max-content; animation:heroRun 166s linear infinite; }
+.hero-rail:hover .hero-track,
+.hero-rail:focus-within .hero-track,
+.hero-rail.paused .hero-track{ animation-play-state:paused; }
+@keyframes heroRun{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.hero-frame{
+  position:relative; flex:0 0 auto; margin-right:12px;
+  width:220px; height:138px; overflow:hidden; border:1px solid rgba(245,240,232,.16);
+  filter:saturate(.94) brightness(.9);
+  transition:filter .35s ease, border-color .35s ease, transform .35s ease;
+}
+.hero-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+.hero-frame figcaption{
+  position:absolute; left:0; right:0; bottom:0; padding:1.4rem .7rem .55rem;
+  background:linear-gradient(to top,rgba(6,9,16,.92),transparent);
+  font-family:'Jost',sans-serif; font-size:.62rem; letter-spacing:.13em; text-transform:uppercase;
+  color:#F5F0E8; opacity:0; transform:translateY(4px);
+  transition:opacity .3s ease, transform .3s ease;
+}
+.hero-frame:hover{ filter:none; border-color:rgba(200,169,110,.55); transform:translateY(-3px); }
+.hero-frame:hover figcaption{ opacity:1; transform:none; }
+@media(max-width:1100px){ .hero-strip-head{ padding:0 2rem .6rem; } }
+@media(max-width:768px){
+  /* The phone hero stacks photo over text, so the strip leaves the photograph
+     and sits on the page itself - its labels have to follow the theme here,
+     or near-white lands on the light background. */
+  .hero-strip{ position:relative; margin-top:1.6rem; padding-bottom:0; }
+  .hero-strip-head h2{ color:var(--cream); text-shadow:none; }
+  .hero-strip-hint{ color:var(--muted); text-shadow:none; }
+  .hero-strip-head{ padding:0 6% .5rem; }
+  .hero-strip-hint{ display:none; }
+  .hero-frame{ width:168px; height:105px; }
+  .hero-rail{ min-height:105px; }
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-track{ animation:none; }
+  .hero-rail{ overflow-x:auto; -webkit-mask-image:none; mask-image:none; }
+}
+
+/* ══ MASTHEAD TYPE ══ the signature is 3x the menu size, because the artwork
+   carries 34% transparent padding - a literal 2x box renders ink the same
+   height as the menu text.                                              */
+nav#mainNav .nav-links a{ font-size:.82rem !important; letter-spacing:.15em; }
+nav#mainNav .nav-logo img{ height:74px !important; }
+nav#mainNav.scrolled .nav-logo img{ height:58px !important; }
+@media(max-width:1100px){
+  nav#mainNav .nav-links a{ font-size:.74rem !important; }
+  nav#mainNav .nav-logo img{ height:60px !important; }
+}
+@media(max-width:860px){
+  nav#mainNav .nav-logo img{ height:52px !important; }
+  nav#mainNav.scrolled .nav-logo img{ height:46px !important; }
+}
+
 /* ══ MOBILE SHEET ══ */
 .nav-sheet{
   position:fixed; inset:0; z-index:200; display:none; flex-direction:column;
@@ -3790,18 +3882,25 @@ html[data-theme="light"] .nav-sheet-foot .music-nav-btn{ color:var(--gold); back
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-title">
-      I Go Where<em>The Map Runs Out.</em>
+      Pakistan,<em>The Land of Pure.</em>
     </h1>
     <p class="hero-credit"><span>Muhammad Asmar Hussain</span><i>Landscape Photographer</i></p>
-    <p class="hero-sub">18 years in Pakistan's most extreme wilderness — from the fire-lit peaks of Karakoram to the golden silence of Hunza — chasing the precise second when light transforms earth into something sacred.</p>
+    <p class="hero-sub">18 years capturing &amp; promoting Pakistan.</p>
     <div class="hero-actions">
-      <a href="#portfolio" class="btn-primary">Explore Portfolio</a>
+      <!-- Photo tours leads now, and carries the Travelbug backlink.
+           target=_blank with rel=noopener still passes link equity - never add nofollow. -->
+      <a href="https://travelbug.pk" target="_blank" rel="noopener" class="btn-primary">Book a Photo Tour</a>
       <a href="#ted" class="btn-ghost">Watch the TEDx Talk ↗</a>
-      <a href="https://wa.me/923344334411?text=Hi%20Asmar%2C%20I%27d%20like%20to%20book%20you%20for%20a%20talk%20or%20speaking%20session." target="_blank" rel="noopener" class="btn-ghost">Book a Talk ↗</a>
-      <a href="https://travelbug.pk" target="_blank" rel="noopener" class="btn-ghost">Photo Tours ↗</a>
+      <a href="#portfolio" class="btn-ghost">Explore Portfolio</a>
     </div>
   </div>
-  <div class="hero-scroll">Scroll</div>
+  <section class="hero-strip" aria-label="From the archive">
+    <div class="hero-strip-head">
+      <h2>From the archive</h2>
+      <span class="hero-strip-hint">Hover to hold</span>
+    </div>
+    <div class="hero-rail" id="heroRail"><div class="hero-track" id="heroTrack"></div></div>
+  </section>
 </section>
 
 <!-- FEATURED IN / AS SEEN ON (on the landing, right under the hero) -->
@@ -5356,6 +5455,44 @@ document.querySelectorAll('#navSheet .nav-sheet-links a').forEach(function(a){
 // Escape closes the sheet
 document.addEventListener('keydown',function(e){ if(e.key==='Escape' && menuOpen) setMenu(false); });
 document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{if(menuOpen)toggleMenu()}));
+
+
+/* ── HERO FRAME STRIP ──
+   One set of frames written twice; the track slides exactly half its own width
+   and restarts, so the seam never shows. Deliberately no loading="lazy": the
+   track is moved with a transform, so its frames sit far outside the box the
+   lazy heuristic measures against and would arrive as empty boxes. */
+(function(){
+  var FRAMES = [{"src": "assets/frames/aerial-blossoms.webp", "cap": "Blossom from the air, Hunza"}, {"src": "assets/frames/altit-fort.webp", "cap": "Altit Fort, Hunza"}, {"src": "assets/frames/autumn-indus.webp", "cap": "Autumn on the Indus"}, {"src": "assets/frames/autumn-river.webp", "cap": "Autumn river"}, {"src": "assets/frames/bears-deosai.webp", "cap": "Brown bears, Deosai"}, {"src": "assets/frames/birmughlasht-chitral.webp", "cap": "Birmughlasht, Chitral"}, {"src": "assets/frames/cold-desert.webp", "cap": "Cold desert"}, {"src": "assets/frames/deosai-plains.webp", "cap": "Deosai Plains"}, {"src": "assets/frames/dera-ismail-khan.webp", "cap": "Dera Ismail Khan"}, {"src": "assets/frames/desert-dawn.webp", "cap": "Desert dawn"}, {"src": "assets/frames/generations.webp", "cap": "Generations"}, {"src": "assets/frames/golden-beach-gwadar.webp", "cap": "Golden beach, Gwadar"}, {"src": "assets/frames/gwadar.webp", "cap": "Gwadar, Balochistan"}, {"src": "assets/frames/gwadar-beach-balochistan.webp", "cap": "Gwadar beach, Balochistan"}, {"src": "assets/frames/haldi-cones-ghanche.webp", "cap": "Haldi Cones, Ghanche"}, {"src": "assets/frames/haldi-cones3.webp", "cap": "Haldi Cones at dusk, Ghanche"}, {"src": "assets/frames/katpana-desert-skardu.webp", "cap": "Katpana desert, Skardu"}, {"src": "assets/frames/katpana-desert-sunrise-skardu.webp", "cap": "Katpana at sunrise, Skardu"}, {"src": "assets/frames/misty-forest.webp", "cap": "Misty forest"}, {"src": "assets/frames/morning-gulshan-e-kabir.webp", "cap": "Morning, Gulshan-e-Kabir"}, {"src": "assets/frames/nagar-valley.webp", "cap": "Nagar Valley"}, {"src": "assets/frames/neelum-valley.webp", "cap": "Neelum Valley"}, {"src": "assets/frames/pasni-beach-balochistan.webp", "cap": "Pasni beach, Balochistan"}, {"src": "assets/frames/passu-cones-passu.webp", "cap": "Passu Cones, Gojal"}, {"src": "assets/frames/passu-cones-sunset.webp", "cap": "Passu Cones at last light"}, {"src": "assets/frames/ratti-gali.webp", "cap": "Ratti Gali, Neelum"}, {"src": "assets/frames/spring-blossoms-gulshan-e-kabir.webp", "cap": "Spring blossom, Gulshan-e-Kabir"}, {"src": "assets/frames/spring-herding.webp", "cap": "Spring herding, Nagar"}, {"src": "assets/frames/spring-passu.webp", "cap": "Spring at Passu"}, {"src": "assets/frames/sunset-over-hunza-peak-and-lady-finger.webp", "cap": "Hunza Peak & Lady Finger"}, {"src": "assets/frames/thar-journey.webp", "cap": "Thar journey"}, {"src": "assets/frames/woodsman.webp", "cap": "Woodsman, Chitral"}];
+  var track = document.getElementById('heroTrack');
+  var rail  = document.getElementById('heroRail');
+  if(!track || !rail) return;
+  var html='';
+  for(var pass=0; pass<2; pass++){
+    for(var i=0;i<FRAMES.length;i++){
+      var f=FRAMES[i];
+      html += '<figure class="hero-frame"' + (pass ? ' aria-hidden="true" tabindex="-1"' : ' tabindex="0"') + '>'
+            +   '<img src="'+f.src+'" alt="'+f.cap+'" width="440" height="275" decoding="async" fetchpriority="low">'
+            +   '<figcaption>'+f.cap+'</figcaption>'
+            + '</figure>';
+    }
+  }
+  function build(){
+    track.innerHTML = html;
+    track.style.animationDuration = (FRAMES.length * 5.2) + 's';
+  }
+  var idle = window.requestIdleCallback || function(fn){ return setTimeout(fn, 200); };
+  if (document.readyState === 'complete') idle(build);
+  else window.addEventListener('load', function(){ idle(build); });
+  /* pointer events rather than :hover alone - a tap can latch :hover on a
+     touch screen and leave the strip frozen for good */
+  function hold(on){ rail.classList.toggle('paused', on); }
+  rail.addEventListener('pointerenter', function(){ hold(true); });
+  rail.addEventListener('pointerleave', function(){ hold(false); });
+  rail.addEventListener('pointercancel', function(){ hold(false); });
+  rail.addEventListener('focusin', function(){ hold(true); });
+  rail.addEventListener('focusout', function(e){ if(!rail.contains(e.relatedTarget)) hold(false); });
+})();
 
 /* FAQ accordion */
 function toggleFaq(btn){
