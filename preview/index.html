@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Alpenglow &mdash; unpublished preview</title>
+<meta name="theme-color" content="#0A0E1A">
+<link rel="icon" href="/assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&family=IBM+Plex+Mono:wght@400&family=Instrument+Serif:ital@0;1&display=swap">
+
+<style>
+/* ==============================================================
+   ALPENGLOW - working hero for asmarphotography.com
+   Single committed visual world: the twenty minutes between blue
+   hour and full light. It does not follow the viewer's theme,
+   because the photograph is the ground.
+   ============================================================== */
+:root{
+  --night:#0A0E1A;      /* blue hour */
+  --gold:#E2B872;       /* alpenglow */
+  --gold-hi:#F0DDAF;
+  --cream:#F7F3EA;
+  --cream-dim:rgba(247,243,234,.78);
+
+  /* The two numbers you asked about. The signature artwork carries 34% empty
+     padding inside its own file, so a box at 2x the menu renders ink the same
+     height as the menu text. 3x on the box = the visible signature is exactly
+     twice the menu. Change --menu-size and the logo follows it. */
+  --menu-size:14px;
+  --logo-ratio:3;
+  --logo-size:calc(var(--menu-size) * var(--logo-ratio));
+}
+
+*{box-sizing:border-box}
+html,body{margin:0; padding:0}
+body{
+  background:var(--night); color:var(--cream);
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block; max-width:100%}
+a{color:inherit; text-decoration:none}
+:focus-visible{outline:2px solid var(--gold); outline-offset:3px; border-radius:2px}
+
+.hero{
+  position:relative; min-height:100svh; display:flex; flex-direction:column;
+  overflow:hidden; isolation:isolate;
+}
+.hero-img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center 42%; z-index:-2;
+}
+.hero-img.portrait{display:none}
+.hero-scrim{
+  position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:
+    linear-gradient(to top,
+      rgba(10,14,26,.96) 0%, rgba(10,14,26,.86) 16%,
+      rgba(10,14,26,.34) 46%, rgba(10,14,26,.06) 66%,
+      rgba(10,14,26,.58) 100%),
+    radial-gradient(120% 78% at 20% 84%, rgba(10,14,26,.6), transparent 62%);
+}
+
+/* ---------- masthead ---------- */
+.nav{
+  position:relative; z-index:3; flex:0 0 auto;
+  display:flex; align-items:center; justify-content:space-between; gap:28px;
+  padding:26px 46px;
+}
+.nav-logo img{height:var(--logo-size); width:auto}
+.nav-links{
+  display:flex; align-items:center; gap:34px;
+  list-style:none; margin:0; padding:0;
+}
+.nav-links a{
+  position:relative; display:block; padding:6px 0;
+  font-size:var(--menu-size); font-weight:500;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--cream-dim); transition:color .25s ease;
+}
+.nav-links a::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:1px;
+  background:var(--gold); transform:scaleX(0); transform-origin:right;
+  transition:transform .3s cubic-bezier(.22,1,.36,1);
+}
+.nav-links a:hover{color:var(--cream)}
+.nav-links a:hover::after{transform:scaleX(1); transform-origin:left}
+.nav-links a[aria-current]{color:var(--cream)}
+.nav-links a[aria-current]::after{transform:scaleX(1)}
+.nav-burger{
+  display:none; width:44px; height:44px; margin-right:-10px;
+  align-items:center; justify-content:center; flex-direction:column; gap:6px;
+  background:none; border:0; color:var(--cream); cursor:pointer;
+}
+.nav-burger span{display:block; width:24px; height:2px; background:currentColor}
+
+/* ---------- the hours ---------- */
+.hours{
+  position:absolute; right:20px; top:46%; transform:translateY(-50%); z-index:2;
+  display:flex; flex-direction:column; align-items:center; gap:13px;
+  max-height:min(520px,58vh); pointer-events:none;
+}
+.hours i{
+  width:1px; height:42px; display:block;
+  background:linear-gradient(to bottom,transparent,rgba(226,184,114,.6),transparent);
+}
+.hours span{
+  font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:11px;
+  letter-spacing:.2em; color:rgba(226,184,114,.9); writing-mode:vertical-rl;
+}
+.hours span.dim{color:rgba(247,243,234,.4)}
+
+/* ---------- the statement ---------- */
+.say{
+  position:relative; z-index:2; margin-top:auto;
+  padding:0 46px 50px; max-width:760px;
+}
+.eyebrow{
+  margin:0; font-size:11px; font-weight:500; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--gold); white-space:nowrap;
+}
+.say h1{
+  font-family:'Instrument Serif',Georgia,serif; font-weight:400;
+  font-size:clamp(46px,6.4vw,90px); line-height:.98; letter-spacing:-.012em;
+  margin:16px 0 0; color:var(--cream);
+}
+.say h1 em{display:block; font-style:italic; color:var(--gold)}
+.say p{
+  margin:20px 0 0; max-width:46ch;
+  font-size:clamp(15px,1.4vw,18px); line-height:1.6; color:var(--cream-dim);
+}
+.cta{display:flex; align-items:center; gap:24px; flex-wrap:wrap; margin:30px 0 0}
+.btn{
+  padding:14px 28px; border-radius:999px; white-space:nowrap;
+  font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:#221A0C; background-image:linear-gradient(135deg,var(--gold-hi),var(--gold) 58%,#C79A4F);
+  box-shadow:0 14px 30px -14px rgba(226,184,114,.7);
+  transition:transform .22s ease, box-shadow .22s ease, filter .22s ease;
+}
+.btn:hover{transform:translateY(-2px); filter:brightness(1.05); box-shadow:0 18px 34px -14px rgba(226,184,114,.8)}
+.btn-ghost{
+  padding-bottom:6px; white-space:nowrap;
+  font-size:12px; font-weight:500; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--cream); border-bottom:1px solid rgba(226,184,114,.5);
+  transition:border-color .22s ease, color .22s ease;
+}
+.btn-ghost:hover{border-bottom-color:var(--gold); color:var(--gold-hi)}
+
+/* ---------- the slider ---------- */
+.strip{
+  position:relative; z-index:2; flex:0 0 auto; padding:0 0 26px;
+}
+.strip-head{
+  display:flex; align-items:baseline; justify-content:space-between; gap:20px;
+  padding:0 46px 12px;
+}
+.strip-head h2{
+  margin:0; font-size:10.5px; font-weight:500; letter-spacing:.24em;
+  text-transform:uppercase; color:rgba(247,243,234,.62);
+}
+.strip-hint{
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:10px; letter-spacing:.14em; color:rgba(247,243,234,.4);
+}
+.rail{
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent);
+  mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent);
+}
+.track{
+  display:flex; width:max-content;
+  animation:run 64s linear infinite;
+}
+/* pause the moment a pointer or keyboard focus lands on the strip */
+.rail:hover .track,
+.rail:focus-within .track,
+.rail.paused .track{animation-play-state:paused}
+@keyframes run{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+.slide{
+  position:relative; flex:0 0 auto; margin-right:12px;
+  width:220px; height:138px; overflow:hidden;
+  border:1px solid rgba(247,243,234,.16);
+  filter:saturate(.94) brightness(.92);
+  transition:filter .35s ease, border-color .35s ease, transform .35s ease;
+}
+.slide img{width:100%; height:100%; object-fit:cover}
+.slide figcaption{
+  position:absolute; left:0; right:0; bottom:0; padding:22px 11px 9px;
+  background:linear-gradient(to top,rgba(6,9,16,.92),transparent);
+  font-size:10px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--cream); opacity:0; transform:translateY(4px);
+  transition:opacity .3s ease, transform .3s ease;
+}
+.slide:hover{filter:none; border-color:rgba(226,184,114,.55); transform:translateY(-3px)}
+.slide:hover figcaption{opacity:1; transform:none}
+
+/* ---------- entrance ---------- */
+.rise{opacity:0; transform:translateY(16px); animation:rise .9s cubic-bezier(.22,1,.36,1) forwards}
+/* for anything already positioned by a transform: fade only, never move */
+.fade{opacity:0; animation:fadein .9s ease forwards}
+.fade-5{animation-delay:.60s}
+@keyframes fadein{to{opacity:1}}
+.rise-1{animation-delay:.10s} .rise-2{animation-delay:.22s}
+.rise-3{animation-delay:.34s} .rise-4{animation-delay:.46s} .rise-5{animation-delay:.60s}
+@keyframes rise{to{opacity:1; transform:none}}
+
+/* ---------- tablet ---------- */
+@media (max-width:1080px){
+  .nav{padding:22px 30px}
+  .nav-links{gap:24px}
+  .say{padding:0 30px 30px}
+  .strip-head{padding:0 30px 10px}
+  .hours{display:none}
+}
+
+/* ---------- phone ---------- */
+@media (max-width:760px){
+  :root{--menu-size:15px}
+  .hero-img{display:none}
+  .hero-img.portrait{display:block}
+  .nav{padding:18px 20px}
+  .nav-links{
+    position:fixed; inset:0; z-index:60;
+    flex-direction:column; align-items:flex-start; justify-content:center;
+    gap:6px; padding:26px;
+    background:rgba(8,11,20,.97);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+    transform:translateY(-100%); visibility:hidden;
+    transition:transform .4s cubic-bezier(.22,1,.36,1), visibility .4s;
+  }
+  .nav-links.open{transform:none; visibility:visible}
+  .nav-links a{font-size:24px; letter-spacing:.08em; padding:13px 0; color:var(--cream)}
+  .nav-links a::after{display:none}
+  .nav-burger{display:flex; position:relative; z-index:61}
+  .nav-burger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+  .nav-burger.open span:nth-child(2){opacity:0}
+  .nav-burger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+  .nav-burger span{transition:transform .3s ease, opacity .2s ease}
+  .say{padding:0 20px 26px}
+  .eyebrow{white-space:normal; font-size:10px; letter-spacing:.2em}
+  .cta{flex-direction:column; align-items:flex-start; gap:16px; margin-top:24px}
+  .btn{width:100%; text-align:center}
+  .strip{padding-bottom:20px}
+  .strip-head{padding:0 20px 10px}
+  .strip-hint{display:none}
+  .slide{width:168px; height:105px}
+}
+
+/* ---------- reduced motion: no drift, scroll it by hand instead ---------- */
+@media (prefers-reduced-motion:reduce){
+  .track{animation:none}
+  .rail{overflow-x:auto; -webkit-mask-image:none; mask-image:none}
+  .rise{animation:none; opacity:1; transform:none}
+  *{transition-duration:.01ms !important}
+}
+</style>
+
+<header class="hero">
+  <img class="hero-img" src="/preview/img/hero.webp" alt="Alpenglow on the Karakoram peaks, reflected in still water at dawn" fetchpriority="high">
+  <img class="hero-img portrait" src="/preview/img/hero-portrait.webp" alt="" aria-hidden="true">
+  <div class="hero-scrim" aria-hidden="true"></div>
+
+  <nav class="nav rise rise-1" aria-label="Main">
+    <a class="nav-logo" href="#home" aria-label="Asmar's Photography &mdash; home">
+      <img src="/assets/logo.png" alt="Asmar's Photography" width="1200" height="423">
+    </a>
+    <button class="nav-burger" id="burger" type="button"
+            aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#archive" aria-current="page">Archive</a></li>
+      <li><a href="#prints">Prints</a></li>
+      <li><a href="#tours">Photo Tours</a></li>
+      <li><a href="#talks">Talks</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="hours fade fade-5" aria-hidden="true">
+    <span class="dim">04:12 Blue</span>
+    <i></i>
+    <span>05:41 Alpenglow</span>
+    <i></i>
+    <span class="dim">06:20 Light</span>
+  </div>
+
+  <div class="say">
+    <p class="eyebrow rise rise-2">Muhammad Asmar Hussain &mdash; Landscape Photographer</p>
+    <h1 class="rise rise-3">Pakistan,<em>The Land of Pure.</em></h1>
+    <p class="rise rise-4">18 years capturing &amp; promoting Pakistan.</p>
+    <div class="cta rise rise-4">
+      <!-- a real backlink to Travelbug: target=_blank with rel=noopener still
+           passes link equity. Never add rel=nofollow here. -->
+      <a class="btn" href="https://travelbug.pk" target="_blank" rel="noopener">Book a Photo Tour</a>
+      <a class="btn-ghost" href="https://www.youtube.com/watch?v=FM43y-abUo0" target="_blank" rel="noopener">Watch the TEDx Talk &#8599;</a>
+    </div>
+  </div>
+
+  <section class="strip rise rise-5" aria-label="Recent frames">
+    <div class="strip-head">
+      <h2>Recent frames</h2>
+      <span class="strip-hint">Hover to hold</span>
+    </div>
+    <div class="rail" id="rail">
+      <div class="track" id="track"><!-- filled by script --></div>
+    </div>
+  </section>
+</header>
+
+<script>
+(function(){
+  /* One set of frames, written out twice. The track slides exactly half its
+     own width and restarts, so the seam never shows. */
+  var FRAMES = [{"src": "/preview/img/f-morning-gulshan-e-kabir.webp", "cap": "Morning, Gulshan-e-Kabir"}, {"src": "/preview/img/f-katpana-desert-sunrise-skardu.webp", "cap": "Katpana cold desert, Skardu"}, {"src": "/preview/img/f-nagar-valley.webp", "cap": "Nagar Valley"}, {"src": "/preview/img/f-deosai-plains.webp", "cap": "Deosai Plains"}, {"src": "/preview/img/f-passu-cones-sunset.webp", "cap": "Passu Cones at last light"}, {"src": "/preview/img/f-golden-beach-gwadar.webp", "cap": "Golden beach, Gwadar"}, {"src": "/preview/img/f-spring-blossoms-gulshan-e-kabir.webp", "cap": "Spring blossom, Hunza"}, {"src": "/preview/img/f-ratti-gali.webp", "cap": "Ratti Gali, Neelum"}, {"src": "/preview/img/f-woodsman.webp", "cap": "Woodsman, Chitral"}, {"src": "/preview/img/f-altit-fort.webp", "cap": "Altit Fort, Hunza"}];
+  var track = document.getElementById('track');
+  function build(){
+    var html = '';
+    for (var pass = 0; pass < 2; pass++){
+      for (var i = 0; i < FRAMES.length; i++){
+        var f = FRAMES[i];
+        html += '<figure class="slide" tabindex="0">'
+              +   '<img src="' + f.src + '" alt="' + f.cap + '" loading="lazy">'
+              +   '<figcaption>' + f.cap + '</figcaption>'
+              + '</figure>';
+      }
+    }
+    track.innerHTML = html;
+    /* the duplicate is decorative - keep it out of the accessibility tree */
+    var all = track.children, half = all.length / 2;
+    for (var j = half; j < all.length; j++){
+      all[j].setAttribute('aria-hidden','true');
+      all[j].setAttribute('tabindex','-1');
+    }
+  }
+  build();
+
+  /* pace the loop by content width so adding frames does not speed it up */
+  var perFrame = 5.2; // seconds each frame takes to cross
+  track.style.animationDuration = (FRAMES.length * perFrame) + 's';
+
+  /* Hold the slider while a pointer rests on it. The CSS :hover rule below
+     handles it too, but a tap on a touch screen can latch :hover and freeze
+     the strip permanently - pointer events release cleanly. */
+  var rail = document.getElementById('rail');
+  function hold(on){ rail.classList.toggle('paused', on); }
+  rail.addEventListener('pointerenter', function(){ hold(true); });
+  rail.addEventListener('pointerleave', function(){ hold(false); });
+  rail.addEventListener('pointercancel', function(){ hold(false); });
+  rail.addEventListener('focusin',  function(){ hold(true); });
+  rail.addEventListener('focusout', function(e){
+    if (!rail.contains(e.relatedTarget)) hold(false);
+  });
+
+  /* phone menu */
+  var burger = document.getElementById('burger');
+  var links  = document.getElementById('navLinks');
+  function setMenu(open){
+    links.classList.toggle('open', open);
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', function(){ setMenu(!links.classList.contains('open')); });
+  links.addEventListener('click', function(e){ if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && links.classList.contains('open')) { setMenu(false); burger.focus(); }
+  });
+})();
+</script>
+
+</body>
+</html>
