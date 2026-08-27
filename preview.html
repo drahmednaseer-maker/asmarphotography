@@ -30,7 +30,7 @@
      height as the menu text. 3x on the box = the visible signature is exactly
      twice the menu. Change --menu-size and the logo follows it. */
   --menu-size:14px;
-  --logo-ratio:3;
+  --logo-ratio:6;
   --logo-size:calc(var(--menu-size) * var(--logo-ratio));
 }
 
@@ -68,7 +68,7 @@ a{color:inherit; text-decoration:none}
 .nav{
   position:relative; z-index:3; flex:0 0 auto;
   display:flex; align-items:center; justify-content:space-between; gap:28px;
-  padding:26px 46px;
+  padding:18px 46px;
 }
 .nav-logo img{height:var(--logo-size); width:auto}
 .nav-links{
@@ -221,7 +221,7 @@ a{color:inherit; text-decoration:none}
 
 /* ---------- phone ---------- */
 @media (max-width:760px){
-  :root{--menu-size:15px}
+  :root{--menu-size:15px; --logo-ratio:4.4}
   .hero-img{display:none}
   .hero-img.portrait{display:block}
   .nav{padding:18px 20px}
