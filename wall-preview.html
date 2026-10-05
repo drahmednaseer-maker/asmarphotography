@@ -376,15 +376,7 @@ selectPhoto(0);
   window.addEventListener('blur',onHide);
   window.addEventListener('focus',onShow);
 
-  // Start on open; if blocked, start on the first tap / click / key.
-  var EVENTS=['pointerdown','touchstart','keydown','click'];
-  function armGestures(){ EVENTS.forEach(function(ev){ window.addEventListener(ev,kick,{passive:true,capture:true}); }); }
-  function cleanup(){ EVENTS.forEach(function(ev){ window.removeEventListener(ev,kick,true); }); }
-  function kick(){
-    if(userStopped||started){ cleanup(); return; }
-    play().then(function(){ if(started) cleanup(); });
-  }
-  if(!userStopped){ play().then(function(){ if(!started) armGestures(); }); }
+  // No autoplay — the music starts only when the visitor presses play.
 })();
 </script>
 
