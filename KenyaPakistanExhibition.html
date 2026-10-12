@@ -25,6 +25,9 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta name="theme-color" content="#080808">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@600&display=swap">
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/cormorantgaramond-var.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/jost-var.woff2" crossorigin>
 
@@ -100,6 +103,41 @@ h1 .x{font-style:italic;color:var(--gold);font-weight:400}
 .how li{counter-increment:s;display:grid;grid-template-columns:1.8rem 1fr;gap:.6rem;font-size:.95rem}
 .how li::before{content:counter(s);font-family:var(--serif);font-size:1.3rem;color:var(--gold);line-height:1.2}
 
+/* ── hero, styled after the exhibition banner ── */
+.hero{position:relative;min-height:min(78svh,760px);display:flex;flex-direction:column;background:#0a0a0a;color:#fff;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-1}
+.hero-bg img{position:absolute;top:0;height:100%;width:62%;object-fit:cover}
+.hero-bg .l{left:0;-webkit-mask-image:linear-gradient(90deg,#000 60%,transparent);mask-image:linear-gradient(90deg,#000 60%,transparent)}
+.hero-bg .r{right:0;-webkit-mask-image:linear-gradient(270deg,#000 60%,transparent);mask-image:linear-gradient(270deg,#000 60%,transparent)}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.92) 0%,rgba(10,10,10,.55) 42%,rgba(10,10,10,.15) 70%,rgba(10,10,10,.85) 100%)}
+@media (max-width:700px){
+  .hero{min-height:min(70svh,640px)}
+  .hero-bg img{width:100%;height:62%}
+  .hero-bg .l{top:auto;bottom:0;-webkit-mask-image:linear-gradient(0deg,#000 55%,transparent);mask-image:linear-gradient(0deg,#000 55%,transparent)}
+  .hero-bg .r{top:0;-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent);mask-image:linear-gradient(180deg,#000 55%,transparent)}
+  .hero-bg::after{background:linear-gradient(180deg,rgba(10,10,10,.75) 0%,rgba(10,10,10,.6) 45%,rgba(10,10,10,.1) 75%,rgba(10,10,10,.8) 100%)}
+}
+.hero-top{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
+.hero-top img{height:40px;width:auto}
+.hero .theme-btn{color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.25)}
+.hero-inner{text-align:center;padding:1rem 1rem 0;display:flex;flex-direction:column;align-items:center}
+.partners{display:flex;align-items:center;justify-content:center;gap:.9rem;font-family:'Poppins',var(--sans);font-weight:600;font-size:clamp(.6rem,1.6vw,.85rem);letter-spacing:.06em;text-transform:uppercase;line-height:1.25;margin-bottom:1.1rem}
+.partners span{max-width:15rem}
+.partners span:first-child{text-align:right}.partners span:last-child{text-align:left}
+.partners i{width:1px;align-self:stretch;background:#ff9a1f}
+.hero h1{display:flex;flex-direction:column;align-items:center;margin:0;line-height:1}
+.hero .t{font-family:'Anton',Impact,'Arial Narrow',sans-serif;font-weight:400;font-size:clamp(3.1rem,12.5vw,8.5rem);letter-spacing:.01em;text-transform:uppercase;background:linear-gradient(180deg,#ffb534 0%,#ff7a00 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 18px rgba(0,0,0,.55))}
+.hero .pill{font-family:'Poppins',var(--sans);font-weight:600;font-size:clamp(1rem,3.6vw,2.2rem);text-transform:uppercase;color:#fff;background:linear-gradient(90deg,#ff7a00,#ffa41f);border-radius:999px;padding:.12em .9em;margin-top:.35em;box-shadow:0 6px 24px rgba(255,122,0,.35)}
+.hero .bb{font-family:'Poppins',var(--sans);font-weight:600;font-size:clamp(1rem,3.4vw,2rem);text-transform:uppercase;letter-spacing:-.01em;margin-top:.35em;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.when{margin-top:1rem;font-size:clamp(.8rem,2vw,.95rem);color:rgba(255,255,255,.85);text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.hero-cue{margin:auto auto 1.2rem;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;padding:.6rem 1.1rem;border-radius:999px;background:rgba(10,10,10,.55);border:1px solid rgba(255,154,31,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.hero-cue:hover{background:#ff8a00;color:#0a0a0a}
+.hero-cue span{color:#ff9a1f}
+.hero-cue:hover span{color:inherit}
+.info{margin:4rem 0 0;padding-top:2.5rem;border-top:1px solid var(--border);display:grid;gap:2rem}
+@media (min-width:900px){.info{grid-template-columns:1.2fr 1fr;align-items:start}}
+.info h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,4vw,2.6rem);margin:.3rem 0 .6rem}
+.info .lede{color:var(--muted)}
 /* ── toolbar ── */
 .bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-block:1px solid var(--border)}
 .bar .wrap{display:flex;gap:.75rem;align-items:center;padding:.7rem 0;flex-wrap:wrap}
@@ -225,46 +263,24 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
 </head>
 <body>
 
-<div class="wrap">
-  <header class="top">
+<header class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <img class="l" src="assets/exhibition-2026/ah06.jpg" srcset="assets/exhibition-2026/ah06-sm.jpg 720w, assets/exhibition-2026/ah06.jpg 1800w" sizes="60vw" alt="" fetchpriority="high">
+    <img class="r" src="assets/exhibition-2026/uh07.jpg" srcset="assets/exhibition-2026/uh07-sm.jpg 720w, assets/exhibition-2026/uh07.jpg 1800w" sizes="60vw" alt="" fetchpriority="high">
+  </div>
+  <div class="hero-top wrap">
     <a href="/" aria-label="Asmar's Photography — home"><img src="assets/logo.png" alt="Asmar's Photography" width="1200" height="423"></a>
-    <div class="top-actions">
-      <a class="top-link" href="/">Main site</a>
-      <button class="theme-btn" id="themeBtn" aria-label="Switch light or dark theme">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
-      </button>
-    </div>
-  </header>
-
-  <section class="intro">
-    <div>
-      <p class="eyebrow">Exhibition · PNCA Gallery No. 6, Islamabad</p>
-      <h1>Kenya <span class="x">—</span> Pakistan</h1>
-      <p class="sub">Landscapes &amp; Wildlife Beyond Borders</p>
-      <p class="lede">The wildlife of Kenya and the landscapes of Pakistan, hung side by side in a visual dialogue between two countries. Every one of the sixty photographs is available as a framed print.</p>
-      <dl class="event">
-        <div><dt>Opening</dt><dd>21 October 2026, 5:00 PM</dd></div>
-        <div><dt>Exhibition</dt><dd>22 October 2026</dd></div>
-        <div><dt>Venue</dt><dd>PNCA Gallery No. 6, Islamabad</dd></div>
-      </dl>
-      <p class="hosts">With the High Commission of Kenya, Islamabad, and the Pakistan Africa Economic Council</p>
-      <div class="facts">
-        <div>60<span>Photographs</span></div>
-        <div>3<span>Photographers</span></div>
-        <div>2<span>Countries</span></div>
-      </div>
-      <p class="spec"><strong>PKR 35,000</strong> per frame · 20 × 30 in print on photo paper · frame 24 × 33.5 in, without glass · courier charges paid separately</p>
-    </div>
-    <aside class="how" aria-labelledby="howTitle">
-      <h2 id="howTitle">How to buy a print</h2>
-      <ol>
-        <li><span>Find the photograph's code on its wall label or in the catalogue (e.g. <strong>UH04</strong> or <strong>AH12</strong>) and type it in the search box below.</span></li>
-        <li><span>Pay <strong>PKR 35,000</strong> per frame by bank transfer to the account under <a href="#pay" style="color:var(--gold)">How to pay</a>.</span></li>
-        <li><span>Tap <strong>Reserve</strong> and send your payment receipt with your full name, delivery address, phone number and email, on WhatsApp or to info@asmarphotography.com.</span></li>
-      </ol>
-    </aside>
-  </section>
-</div>
+    <button class="theme-btn" id="themeBtn" aria-label="Switch light or dark theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+    </button>
+  </div>
+  <div class="hero-inner">
+    <p class="partners"><span>High Commission of Kenya, Islamabad</span><i aria-hidden="true"></i><span>Pakistan Africa Economic Council</span></p>
+    <h1><span class="t">Kenya—Pakistan</span><span class="pill">Landscapes &amp; Wildlife</span><span class="bb">Beyond Borders</span></h1>
+    <p class="when">21–22 October 2026 · PNCA Gallery No. 6, Islamabad</p>
+  </div>
+  <a class="hero-cue" href="#main">60 photographs · PKR 35,000 per frame <span aria-hidden="true">↓</span></a>
+</header>
 
 <div class="bar">
   <div class="wrap">
@@ -281,6 +297,27 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
 <p class="empty wrap" id="empty">No photographs match that search. Try a code like UH04, AH12 or BK03.</p>
 
 <div class="wrap">
+  <section class="info" aria-labelledby="aboutTitle">
+    <div>
+      <p class="eyebrow">The exhibition</p>
+      <h2 id="aboutTitle">Visit &amp; buy</h2>
+      <p class="lede">The wildlife of Kenya and the landscapes of Pakistan, hung side by side in a visual dialogue between two countries. Every photograph is available as a framed print.</p>
+      <dl class="event">
+        <div><dt>Opening</dt><dd>21 October 2026, 5:00 PM</dd></div>
+        <div><dt>Exhibition</dt><dd>22 October 2026</dd></div>
+        <div><dt>Venue</dt><dd>PNCA Gallery No. 6, Islamabad</dd></div>
+      </dl>
+      <p class="spec"><strong>PKR 35,000</strong> per frame · 20 × 30 in print on photo paper · frame 24 × 33.5 in, without glass · courier charges paid separately</p>
+    </div>
+    <aside class="how" aria-labelledby="howTitle">
+      <h2 id="howTitle">How to buy a print</h2>
+      <ol>
+        <li><span>Find the photograph's code on its wall label or in the catalogue (e.g. <strong>UH04</strong> or <strong>AH12</strong>) and type it in the search box below.</span></li>
+        <li><span>Pay <strong>PKR 35,000</strong> per frame by bank transfer to the account under <a href="#pay" style="color:var(--gold)">How to pay</a>.</span></li>
+        <li><span>Tap <strong>Reserve</strong> and send your payment receipt with your full name, delivery address, phone number and email, on WhatsApp or to info@asmarphotography.com.</span></li>
+      </ol>
+    </aside>
+  </section>
   <section class="people" aria-labelledby="peopleTitle">
     <p class="eyebrow">Exhibitors</p>
     <h2 id="peopleTitle">The photographers</h2>
