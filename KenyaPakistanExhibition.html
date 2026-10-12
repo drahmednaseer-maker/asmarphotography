@@ -293,15 +293,15 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
   <div class="wrap">
     <div class="chips" id="chips" role="group" aria-label="Filter prints"></div>
     <label class="find">
-      <span class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search by catalogue code, wall position or title</span>
+      <span class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search by frame number, catalogue code or title</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" inputmode="search" placeholder="Code or place, e.g. UH04" autocomplete="off">
+      <input id="q" type="search" inputmode="search" placeholder="Frame no. or place, e.g. EKP 07" autocomplete="off">
     </label>
   </div>
 </div>
 
 <main class="wrap" id="main"></main>
-<p class="empty wrap" id="empty">No photographs match that search. Try a code like UH04, AH12 or BK03.</p>
+<p class="empty wrap" id="empty">No photographs match that search. Try a frame number like EKP 07 or just 7.</p>
 
 <div class="wrap">
   <section class="info" aria-labelledby="aboutTitle">
@@ -319,7 +319,7 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
     <aside class="how" aria-labelledby="howTitle">
       <h2 id="howTitle">How to buy a print</h2>
       <ol>
-        <li><span>Find the photograph's code on its wall label or in the catalogue (e.g. <strong>UH04</strong> or <strong>AH12</strong>) and type it in the search box below.</span></li>
+        <li><span>Find the frame number on the photograph's wall label (e.g. <strong>EKP 07</strong>) and type it in the search box below.</span></li>
         <li><span>Pay <strong>PKR 35,000</strong> per frame by bank transfer to the account under <a href="#pay" style="color:var(--gold)">How to pay</a>.</span></li>
         <li><span>Tap <strong>Buy</strong> and send your payment receipt with your full name, delivery address, phone number and email, on WhatsApp or to info@asmarphotography.com.</span></li>
       </ol>
@@ -330,21 +330,21 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
     <h2 id="peopleTitle">The photographers</h2>
     <div class="people-grid">
       <article>
-        <p class="count">30 · Wildlife of Kenya · UH01–UH30</p>
+        <p class="count">30 · Wildlife of Kenya</p>
         <h3>Dr. Usman ul Haq</h3>
         <p class="role">Maxillofacial Surgeon &amp; Wildlife Photographer</p>
         <p class="quote">“We cannot conserve what we don’t know.”</p>
         <p>Prof. Dr. Usman ul Haq is an Oral &amp; Maxillofacial Surgeon by profession and a nature lover by passion. He is an adventure scuba diver and off-road motorcyclist. He believes we cannot conserve what we don’t know about, so his photography aims to create awareness about birds and wildlife and help protect them. He has won multiple awards for his photographs and teaches medical and clinical photography at university.</p>
       </article>
       <article>
-        <p class="count">20 · Landscapes of Pakistan · AH01–AH20</p>
+        <p class="count">20 · Landscapes of Pakistan</p>
         <h3>Asmar Hussain</h3>
         <p class="role">Electronic Engineer &amp; Sony Brand Ambassador</p>
         <p class="quote">“Chasing Pakistan’s light: 18 years and counting.”</p>
         <p>An electronic engineer and international award-winning photographer from Dera Ismail Khan, and Sony Brand Ambassador for Landscape Photography in Pakistan. For 18 years he has been capturing and promoting Pakistan, with work featured by National Geographic, TEDx, BBC World and Sony. He has exhibited nationally and internationally for 15 years.</p>
       </article>
       <article>
-        <p class="count">10 · Landscapes of Pakistan · BK01–BK10</p>
+        <p class="count">10 · Landscapes of Pakistan</p>
         <h3>Bahram Khan</h3>
         <p class="role">Professional Pilot &amp; Photographer</p>
         <p class="quote">“Pilot’s eye. Stories beyond the horizon.”</p>
@@ -373,7 +373,7 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
       <h3>After paying, send your receipt</h3>
       <p>Send it on <a href="https://wa.me/923344334411" target="_blank" rel="noopener">WhatsApp (+92 334 4334411)</a> or email <a href="mailto:info@asmarphotography.com">info@asmarphotography.com</a>. Your message must include:</p>
       <ul>
-        <li>The catalogue code(s) of the print(s) you bought, e.g. UH04</li>
+        <li>The frame number(s) of the print(s) you bought, e.g. EKP 07</li>
         <li>The payment receipt or screenshot</li>
         <li>Your full name</li>
         <li>Full delivery address</li>
@@ -434,8 +434,8 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
 <script>
 /* ════════════════════════════════════════════════════════════════
    EDIT HERE: price, size and availability.
-   Mark a print sold or reserved in OVERRIDES below, by its catalogue code:
-     UH04:{status:'sold'},  AH12:{status:'reserved'}
+   Mark a print sold or reserved in OVERRIDES below, by its frame number:
+     EKP07:{status:'sold'},  EKP12:{status:'reserved'}
    status: 'available' | 'reserved' | 'sold'
    ════════════════════════════════════════════════════════════════ */
 const WHATSAPP = '923344334411';
@@ -446,19 +446,19 @@ const DEFAULT_PRICE = 'PKR 35,000';
 const OVERRIDES = {
 };
 
-/* The hanging sequence, exactly as in the exhibition catalogue.
-   Each wall position pairs one Kenya photograph with one Pakistan photograph. */
-/* Gallery walls, walking clockwise from the entrance (bottom-left door).
-   Two frames per position: position 1 = frames 01–02, position 30 = frames 59–60. */
-const WALLS = [
-  {n:1, to:4},   // left wall by the entrance, frames 01–08
-  {n:2, to:8},   // inner horizontal wall, frames 09–16
-  {n:3, to:10},  // inner vertical wall, frames 17–20
-  {n:4, to:15},  // top wall, frames 21–30
-  {n:5, to:22},  // right wall, either side of the right-hand door, frames 31–44
-  {n:6, to:30},  // bottom wall back to the entrance, frames 45–60
+/* The hanging sequence, as in the catalogue and the gallery hanging plan.
+   Frames are numbered EKP 01–60 from the gate, walking clockwise: each catalogue
+   position is two neighbouring frames, Kenya wildlife (odd) then Pakistan landscape (even). */
+const WALLS = [          // hanging plan walls and the frames on each
+  {w:'A', to:8},         // left wall
+  {w:'B', to:16},        // inner wall, horizontal
+  {w:'C', to:24},        // inner wall, vertical
+  {w:'D', to:32},        // top wall
+  {w:'E', to:37},        // right wall, upper
+  {w:'F', to:46},        // right wall, lower
+  {w:'G', to:60},        // bottom wall
 ];
-const WALL = pos => WALLS.find(w=>pos<=w.to).n;
+const WALL = n => WALLS.find(x=>n<=x.to).w;
 
 const U='Dr. Usman ul Haq', A='Asmar Hussain', B='Bahram Khan';
 const SEQUENCE = [
@@ -499,19 +499,24 @@ const SEQUENCE = [
 const PAGE_URL = 'https://www.asmarphotography.com/KenyaPakistanExhibition';
 const PRINTS = [];   // in hanging order: 01 Kenya, 01 Pakistan, 02 Kenya, ...
 SEQUENCE.forEach(([k,pk],i)=>{
-  const pos=i+1, wall=WALL(pos);
-  const base={pos,wall,size:DEFAULT_SIZE,price:DEFAULT_PRICE,status:'available'};
-  PRINTS.push({...base,code:k[0],t:k[1],p:U,loc:'Masai Mara, Kenya',country:'Kenya'});
-  PRINTS.push({...base,code:pk[0],t:pk[1],p:pk[0].startsWith('AH')?A:B,loc:pk[2],country:'Pakistan'});
+  const pos=i+1, base={pos,size:DEFAULT_SIZE,price:DEFAULT_PRICE,status:'available'};
+  PRINTS.push({...base,n:pos*2-1,cat:k[0],t:k[1],p:U,loc:'Masai Mara, Kenya',country:'Kenya'});
+  PRINTS.push({...base,n:pos*2,cat:pk[0],t:pk[1],p:pk[0].startsWith('AH')?A:B,loc:pk[2],country:'Pakistan'});
 });
-PRINTS.forEach(p=>{Object.assign(p,OVERRIDES[p.code]||{});p.id=p.code.toLowerCase()});
+PRINTS.forEach(p=>{
+  p.id=p.cat.toLowerCase();                       // image file name
+  p.key='EKP'+String(p.n).padStart(2,'0');        // used in links: #EKP07
+  p.code='EKP '+String(p.n).padStart(2,'0');      // shown: EKP 07
+  p.wall=WALL(p.n);
+  Object.assign(p,OVERRIDES[p.key]||{});
+});
 
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const pad=n=>String(n).padStart(2,'0');
 const STATUS={available:'Available',reserved:'Reserved',sold:'Sold'};
 const priceText=p=>p.status==='sold'?'Sold':(p.price||'Price on request');
-const link=p=>PAGE_URL+'#'+p.code;
+const link=p=>PAGE_URL+'#'+p.key;
 const waMsg=p=>`Hello, I'd like to buy a print from the Kenya—Pakistan exhibition:\n\n${p.code} — "${p.t}"\nby ${p.p}, ${p.loc}\n${p.price||''}\n${link(p)}\n\nPayment receipt: (attached)\nFull name: \nDelivery address: \nContact number: \nEmail: `;
 const waHref=p=>'https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(waMsg(p));
 const mailHref=p=>'mailto:'+EMAIL+'?subject='+encodeURIComponent(`Print enquiry: ${p.code} "${p.t}"`)+'&body='+encodeURIComponent(waMsg(p));
@@ -537,22 +542,22 @@ $('#chips').addEventListener('click',e=>{
 });
 $('#q').addEventListener('input',e=>{query=e.target.value.trim().toLowerCase();render()});
 
-/* search: a code (UH04, ah 12, bk3) finds that print; a bare number finds that wall position */
+/* search: a frame number (EKP 07, ekp7, 7) or a catalogue code (UH04, ah 12) finds that print */
 function matches(p){
   if(!FILTERS.find(x=>x.k===active).f(p)) return false;
   if(!query) return true;
   const q=query.replace(/\s+/g,'');
-  const code=q.match(/^(uh|ah|bk)0*(\d{1,2})$/);
-  if(code) return p.code===code[1].toUpperCase()+pad(code[2]);
-  const num=q.replace(/^(no\.?|#)/,'');
-  if(/^\d+$/.test(num)) return p.pos===parseInt(num,10);
+  const cat=q.match(/^(uh|ah|bk)0*(\d{1,2})$/);
+  if(cat) return p.cat===cat[1].toUpperCase()+pad(cat[2]);
+  const num=q.match(/^(?:ekp|ecp|no\.?|#)?-?0*(\d{1,2})$/);
+  if(num) return p.n===parseInt(num[1],10);
   return (p.t+' '+p.p+' '+p.loc+' '+p.country).toLowerCase().includes(query);
 }
 
 function card(p){
   const tag=p.status!=='available'?`<span class="tag ${p.status}">${STATUS[p.status]}</span>`:'';
   return `<article class="card" id="${p.id}">
-    <div class="ph" data-code="${p.code}" role="button" tabindex="0" aria-label="View ${p.code}, ${esc(p.t)}">
+    <div class="ph" data-key="${p.key}" role="button" tabindex="0" aria-label="View ${p.code}, ${esc(p.t)}">
       <img src="assets/exhibition-2026/${p.id}-t.jpg" alt="${esc(p.t)} — ${esc(p.loc)}, photographed by ${esc(p.p)}" loading="lazy" decoding="async" width="720" height="480">
       <span class="no">${p.code}</span>${tag}
     </div>
@@ -564,7 +569,7 @@ function card(p){
       <div class="row">
         <span class="price${p.price||p.status==='sold'?'':' na'}">${esc(priceText(p))}</span>
         ${p.status==='sold'
-          ? `<button class="btn" data-code="${p.code}" data-open>Details</button>`
+          ? `<button class="btn" data-key="${p.key}" data-open>Details</button>`
           : `<a class="btn" href="${waHref(p)}" target="_blank" rel="noopener">${WA_ICON}Buy</a>`}
       </div>
     </div>
@@ -576,7 +581,8 @@ function render(){
   const pairs=[];
   for(let pos=1;pos<=SEQUENCE.length;pos++){
     const items=list.filter(p=>p.pos===pos);
-    if(items.length) pairs.push(`<div class="pair"><p class="pos"><b>${pad(pos)}</b> Wall ${WALL(pos)}</p><div class="pair-cards${items.length===1?' single':''}">${items.map(card).join('')}</div></div>`);
+    const walls=[...new Set(items.map(p=>p.wall))];
+    if(items.length) pairs.push(`<div class="pair"><p class="pos"><b>${items.map(p=>pad(p.n)).join('–')}</b> ${walls.length>1?'Walls '+walls.join(' & '):'Wall '+walls[0]}</p><div class="pair-cards${items.length===1?' single':''}">${items.map(card).join('')}</div></div>`);
   }
   $('#main').innerHTML=pairs.length?`<section class="seq" aria-label="Exhibition photographs in hanging order">${pairs.join('')}</section>`:'';
   $('#empty').style.display=list.length?'none':'block';
@@ -586,11 +592,11 @@ render();
 /* ── viewer ── */
 const dlg=$('#viewer'); let cur=null;
 function visible(){return PRINTS.filter(matches)}
-function openPrint(code,push=true){
-  const p=PRINTS.find(x=>x.code===code); if(!p) return; cur=p;
-  $('#vImg').src=`assets/exhibition-2026/${p.id}-p.jpg`;
+function openPrint(key,push=true){
+  const p=PRINTS.find(x=>x.key===key||x.cat===key); if(!p) return; cur=p;
+  $('#vImg').src=`assets/exhibition-2026/${p.id}-z.jpg`;
   $('#vImg').alt=`${p.t}, ${p.loc}, photographed by ${p.p}`;
-  $('#vNo').textContent=`${p.code} · Position ${pad(p.pos)} · Wall ${p.wall}`;
+  $('#vNo').textContent=`${p.code} · Wall ${p.wall}`;
   $('#vTitle').textContent=p.t;
   const rows=[['Photographer',p.p],['Location',p.loc]];
   if(p.size) rows.push(['Size',p.size]);
@@ -600,19 +606,19 @@ function openPrint(code,push=true){
   wa.innerHTML=WA_ICON+(p.status==='available'?'Buy on WhatsApp':p.status==='reserved'?'Ask to be next in line':'Ask about a similar print');
   wa.href=waHref(p);
   $('#vMail').textContent='Enquire by email'; $('#vMail').href=mailHref(p);
-  $('#vLink').textContent=link(p).replace('https://www.',''); $('#vLink').href='#'+p.code;
-  if(push) history.replaceState(null,'','#'+p.code);
+  $('#vLink').textContent=link(p).replace('https://www.',''); $('#vLink').href='#'+p.key;
+  if(push) history.replaceState(null,'','#'+p.key);
   if(!dlg.open) dlg.showModal();
 }
 function step(d){
   const v=visible(); if(!v.length) return;
-  let i=v.findIndex(x=>x===cur); i=(i+d+v.length)%v.length; openPrint(v[i].code);
+  let i=v.findIndex(x=>x===cur); i=(i+d+v.length)%v.length; openPrint(v[i].key);
 }
 $('#main').addEventListener('click',e=>{
-  const t=e.target.closest('.ph,[data-open]'); if(t) openPrint(t.dataset.code);
+  const t=e.target.closest('.ph,[data-open]'); if(t) openPrint(t.dataset.key);
 });
 $('#main').addEventListener('keydown',e=>{
-  const t=e.target.closest('.ph'); if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openPrint(t.dataset.code)}
+  const t=e.target.closest('.ph'); if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openPrint(t.dataset.key)}
 });
 $('#vPrev').onclick=()=>step(-1);
 $('#vNext').onclick=()=>step(1);
@@ -627,7 +633,7 @@ $('.v-img').addEventListener('touchend',e=>{if(sx==null)return;const dx=e.change
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2200)}
 $('#vShare').onclick=async()=>{
   const url=link(cur);
-  if(navigator.share){try{await navigator.share({title:cur.no+' — '+cur.t,url});return}catch(e){if(e.name==='AbortError')return}}
+  if(navigator.share){try{await navigator.share({title:cur.code+' — '+cur.t,url});return}catch(e){if(e.name==='AbortError')return}}
   try{await navigator.clipboard.writeText(url);toast('Link copied')}catch(e){prompt('Copy this link:',url)}
 };
 
@@ -637,9 +643,10 @@ document.addEventListener('click',async e=>{
 });
 $('#vPay').addEventListener('click',e=>{e.preventDefault();cur=null;dlg.close();setTimeout(()=>$('#pay').scrollIntoView({behavior:'instant'}),0)});
 
-/* deep links: /KenyaPakistanExhibition#UH04 opens that print (used by the per-print QR codes) */
+/* deep links: /KenyaPakistanExhibition#EKP07 opens that frame (used by the per-print QR codes);
+   older catalogue-code links like #UH04 still work */
 function fromHash(){
-  const m=location.hash.match(/^#(UH|AH|BK)0*(\d{1,2})$/i);
+  const m=location.hash.match(/^#(EKP|UH|AH|BK)-?0*(\d{1,2})$/i);
   if(m) openPrint(m[1].toUpperCase()+pad(m[2]),false);
 }
 fromHash();
