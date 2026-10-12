@@ -108,6 +108,7 @@ h1 .x{font-style:italic;color:var(--gold);font-weight:400}
 .how li{counter-increment:s;display:grid;grid-template-columns:1.8rem 1fr;gap:.6rem;font-size:.95rem}
 .how li::before{content:counter(s);font-family:var(--serif);font-size:1.3rem;color:var(--gold);line-height:1.2}
 
+.ph img,.v-img img,.hero-bg img{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-user-drag:none}
 /* ── hero, styled after the exhibition banner ── */
 .hero{position:relative;min-height:min(78svh,760px);display:flex;flex-direction:column;background:#0a0a0a;color:#fff;overflow:hidden;isolation:isolate}
 .hero-bg{position:absolute;inset:0;z-index:-1}
@@ -271,8 +272,8 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
 
 <header class="hero">
   <div class="hero-bg" aria-hidden="true">
-    <img class="l" src="assets/exhibition-2026/ah06.jpg" srcset="assets/exhibition-2026/ah06-sm.jpg 720w, assets/exhibition-2026/ah06.jpg 1800w" sizes="60vw" alt="" fetchpriority="high">
-    <img class="r" src="assets/exhibition-2026/uh07.jpg" srcset="assets/exhibition-2026/uh07-sm.jpg 720w, assets/exhibition-2026/uh07.jpg 1800w" sizes="60vw" alt="" fetchpriority="high">
+    <img class="l" src="assets/exhibition-2026/ah06-p.jpg" srcset="assets/exhibition-2026/ah06-p-sm.jpg 720w, assets/exhibition-2026/ah06-p.jpg 1600w" sizes="60vw" alt="" fetchpriority="high">
+    <img class="r" src="assets/exhibition-2026/uh07-p.jpg" srcset="assets/exhibition-2026/uh07-p-sm.jpg 720w, assets/exhibition-2026/uh07-p.jpg 1600w" sizes="60vw" alt="" fetchpriority="high">
   </div>
   <div class="hero-top wrap">
     <a href="/" aria-label="Asmar's Photography — home"><img src="assets/logo.png" alt="Asmar's Photography" width="1200" height="423"></a>
@@ -490,8 +491,8 @@ const SEQUENCE = [
   [['UH26','The Lion King'],           ['BK06','Passu','Hunza, Pakistan']],
   [['UH27','The Chase'],                ['BK07','Deosai National Park','Skardu, Baltistan, Pakistan']],
   [['UH28','In the Heat of the Moment!'],                  ['BK08','Tirich Mir','7,708 m, Chitral, Pakistan']],
-  [['UH29','The Great African Savannah'],      ['BK09','The Dam','Pakistan']],
-  [['UH30','Dinner Is Served!'],           ['BK10','Galliyat','Khyber Pakhtunkhwa, Pakistan']],
+  [['UH29','The Great African Savannah'],      ['BK09','Tarbela Dam','Pakistan']],
+  [['UH30','Dinner Is Served!'],           ['BK10','Donga Gali','Khyber Pakhtunkhwa, Pakistan']],
 ];
 
 /* ════════════════════════════════════════════════════════════════ */
@@ -552,7 +553,7 @@ function card(p){
   const tag=p.status!=='available'?`<span class="tag ${p.status}">${STATUS[p.status]}</span>`:'';
   return `<article class="card" id="${p.id}">
     <div class="ph" data-code="${p.code}" role="button" tabindex="0" aria-label="View ${p.code}, ${esc(p.t)}">
-      <img src="assets/exhibition-2026/${p.id}-sm.jpg" srcset="assets/exhibition-2026/${p.id}-sm.jpg 720w, assets/exhibition-2026/${p.id}.jpg 1800w" sizes="(max-width:640px) 100vw, 420px" alt="${esc(p.t)} — ${esc(p.loc)}, photographed by ${esc(p.p)}" loading="lazy" decoding="async" width="720" height="480">
+      <img src="assets/exhibition-2026/${p.id}-p-sm.jpg" srcset="assets/exhibition-2026/${p.id}-p-sm.jpg 720w, assets/exhibition-2026/${p.id}-p.jpg 1600w" sizes="(max-width:640px) 100vw, 420px" alt="${esc(p.t)} — ${esc(p.loc)}, photographed by ${esc(p.p)}" loading="lazy" decoding="async" width="720" height="480">
       <span class="no">${p.code}</span>${tag}
     </div>
     <div class="meta">
@@ -587,7 +588,7 @@ const dlg=$('#viewer'); let cur=null;
 function visible(){return PRINTS.filter(matches)}
 function openPrint(code,push=true){
   const p=PRINTS.find(x=>x.code===code); if(!p) return; cur=p;
-  $('#vImg').src=`assets/exhibition-2026/${p.id}.jpg`;
+  $('#vImg').src=`assets/exhibition-2026/${p.id}-p.jpg`;
   $('#vImg').alt=`${p.t}, ${p.loc}, photographed by ${p.p}`;
   $('#vNo').textContent=`${p.code} · Position ${pad(p.pos)} · Wall ${p.wall}`;
   $('#vTitle').textContent=p.t;
@@ -643,6 +644,10 @@ function fromHash(){
 }
 fromHash();
 addEventListener('hashchange',fromHash);
+
+/* discourage saving the photographs: no right-click menu or drag on images */
+document.addEventListener('contextmenu',e=>{if(e.target.closest('img'))e.preventDefault()});
+document.addEventListener('dragstart',e=>{if(e.target.closest('img'))e.preventDefault()});
 
 /* theme toggle, shared with the main site */
 $('#themeBtn').onclick=()=>{
