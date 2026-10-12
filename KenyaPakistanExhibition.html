@@ -314,7 +314,7 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
       <ol>
         <li><span>Find the photograph's code on its wall label or in the catalogue (e.g. <strong>UH04</strong> or <strong>AH12</strong>) and type it in the search box below.</span></li>
         <li><span>Pay <strong>PKR 35,000</strong> per frame by bank transfer to the account under <a href="#pay" style="color:var(--gold)">How to pay</a>.</span></li>
-        <li><span>Tap <strong>Reserve</strong> and send your payment receipt with your full name, delivery address, phone number and email, on WhatsApp or to info@asmarphotography.com.</span></li>
+        <li><span>Tap <strong>Buy</strong> and send your payment receipt with your full name, delivery address, phone number and email, on WhatsApp or to info@asmarphotography.com.</span></li>
       </ol>
     </aside>
   </section>
@@ -565,7 +565,7 @@ function card(p){
         <span class="price${p.price||p.status==='sold'?'':' na'}">${esc(priceText(p))}</span>
         ${p.status==='sold'
           ? `<button class="btn" data-code="${p.code}" data-open>Details</button>`
-          : `<a class="btn" href="${waHref(p)}" target="_blank" rel="noopener">${WA_ICON}Reserve</a>`}
+          : `<a class="btn" href="${waHref(p)}" target="_blank" rel="noopener">${WA_ICON}Buy</a>`}
       </div>
     </div>
   </article>`;
@@ -604,7 +604,7 @@ function openPrint(code,push=true){
   rows.push(['Price',priceText(p)],['Status',STATUS[p.status]]);
   $('#vDl').innerHTML=rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
   const wa=$('#vWa');
-  wa.innerHTML=WA_ICON+(p.status==='available'?'Reserve on WhatsApp':p.status==='reserved'?'Ask to be next in line':'Ask about a similar print');
+  wa.innerHTML=WA_ICON+(p.status==='available'?'Buy on WhatsApp':p.status==='reserved'?'Ask to be next in line':'Ask about a similar print');
   wa.href=waHref(p);
   $('#vMail').textContent='Enquire by email'; $('#vMail').href=mailHref(p);
   $('#vLink').textContent=link(p).replace('https://www.',''); $('#vLink').href='#'+p.code;
