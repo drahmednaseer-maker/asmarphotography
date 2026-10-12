@@ -192,7 +192,8 @@ html[data-theme="light"] .sub{color:var(--gold)}
 .meta{padding:.85rem .1rem 0;display:flex;flex-direction:column;gap:.15rem;flex:1}
 .meta h3{font-family:var(--serif);font-weight:500;font-size:1.35rem;line-height:1.2}
 .meta .by{font-size:.85rem;color:var(--muted)}
-.meta .row{margin-top:auto;padding-top:.7rem;display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+.meta .spec-line{margin-top:auto;padding-top:.7rem;font-size:.8rem;color:var(--text);opacity:.8}
+.meta .row{padding-top:.5rem;display:flex;align-items:center;justify-content:space-between;gap:.6rem}
 .price{font-size:.92rem}
 .price.na{color:var(--muted)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;padding:.7rem 1.1rem;border-radius:999px;border:1px solid var(--gold);color:var(--gold);transition:background .2s,color .2s;min-height:44px}
@@ -307,7 +308,7 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
         <div><dt>Exhibition</dt><dd>22 October 2026</dd></div>
         <div><dt>Venue</dt><dd>PNCA Gallery No. 6, Islamabad</dd></div>
       </dl>
-      <p class="spec"><strong>PKR 35,000</strong> per frame · 20 × 30 in print on photo paper · frame 24 × 33.5 in, without glass · courier charges paid separately</p>
+      <p class="spec"><strong>PKR 35,000</strong> per frame · 20 × 30 print on photo paper · 24 × 33.5 PVC frame · courier charges paid separately</p>
     </div>
     <aside class="how" aria-labelledby="howTitle">
       <h2 id="howTitle">How to buy a print</h2>
@@ -380,7 +381,7 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
   <section class="notes">
     <div>
       <h3>The prints</h3>
-      <p>Each work is a 20 × 30 inch print on photo paper from the photographer's full-resolution file, in a 24 × 33.5 inch frame without glass. Courier charges are paid separately.</p>
+      <p>Each work is a 20 × 30 inch print on photo paper from the photographer's full-resolution file, in a 24 × 33.5 inch PVC frame. Courier charges are paid separately.</p>
     </div>
     <div>
       <h3>Proceeds</h3>
@@ -433,7 +434,7 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
    ════════════════════════════════════════════════════════════════ */
 const WHATSAPP = '923344334411';
 const EMAIL    = 'info@asmarphotography.com';
-const DEFAULT_SIZE  = '20 × 30 in print on photo paper · frame 24 × 33.5 in (no glass)';
+const DEFAULT_SIZE  = '20 × 30 Print on Photo Paper | 24 × 33.5 PVC Frame';
 const DEFAULT_PRICE = 'PKR 35,000';
 
 const OVERRIDES = {
@@ -561,6 +562,7 @@ function card(p){
       <p class="kind">${p.country==='Kenya'?'Wildlife of Kenya':'Landscape of Pakistan'}</p>
       <h3>${esc(p.t)}</h3>
       <p class="by">${esc(p.loc)} · © ${esc(p.p)}</p>
+      <p class="spec-line">${esc(p.size)}</p>
       <div class="row">
         <span class="price${p.price||p.status==='sold'?'':' na'}">${esc(priceText(p))}</span>
         ${p.status==='sold'
