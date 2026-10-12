@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+/* same theme memory as the main site, applied before first paint */
+(function(){try{
+  var t=localStorage.getItem('theme');
+  if(!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  if(t==='light') document.documentElement.setAttribute('data-theme','light');
+}catch(e){}})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kenya × Pakistan Exhibition — Prints for Sale | Asmar's Photography</title>
+<meta name="description" content="All 60 photographs from the Kenya × Pakistan exhibition, available to buy as fine-art prints. Landscapes of the Karakoram, Hindu Kush and Makran by Asmar Hussain and Bahram Khan, and wildlife of the Maasai Mara by Dr Usman.">
+<link rel="canonical" href="https://www.asmarphotography.com/KenyaPakistanExhibition">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kenya × Pakistan — Exhibition Prints for Sale">
+<meta property="og:description" content="60 photographs, 3 photographers, 2 countries. Every print in the exhibition is for sale.">
+<meta property="og:url" content="https://www.asmarphotography.com/KenyaPakistanExhibition">
+<meta property="og:site_name" content="Asmar's Photography">
+<meta property="og:image" content="https://www.asmarphotography.com/assets/exhibition-2026/kp-07.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.asmarphotography.com/assets/exhibition-2026/kp-07.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#080808">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/cormorantgaramond-var.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/jost-var.woff2" crossorigin>
+
+<style>
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-display:swap;src:url('assets/fonts/cormorantgaramond-i.woff2') format('woff2-variations');}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300 600;font-display:swap;src:url('assets/fonts/cormorantgaramond-var.woff2') format('woff2-variations');}
+@font-face{font-family:'Jost';font-style:normal;font-weight:300 500;font-display:swap;src:url('assets/fonts/jost-var.woff2') format('woff2-variations');}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#c8a96e;
+  --gold-light:#e8d5a3;
+  --bg:#080808;
+  --bg2:#111110;
+  --bg3:#1a1917;
+  --text:#f5f0e8;
+  --muted:#9a9386;
+  --border:rgba(200,169,110,.18);
+  --on-gold:#0b0a08;
+  --ok:#8fbf8a;
+  --warn:#d9a35b;
+  --sold:#c46a5c;
+  --serif:'Cormorant Garamond','Times New Roman',serif;
+  --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+}
+html[data-theme="light"]{
+  --gold:#7a5c25;
+  --gold-light:#5f4819;
+  --bg:#fbf9f5;
+  --bg2:#f2eee6;
+  --bg3:#e9e3d7;
+  --text:#171511;
+  --muted:#5d5750;
+  --border:rgba(120,95,45,.26);
+  --on-gold:#fbf9f5;
+  --ok:#3d7a37;
+  --warn:#9a6413;
+  --sold:#a3402f;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{width:min(1320px,100% - 2rem);margin-inline:auto}
+@media (min-width:700px){.wrap{width:min(1320px,100% - 4rem)}}
+
+/* ── top bar ── */
+.top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 0}
+.top img{height:44px;width:auto}
+html[data-theme="light"] .top img{filter:invert(1) hue-rotate(180deg)}
+.top-actions{display:flex;align-items:center;gap:.5rem}
+.top-link{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:.6rem .4rem}
+.top-link:hover{color:var(--gold)}
+.theme-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--muted)}
+.theme-btn:hover{color:var(--gold);border-color:var(--gold)}
+.theme-btn svg{width:18px;height:18px}
+
+/* ── intro ── */
+.intro{padding:2.5rem 0 2rem;display:grid;gap:2rem}
+@media (min-width:900px){.intro{grid-template-columns:1.25fr 1fr;align-items:end;padding:4rem 0 3rem}}
+.eyebrow{font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.8rem,8vw,5.6rem);line-height:.95;margin:.6rem 0 1rem;letter-spacing:-.01em}
+h1 .x{font-style:italic;color:var(--gold);font-weight:400}
+.lede{font-size:1.05rem;max-width:36rem;color:var(--text);opacity:.86}
+.facts{display:flex;gap:2rem;margin-top:1.6rem;flex-wrap:wrap}
+.facts div{font-family:var(--serif);font-size:2rem;line-height:1}
+.facts span{display:block;font-family:var(--sans);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.35rem}
+.how{border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.5rem;background:var(--bg2)}
+.how h2{font-family:var(--serif);font-weight:500;font-size:1.45rem;margin-bottom:.8rem}
+.how ol{list-style:none;counter-reset:s;display:grid;gap:.75rem}
+.how li{counter-increment:s;display:grid;grid-template-columns:1.8rem 1fr;gap:.6rem;font-size:.95rem}
+.how li::before{content:counter(s);font-family:var(--serif);font-size:1.3rem;color:var(--gold);line-height:1.2}
+
+/* ── toolbar ── */
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-block:1px solid var(--border)}
+.bar .wrap{display:flex;gap:.75rem;align-items:center;padding:.7rem 0;flex-wrap:wrap}
+.chips{display:flex;gap:.4rem;overflow-x:auto;scrollbar-width:none;flex:1 1 auto;min-width:0}
+.chips::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap;font-size:.82rem;padding:.5rem .9rem;border-radius:999px;border:1px solid var(--border);color:var(--muted);transition:color .2s,border-color .2s,background .2s}
+.chip:hover{color:var(--text);border-color:var(--gold)}
+.chip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.chip b{font-weight:400;opacity:.65;margin-left:.3rem}
+.find{position:relative;flex:0 1 240px;min-width:180px}
+.find input{width:100%;font:inherit;font-size:.9rem;color:var(--text);background:var(--bg2);border:1px solid var(--border);border-radius:999px;padding:.55rem 1rem .55rem 2.3rem}
+.find input::placeholder{color:var(--muted)}
+.find input:focus{outline:none;border-color:var(--gold)}
+.find svg{position:absolute;left:.85rem;top:50%;translate:0 -50%;width:15px;height:15px;color:var(--muted)}
+@media (max-width:640px){.find{flex:1 1 100%}}
+
+/* ── grid ── */
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin:2.6rem 0 1.2rem;flex-wrap:wrap}
+.section-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,4vw,2.4rem)}
+.section-head p{color:var(--muted);font-size:.9rem}
+.grid{display:grid;gap:1.6rem 1.2rem;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr))}
+.card{display:flex;flex-direction:column}
+.card .ph{position:relative;aspect-ratio:3/2;overflow:hidden;border-radius:10px;background:var(--bg3);cursor:zoom-in}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.card .ph:hover img{transform:scale(1.035)}
+.no{position:absolute;left:.6rem;top:.6rem;font-size:.72rem;letter-spacing:.08em;padding:.25rem .55rem;border-radius:6px;background:rgba(8,8,8,.72);color:#f5f0e8}
+.tag{position:absolute;right:.6rem;top:.6rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;border-radius:6px;background:rgba(8,8,8,.72)}
+.tag.reserved{color:#e8b56d}.tag.sold{color:#ec8e7e}
+.meta{padding:.85rem .1rem 0;display:flex;flex-direction:column;gap:.15rem;flex:1}
+.meta h3{font-family:var(--serif);font-weight:500;font-size:1.35rem;line-height:1.2}
+.meta .by{font-size:.85rem;color:var(--muted)}
+.meta .row{margin-top:auto;padding-top:.7rem;display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+.price{font-size:.92rem}
+.price.na{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;padding:.7rem 1.1rem;border-radius:999px;border:1px solid var(--gold);color:var(--gold);transition:background .2s,color .2s;min-height:44px}
+.btn:hover{background:var(--gold);color:var(--on-gold)}
+.btn.solid{background:var(--gold);color:var(--on-gold)}
+.btn.solid:hover{background:var(--gold-light);border-color:var(--gold-light)}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.btn svg{width:16px;height:16px}
+.empty{padding:3rem 0;text-align:center;color:var(--muted);display:none}
+
+/* ── viewer ── */
+dialog.viewer{border:0;padding:0;margin:0;width:100%;height:100%;max-width:none;max-height:none;background:var(--bg);color:var(--text)}
+dialog.viewer::backdrop{background:rgba(0,0,0,.8)}
+.v{display:grid;height:100%;grid-template-rows:minmax(0,1fr) auto}
+@media (min-width:980px){.v{grid-template-columns:minmax(0,1fr) 380px;grid-template-rows:1fr}}
+.v-img{position:relative;display:grid;place-items:center;padding:3.5rem .75rem 1rem;background:#050505;min-height:0}
+.v-img img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
+.v-nav{position:absolute;top:50%;translate:0 -50%;width:46px;height:46px;border-radius:50%;background:rgba(20,20,20,.7);color:#f5f0e8;display:grid;place-items:center}
+.v-nav:hover{background:var(--gold);color:#0b0a08}
+.v-nav.prev{left:.75rem}.v-nav.next{right:.75rem}
+.v-nav svg{width:20px;height:20px}
+.v-close{position:absolute;top:.75rem;right:.75rem;width:44px;height:44px;border-radius:50%;background:rgba(20,20,20,.7);color:#f5f0e8;display:grid;place-items:center;z-index:2}
+.v-close:hover{background:var(--gold);color:#0b0a08}
+.v-info{padding:1.4rem 1.25rem 1.6rem;overflow-y:auto;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:1rem}
+@media (min-width:980px){.v-info{border-top:0;border-left:1px solid var(--border);padding:3rem 2rem;justify-content:center}}
+.v-info h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,4vw,2.5rem);line-height:1.05}
+.v-info dl{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1.2rem;font-size:.92rem}
+.v-info dt{color:var(--muted);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;padding-top:.15rem}
+.v-actions{display:flex;flex-direction:column;gap:.6rem}
+.v-small{font-size:.82rem;color:var(--muted)}
+.v-small a{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:979px){dialog.viewer{overflow-y:auto}.v{display:block;height:auto}.v-img{height:min(62vh,100vw);padding-top:3.5rem}.v-nav{top:auto;bottom:1rem;translate:none}.v-info{overflow:visible}}
+
+/* ── foot ── */
+.spec{margin-top:1.6rem;font-size:.92rem;color:var(--muted);max-width:36rem}
+.spec strong{color:var(--gold);font-weight:500}
+.pay{scroll-margin-top:9rem;margin:4rem 0 0;padding:2.5rem 0 0;border-top:1px solid var(--border);display:grid;gap:2rem}
+@media (min-width:900px){.pay{grid-template-columns:1fr 1.2fr;column-gap:3rem}.pay-intro{grid-column:1/-1}}
+.pay h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,4vw,2.6rem);margin:.3rem 0 .5rem}
+.pay-intro p:last-child{color:var(--muted);max-width:40rem}
+.pay strong{color:var(--text);font-weight:500}
+.bank{border:1px solid var(--border);border-radius:14px;background:var(--bg2);padding:1.3rem 1.4rem}
+.bank dl>div{display:grid;grid-template-columns:8.5rem 1fr;gap:.8rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
+.bank dl>div:last-child{border-bottom:0}
+.bank dt{color:var(--muted);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding-top:.2rem}
+.bank dd{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem .7rem;font-size:.98rem;min-width:0}
+.bank small{flex-basis:100%;color:var(--muted);font-size:.78rem}
+.mono{font-variant-numeric:tabular-nums;letter-spacing:.04em;word-break:break-all}
+.copy{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);border-radius:999px;padding:.3rem .7rem;min-height:32px}
+.copy:hover{border-color:var(--gold)}
+@media (max-width:480px){.bank dl>div{grid-template-columns:1fr;gap:.25rem}}
+.receipt h3{font-family:var(--serif);font-weight:500;font-size:1.45rem;margin-bottom:.5rem}
+.receipt p{font-size:.95rem;color:var(--muted)}
+.receipt a{color:var(--gold)}
+.receipt ul{margin:.8rem 0 1rem;padding-left:1.1rem;display:grid;gap:.35rem;font-size:.95rem}
+.receipt li::marker{color:var(--gold)}
+.receipt .fine{font-size:.85rem}
+.notes{margin:4rem 0 0;padding:2.5rem 0;border-top:1px solid var(--border);display:grid;gap:2rem}
+@media (min-width:800px){.notes{grid-template-columns:repeat(3,1fr)}}
+.notes h3{font-family:var(--serif);font-weight:500;font-size:1.3rem;margin-bottom:.4rem}
+.notes p{font-size:.92rem;color:var(--muted)}
+.notes a{color:var(--gold)}
+footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid var(--border)}
+.toast{position:fixed;left:50%;bottom:1.5rem;translate:-50% 20px;opacity:0;background:var(--text);color:var(--bg);padding:.7rem 1.1rem;border-radius:999px;font-size:.85rem;transition:opacity .25s,translate .25s;pointer-events:none;z-index:100}
+.toast.show{opacity:1;translate:-50% 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a href="/" aria-label="Asmar's Photography — home"><img src="assets/logo.png" alt="Asmar's Photography" width="1200" height="423"></a>
+    <div class="top-actions">
+      <a class="top-link" href="/">Main site</a>
+      <button class="theme-btn" id="themeBtn" aria-label="Switch light or dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="intro">
+    <div>
+      <p class="eyebrow">Exhibition · 2026</p>
+      <h1>Kenya <span class="x">×</span> Pakistan</h1>
+      <p class="lede">From the peaks of the Karakoram to the plains of the Maasai Mara. All sixty photographs in the exhibition are for sale as fine-art prints.</p>
+      <div class="facts">
+        <div>60<span>Photographs</span></div>
+        <div>3<span>Photographers</span></div>
+        <div>2<span>Countries</span></div>
+      </div>
+      <p class="spec"><strong>PKR 35,000</strong> per framed print · 20 × 30 in print on photo paper · frame 24 × 33.5 in, without glass</p>
+    </div>
+    <aside class="how" aria-labelledby="howTitle">
+      <h2 id="howTitle">How to buy a print</h2>
+      <ol>
+        <li><span>Find the print's number on its wall label or in the catalogue, and type it in the search box below.</span></li>
+        <li><span>Pay <strong>PKR 35,000</strong> per framed print by bank transfer to the account under <a href="#pay" style="color:var(--gold)">How to pay</a>.</span></li>
+        <li><span>Tap <strong>Reserve</strong> and send your payment receipt with your full name, delivery address, phone number and email, on WhatsApp or to info@asmarphotography.com.</span></li>
+      </ol>
+    </aside>
+  </section>
+</div>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="chips" id="chips" role="group" aria-label="Filter prints"></div>
+    <label class="find">
+      <span class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search by print number or title</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" inputmode="search" placeholder="Print no. or place, e.g. 16" autocomplete="off">
+    </label>
+  </div>
+</div>
+
+<main class="wrap" id="main"></main>
+<p class="empty wrap" id="empty">No prints match that search.</p>
+
+<div class="wrap">
+  <section class="pay" id="pay" aria-labelledby="payTitle">
+    <div class="pay-intro">
+      <p class="eyebrow">Payment</p>
+      <h2 id="payTitle">How to pay</h2>
+      <p>Transfer <strong>PKR 35,000</strong> for each framed print to the account below. Then send us the receipt so we can confirm your print.</p>
+    </div>
+    <div class="bank">
+      <dl>
+        <div><dt>Account title</dt><dd>Muhammad Asmar Hussain</dd></div>
+        <div><dt>Bank</dt><dd>HBL (Habib Bank Limited)</dd></div>
+        <div><dt>Branch</dt><dd>College Road F-7 Markaz, Islamabad (branch code 2446)</dd></div>
+        <div><dt>Account no.</dt><dd><span class="mono">24467901564703</span><button class="copy" data-copy="24467901564703" aria-label="Copy account number">Copy</button></dd></div>
+        <div><dt>IBAN</dt><dd><span class="mono">PK74HABB0024467901564703</span><button class="copy" data-copy="PK74HABB0024467901564703" aria-label="Copy IBAN">Copy</button></dd></div>
+        <div><dt>SWIFT / BIC</dt><dd><span class="mono">HABBPKKA</span><button class="copy" data-copy="HABBPKKA" aria-label="Copy SWIFT code">Copy</button><small>For transfers from outside Pakistan</small></dd></div>
+      </dl>
+    </div>
+    <div class="receipt">
+      <h3>After paying, send your receipt</h3>
+      <p>Send it on <a href="https://wa.me/923344334411" target="_blank" rel="noopener">WhatsApp (+92 334 4334411)</a> or email <a href="mailto:info@asmarphotography.com">info@asmarphotography.com</a>. Your message must include:</p>
+      <ul>
+        <li>The print number(s) you bought, e.g. No. 16</li>
+        <li>The payment receipt or screenshot</li>
+        <li>Your full name</li>
+        <li>Full delivery address</li>
+        <li>Contact number</li>
+        <li>Email address</li>
+      </ul>
+      <p class="fine">Your print is reserved for you once we've confirmed the payment.</p>
+    </div>
+  </section>
+
+  <section class="notes">
+    <div>
+      <h3>The prints</h3>
+      <p>Each photograph is printed at 20 × 30 inches on photo paper from the photographer's full-resolution file. It comes in a 24 × 33.5 inch frame, without glass.</p>
+    </div>
+    <div>
+      <h3>Reserving</h3>
+      <p>Reservations are first come, first served. A print shown as <em>Reserved</em> is on hold for another buyer. You can still ask to be next in line.</p>
+    </div>
+    <div>
+      <h3>Questions</h3>
+      <p>WhatsApp <a href="https://wa.me/923344334411" target="_blank" rel="noopener">+92 334 4334411</a> or email <a href="mailto:info@asmarphotography.com">info@asmarphotography.com</a>.</p>
+    </div>
+  </section>
+  <footer>
+    <span>© 2026. All photographs are copyright of their photographers.</span>
+    <a href="/">asmarphotography.com</a>
+  </footer>
+</div>
+
+<dialog class="viewer" id="viewer" aria-labelledby="vTitle">
+  <div class="v">
+    <div class="v-img">
+      <button class="v-close" id="vClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <img id="vImg" alt="">
+      <button class="v-nav prev" id="vPrev" aria-label="Previous print"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+      <button class="v-nav next" id="vNext" aria-label="Next print"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+    </div>
+    <div class="v-info">
+      <p class="eyebrow" id="vNo"></p>
+      <h2 id="vTitle"></h2>
+      <dl id="vDl"></dl>
+      <div class="v-actions">
+        <a class="btn solid" id="vWa" target="_blank" rel="noopener"></a>
+        <a class="btn" id="vMail"></a>
+        <button class="btn" id="vShare">Copy link to this print</button>
+      </div>
+      <p class="v-small">Pay by bank transfer, then attach your receipt to the WhatsApp or email message with your name, address, phone number and email. <a href="#pay" id="vPay">Bank details</a></p>
+      <p class="v-small">Link to this print: <a id="vLink" href="#"></a></p>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ════════════════════════════════════════════════════════════════
+   EDIT HERE: prices, sizes and availability.
+   price:  e.g. 'PKR 45,000' or 'KES 30,000'. Leave '' to show "Price on request".
+   size:   e.g. '36 × 24 in, framed'. Leave '' to hide.
+   status: 'available' | 'reserved' | 'sold'
+   ════════════════════════════════════════════════════════════════ */
+const WHATSAPP = '923344334411';
+const EMAIL    = 'info@asmarphotography.com';
+const DEFAULT_SIZE  = '20 × 30 in print on photo paper · frame 24 × 33.5 in (no glass)';
+const DEFAULT_PRICE = 'PKR 35,000';
+
+const A='Asmar Hussain', B='Bahram Khan', U='Dr Usman';
+const PRINTS = [
+  // ── Pakistan · Asmar Hussain ──
+  {n:1,  t:'Broghil',                 p:A, loc:'Broghil National Park, Chitral'},
+  {n:2,  t:'Gwadar Sunrise',          p:A, loc:'Gwadar, Balochistan'},
+  {n:3,  t:'Blue Ridges of Hingol',   p:A, loc:'Hingol National Park, Balochistan'},
+  {n:4,  t:'Hingol at Sunset',        p:A, loc:'Hingol, Balochistan'},
+  {n:5,  t:'Autumn Gold',             p:A, loc:'Gilgit-Baltistan'},
+  {n:6,  t:'K1, Masherbrum',          p:A, loc:'Karakoram, Gilgit-Baltistan'},
+  {n:7,  t:'K6 Base Camp',            p:A, loc:'Hushe Valley, Gilgit-Baltistan'},
+  {n:8,  t:'K6 by Night',             p:A, loc:'Hushe Valley, Gilgit-Baltistan'},
+  {n:9,  t:'Katpana Dunes',           p:A, loc:'Katpana Cold Desert, Skardu'},
+  {n:10, t:'Mist over Katpana',       p:A, loc:'Katpana, Skardu'},
+  {n:11, t:'Keris',                   p:A, loc:'Keris, Ghanche'},
+  {n:12, t:'Khaplu Reflections',      p:A, loc:'Khaplu, Ghanche'},
+  {n:13, t:'Korambar Lake',           p:A, loc:'Karambar, Broghil'},
+  {n:14, t:'Kumrat',                  p:A, loc:'Kumrat Valley, Khyber Pakhtunkhwa'},
+  {n:15, t:'Naltar Lake',             p:A, loc:'Naltar Valley, Gilgit'},
+  {n:16, t:'Passu Cones',             p:A, loc:'Passu, Hunza'},
+  {n:17, t:'Paye Meadows',            p:A, loc:'Paye, Shogran'},
+  {n:18, t:'Skardu Morning',          p:A, loc:'Skardu, Gilgit-Baltistan'},
+  {n:19, t:'Spring in Gulshan-e-Kabir', p:A, loc:'Gulshan-e-Kabir, Gilgit-Baltistan'},
+  {n:20, t:'Taobat',                  p:A, loc:'Taobat, Neelum Valley'},
+  // ── Pakistan · Bahram Khan ──
+  {n:21, t:'Basho',                   p:B, loc:'Basho Valley, Skardu'},
+  {n:22, t:'The Dam',                 p:B, loc:'Pakistan'},
+  {n:23, t:'Deosai',                  p:B, loc:'Deosai National Park'},
+  {n:24, t:'Galliyat',                p:B, loc:'Galliyat, Khyber Pakhtunkhwa'},
+  {n:25, t:'Kund Malir',              p:B, loc:'Kund Malir, Balochistan'},
+  {n:26, t:'Machlo',                  p:B, loc:'Machlo, Ghanche'},
+  {n:27, t:'Passu',                   p:B, loc:'Passu, Hunza'},
+  {n:28, t:'Shangrila',               p:B, loc:'Shangrila, Skardu'},
+  {n:29, t:'Talu Brok',               p:B, loc:'Talu Brok, Hushe'},
+  {n:30, t:'Tirich Mir',              p:B, loc:'Tirich Mir, Chitral'},
+  // ── Kenya · Dr Usman ──
+  {n:31, t:'Leopard at Rest',         p:U, loc:'Maasai Mara, Kenya'},
+  {n:32, t:'Lioness at Dusk',         p:U, loc:'Maasai Mara, Kenya'},
+  {n:33, t:'The Approach',            p:U, loc:'Maasai Mara, Kenya'},
+  {n:34, t:'Cheetah on the Mound',    p:U, loc:'Maasai Mara, Kenya'},
+  {n:35, t:'Eyes in the Dark',        p:U, loc:'Maasai Mara, Kenya'},
+  {n:36, t:'Pride',                   p:U, loc:'Maasai Mara, Kenya'},
+  {n:37, t:'Roar',                    p:U, loc:'Maasai Mara, Kenya'},
+  {n:38, t:'Golden Procession',       p:U, loc:'Maasai Mara, Kenya'},
+  {n:39, t:'Balloon over the Mara',   p:U, loc:'Maasai Mara, Kenya'},
+  {n:40, t:'Mother and Cub',          p:U, loc:'Maasai Mara, Kenya'},
+  {n:41, t:'Cubs on the Track',       p:U, loc:'Maasai Mara, Kenya'},
+  {n:42, t:'Buffalo Ambush',          p:U, loc:'Maasai Mara, Kenya'},
+  {n:43, t:'The Family',              p:U, loc:'Maasai Mara, Kenya'},
+  {n:44, t:'Leopard in the Tree',     p:U, loc:'Maasai Mara, Kenya'},
+  {n:45, t:'Giraffes at Sunset',      p:U, loc:'Maasai Mara, Kenya'},
+  {n:46, t:'Necking Giraffes',        p:U, loc:'Maasai Mara, Kenya'},
+  {n:47, t:'After the Rain',          p:U, loc:'Maasai Mara, Kenya'},
+  {n:48, t:'Gazelles at Dusk',        p:U, loc:'Maasai Mara, Kenya'},
+  {n:49, t:'Elephant at Twilight',    p:U, loc:'Maasai Mara, Kenya'},
+  {n:50, t:'Lions on Watch',          p:U, loc:'Maasai Mara, Kenya'},
+  {n:51, t:'King of Gold',            p:U, loc:'Maasai Mara, Kenya'},
+  {n:52, t:'The Black-Maned Lion',    p:U, loc:'Maasai Mara, Kenya'},
+  {n:53, t:'Cheetah and Kill',        p:U, loc:'Maasai Mara, Kenya'},
+  {n:54, t:'The Chase',               p:U, loc:'Maasai Mara, Kenya'},
+  {n:55, t:'Buffalo and Oxpeckers',   p:U, loc:'Maasai Mara, Kenya'},
+  {n:56, t:'Cape Buffalo',            p:U, loc:'Maasai Mara, Kenya'},
+  {n:57, t:'Acacia and Giraffes',     p:U, loc:'Maasai Mara, Kenya'},
+  {n:58, t:'Cheetah Brothers',        p:U, loc:'Maasai Mara, Kenya'},
+  {n:59, t:'Cheetahs on the Path',    p:U, loc:'Maasai Mara, Kenya'},
+  {n:60, t:'Topi at Sunset',          p:U, loc:'Maasai Mara, Kenya'},
+];
+/* per-print overrides, e.g.  12:{price:'PKR 60,000', status:'reserved'} */
+const OVERRIDES = {
+};
+
+/* ════════════════════════════════════════════════════════════════ */
+const PAGE_URL = 'https://www.asmarphotography.com/KenyaPakistanExhibition';
+PRINTS.forEach(p=>{
+  Object.assign(p,{size:DEFAULT_SIZE,price:DEFAULT_PRICE,status:'available'},OVERRIDES[p.n]||{});
+  p.country = p.p===U ? 'Kenya' : 'Pakistan';
+  p.id = 'kp-'+String(p.n).padStart(2,'0');
+  p.no = 'No. '+String(p.n).padStart(2,'0');
+});
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const STATUS={available:'Available',reserved:'Reserved',sold:'Sold'};
+const priceText=p=>p.status==='sold'?'Sold':(p.price||'Price on request');
+const link=p=>PAGE_URL+'#'+p.n;
+const waMsg=p=>`Hello, I'd like to buy a print from the Kenya × Pakistan exhibition:\n\n${p.no} — "${p.t}"\nby ${p.p}, ${p.loc}\n${p.price||''}\n${link(p)}\n\nPayment receipt: (attached)\nFull name: \nDelivery address: \nContact number: \nEmail: `;
+const waHref=p=>'https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(waMsg(p));
+const mailHref=p=>'mailto:'+EMAIL+'?subject='+encodeURIComponent(`Print enquiry: ${p.no} "${p.t}"`)+'&body='+encodeURIComponent(waMsg(p));
+const WA_ICON='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.74-.86-2-.95-.27-.1-.46-.15-.66.15-.19.29-.75.94-.92 1.13-.17.2-.34.22-.63.08-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.29-.02-.45.13-.6.13-.13.3-.34.44-.51.15-.17.2-.29.3-.49.1-.2.05-.37-.02-.52-.08-.15-.66-1.58-.9-2.16-.24-.56-.48-.48-.66-.49h-.56c-.2 0-.51.07-.78.37-.27.29-1.02 1-1.02 2.42 0 1.43 1.04 2.81 1.19 3.01.15.2 2.05 3.12 4.96 4.38.69.3 1.23.48 1.66.61.69.22 1.32.19 1.82.12.56-.09 1.74-.71 1.98-1.4.24-.68.24-1.27.17-1.4-.07-.13-.27-.2-.56-.35zM12.04 21.5h-.01a9.5 9.5 0 01-4.83-1.32l-.35-.21-3.6.94.96-3.51-.23-.36a9.44 9.44 0 01-1.45-5.04c0-5.23 4.26-9.49 9.51-9.49 2.54 0 4.92.99 6.72 2.79a9.4 9.4 0 012.78 6.71c-.01 5.23-4.27 9.49-9.5 9.49zm8.08-17.58A11.36 11.36 0 0012.04 0C5.5 0 .16 5.33.16 11.88c0 2.09.55 4.14 1.59 5.94L.06 24l6.32-1.66a11.87 11.87 0 005.66 1.44h.01c6.54 0 11.88-5.33 11.88-11.88 0-3.17-1.24-6.16-3.49-8.4z"/></svg>';
+
+/* ── filters ── */
+const FILTERS=[
+  {k:'all',      label:'All',            f:()=>true},
+  {k:'pakistan', label:'Pakistan',       f:p=>p.country==='Pakistan'},
+  {k:'kenya',    label:'Kenya',          f:p=>p.country==='Kenya'},
+  {k:'asmar',    label:A,                f:p=>p.p===A},
+  {k:'bahram',   label:B,                f:p=>p.p===B},
+  {k:'usman',    label:U,                f:p=>p.p===U},
+  {k:'avail',    label:'Available now',  f:p=>p.status==='available'},
+];
+let active='all', query='';
+$('#chips').innerHTML=FILTERS.map(x=>`<button class="chip" data-k="${x.k}" aria-pressed="${x.k===active}">${esc(x.label)}<b>${PRINTS.filter(x.f).length}</b></button>`).join('');
+$('#chips').addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b) return;
+  active=b.dataset.k;
+  document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.k===active));
+  render();
+});
+$('#q').addEventListener('input',e=>{query=e.target.value.trim().toLowerCase();render()});
+
+function matches(p){
+  if(!FILTERS.find(x=>x.k===active).f(p)) return false;
+  if(!query) return true;
+  const num=query.replace(/^(no\.?|#|kp-?)\s*/,'');
+  if(/^\d+$/.test(num)) return p.n===parseInt(num,10);
+  return (p.t+' '+p.p+' '+p.loc+' '+p.country).toLowerCase().includes(query);
+}
+
+function card(p){
+  const tag=p.status!=='available'?`<span class="tag ${p.status}">${STATUS[p.status]}</span>`:'';
+  return `<article class="card" id="${p.id}">
+    <div class="ph" data-n="${p.n}" role="button" tabindex="0" aria-label="View ${esc(p.no)}, ${esc(p.t)}">
+      <img src="assets/exhibition-2026/${p.id}-sm.jpg" srcset="assets/exhibition-2026/${p.id}-sm.jpg 720w, assets/exhibition-2026/${p.id}.jpg 1800w" sizes="(max-width:640px) 100vw, 420px" alt="${esc(p.t)} — ${esc(p.loc)}, photographed by ${esc(p.p)}" loading="lazy" decoding="async" width="720" height="480">
+      <span class="no">${p.no}</span>${tag}
+    </div>
+    <div class="meta">
+      <h3>${esc(p.t)}</h3>
+      <p class="by">${esc(p.p)} · ${esc(p.loc)}</p>
+      <div class="row">
+        <span class="price${p.price||p.status==='sold'?'':' na'}">${esc(priceText(p))}</span>
+        ${p.status==='sold'
+          ? `<button class="btn" data-n="${p.n}" data-open>Details</button>`
+          : `<a class="btn" href="${waHref(p)}" target="_blank" rel="noopener">${WA_ICON}Reserve</a>`}
+      </div>
+    </div>
+  </article>`;
+}
+
+function render(){
+  const list=PRINTS.filter(matches);
+  const groups=[
+    {h:'Pakistan',sub:'Landscapes by Asmar Hussain and Bahram Khan',items:list.filter(p=>p.country==='Pakistan')},
+    {h:'Kenya',sub:'Wildlife by Dr Usman',items:list.filter(p=>p.country==='Kenya')},
+  ].filter(g=>g.items.length);
+  $('#main').innerHTML=groups.map(g=>`<section aria-labelledby="h-${g.h}">
+      <div class="section-head"><h2 id="h-${g.h}">${g.h}</h2><p>${g.sub} · ${g.items.length} print${g.items.length>1?'s':''}</p></div>
+      <div class="grid">${g.items.map(card).join('')}</div>
+    </section>`).join('');
+  $('#empty').style.display=list.length?'none':'block';
+}
+render();
+
+/* ── viewer ── */
+const dlg=$('#viewer'); let cur=null;
+function visible(){return PRINTS.filter(matches)}
+function openPrint(n,push=true){
+  const p=PRINTS.find(x=>x.n===n); if(!p) return; cur=p;
+  $('#vImg').src=`assets/exhibition-2026/${p.id}.jpg`;
+  $('#vImg').alt=`${p.t}, ${p.loc}, photographed by ${p.p}`;
+  $('#vNo').textContent=p.no+' · '+p.country;
+  $('#vTitle').textContent=p.t;
+  const rows=[['Photographer',p.p],['Location',p.loc]];
+  if(p.size) rows.push(['Size',p.size]);
+  rows.push(['Price',priceText(p)],['Status',STATUS[p.status]]);
+  $('#vDl').innerHTML=rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
+  const wa=$('#vWa');
+  wa.innerHTML=WA_ICON+(p.status==='available'?'Reserve on WhatsApp':p.status==='reserved'?'Ask to be next in line':'Ask about a similar print');
+  wa.href=waHref(p);
+  $('#vMail').textContent='Enquire by email'; $('#vMail').href=mailHref(p);
+  $('#vLink').textContent=link(p).replace('https://www.',''); $('#vLink').href='#'+p.n;
+  if(push) history.replaceState(null,'','#'+p.n);
+  if(!dlg.open) dlg.showModal();
+}
+function step(d){
+  const v=visible(); if(!v.length) return;
+  let i=v.findIndex(x=>x===cur); i=(i+d+v.length)%v.length; openPrint(v[i].n);
+}
+$('#main').addEventListener('click',e=>{
+  const t=e.target.closest('.ph,[data-open]'); if(t) openPrint(+t.dataset.n);
+});
+$('#main').addEventListener('keydown',e=>{
+  const t=e.target.closest('.ph'); if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openPrint(+t.dataset.n)}
+});
+$('#vPrev').onclick=()=>step(-1);
+$('#vNext').onclick=()=>step(1);
+$('#vClose').onclick=()=>dlg.close();
+dlg.addEventListener('close',()=>{history.replaceState(null,'',location.pathname+location.search); if(cur) document.getElementById(cur.id)?.querySelector('.ph')?.focus({preventScroll:false})});
+dlg.addEventListener('click',e=>{if(e.target===dlg) dlg.close()});
+dlg.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1)});
+let sx=null;
+$('.v-img').addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+$('.v-img').addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)step(dx<0?1:-1);sx=null});
+
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2200)}
+$('#vShare').onclick=async()=>{
+  const url=link(cur);
+  if(navigator.share){try{await navigator.share({title:cur.no+' — '+cur.t,url});return}catch(e){if(e.name==='AbortError')return}}
+  try{await navigator.clipboard.writeText(url);toast('Link copied')}catch(e){prompt('Copy this link:',url)}
+};
+
+document.addEventListener('click',async e=>{
+  const b=e.target.closest('.copy'); if(!b) return;
+  try{await navigator.clipboard.writeText(b.dataset.copy);toast('Copied')}catch(err){prompt('Copy:',b.dataset.copy)}
+});
+$('#vPay').addEventListener('click',e=>{e.preventDefault();cur=null;dlg.close();setTimeout(()=>$('#pay').scrollIntoView({behavior:'instant'}),0)});
+
+/* deep links: /KenyaPakistanExhibition#16 opens print 16 (used by per-print QR codes) */
+function fromHash(){
+  const m=location.hash.match(/^#(?:kp-)?0*(\d{1,2})$/i);
+  if(m) openPrint(parseInt(m[1],10),false);
+}
+fromHash();
+addEventListener('hashchange',fromHash);
+
+/* theme toggle, shared with the main site */
+$('#themeBtn').onclick=()=>{
+  const light=document.documentElement.getAttribute('data-theme')!=='light';
+  if(light) document.documentElement.setAttribute('data-theme','light'); else document.documentElement.removeAttribute('data-theme');
+  try{localStorage.setItem('theme',light?'light':'dark')}catch(e){}
+};
+</script>
+</body>
+</html>

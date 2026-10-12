@@ -16,3 +16,7 @@ Kashmir Trip/
 
 # the new landing cover is a full-size master, same class as _originals/
 assets/Landing page cover.jpg
+
+# full-size exhibition masters (web copies live in assets/exhibition-2026/) and printable QR codes
+assets/Exhibition Prints 2026/
+_exhibition-qr/
