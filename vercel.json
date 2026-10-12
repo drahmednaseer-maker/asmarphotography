@@ -3,7 +3,6 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/kenyapakistanexhibition", "destination": "/KenyaPakistanExhibition", "permanent": true, "caseSensitive": true },
     { "source": "/product/:path*", "destination": "/#shop", "permanent": true },
     { "source": "/shop", "destination": "/#shop", "permanent": true },
     { "source": "/works", "destination": "/#portfolio", "permanent": true },
