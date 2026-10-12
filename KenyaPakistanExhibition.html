@@ -169,7 +169,7 @@ html[data-theme="light"] .sub{color:var(--gold)}
 .event dt{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .event dd{font-size:.98rem}
 .hosts{margin-top:1rem;font-size:.85rem;color:var(--muted)}
-.chapter{margin-bottom:1rem}
+.seq{margin-top:1.6rem}
 .section-head h2 span{font-family:var(--sans);font-size:.8rem;letter-spacing:.16em;color:var(--gold);margin-right:.8rem;vertical-align:middle}
 .pair{padding:1.2rem 0;border-top:1px solid var(--border)}
 .pos{display:flex;align-items:baseline;gap:.7rem;margin-bottom:.8rem;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
@@ -447,14 +447,6 @@ const OVERRIDES = {
 
 /* The hanging sequence, exactly as in the exhibition catalogue.
    Each wall position pairs one Kenya photograph with one Pakistan photograph. */
-const CHAPTERS = [
-  {name:'First Light', from:1,  to:4},
-  {name:'Gold',        from:5,  to:8},
-  {name:'Water',       from:9,  to:13},
-  {name:'Layers',      from:14, to:17},
-  {name:'Dusk',        from:18, to:20},
-  {name:'Patterns',    from:21, to:30},
-];
 /* Gallery walls, walking clockwise from the entrance (bottom-left door).
    Two frames per position: position 1 = frames 01–02, position 30 = frames 59–60. */
 const WALLS = [
@@ -506,8 +498,8 @@ const SEQUENCE = [
 const PAGE_URL = 'https://www.asmarphotography.com/KenyaPakistanExhibition';
 const PRINTS = [];   // in hanging order: 01 Kenya, 01 Pakistan, 02 Kenya, ...
 SEQUENCE.forEach(([k,pk],i)=>{
-  const pos=i+1, chapter=CHAPTERS.find(c=>pos>=c.from&&pos<=c.to).name, wall=WALL(pos);
-  const base={pos,chapter,wall,size:DEFAULT_SIZE,price:DEFAULT_PRICE,status:'available'};
+  const pos=i+1, wall=WALL(pos);
+  const base={pos,wall,size:DEFAULT_SIZE,price:DEFAULT_PRICE,status:'available'};
   PRINTS.push({...base,code:k[0],t:k[1],p:U,loc:'Masai Mara, Kenya',country:'Kenya'});
   PRINTS.push({...base,code:pk[0],t:pk[1],p:pk[0].startsWith('AH')?A:B,loc:pk[2],country:'Pakistan'});
 });
@@ -553,7 +545,7 @@ function matches(p){
   if(code) return p.code===code[1].toUpperCase()+pad(code[2]);
   const num=q.replace(/^(no\.?|#)/,'');
   if(/^\d+$/.test(num)) return p.pos===parseInt(num,10);
-  return (p.t+' '+p.p+' '+p.loc+' '+p.country+' '+p.chapter).toLowerCase().includes(query);
+  return (p.t+' '+p.p+' '+p.loc+' '+p.country).toLowerCase().includes(query);
 }
 
 function card(p){
@@ -580,19 +572,12 @@ function card(p){
 
 function render(){
   const list=PRINTS.filter(matches);
-  $('#main').innerHTML=CHAPTERS.map((c,ci)=>{
-    const pairs=[];
-    for(let pos=c.from;pos<=c.to;pos++){
-      const items=list.filter(p=>p.pos===pos);
-      if(items.length) pairs.push(`<div class="pair"><p class="pos"><b>${pad(pos)}</b> Wall ${WALL(pos)}</p><div class="pair-cards${items.length===1?' single':''}">${items.map(card).join('')}</div></div>`);
-    }
-    if(!pairs.length) return '';
-    const ws=[...new Set(Array.from({length:c.to-c.from+1},(_,i)=>WALL(c.from+i)))], walls=(ws.length>1?'Walls ':'Wall ')+ws.join(' & ');
-    return `<section class="chapter" aria-labelledby="ch-${ci}">
-      <div class="section-head"><h2 id="ch-${ci}"><span>${pad(ci+1)}</span>${c.name}</h2><p>Positions ${pad(c.from)}–${pad(c.to)} · ${walls}</p></div>
-      ${pairs.join('')}
-    </section>`;
-  }).join('');
+  const pairs=[];
+  for(let pos=1;pos<=SEQUENCE.length;pos++){
+    const items=list.filter(p=>p.pos===pos);
+    if(items.length) pairs.push(`<div class="pair"><p class="pos"><b>${pad(pos)}</b> Wall ${WALL(pos)}</p><div class="pair-cards${items.length===1?' single':''}">${items.map(card).join('')}</div></div>`);
+  }
+  $('#main').innerHTML=pairs.length?`<section class="seq" aria-label="Exhibition photographs in hanging order">${pairs.join('')}</section>`:'';
   $('#empty').style.display=list.length?'none':'block';
 }
 render();
@@ -604,7 +589,7 @@ function openPrint(code,push=true){
   const p=PRINTS.find(x=>x.code===code); if(!p) return; cur=p;
   $('#vImg').src=`assets/exhibition-2026/${p.id}.jpg`;
   $('#vImg').alt=`${p.t}, ${p.loc}, photographed by ${p.p}`;
-  $('#vNo').textContent=`${p.code} · Position ${pad(p.pos)} · Wall ${p.wall} · ${p.chapter}`;
+  $('#vNo').textContent=`${p.code} · Position ${pad(p.pos)} · Wall ${p.wall}`;
   $('#vTitle').textContent=p.t;
   const rows=[['Photographer',p.p],['Location',p.loc]];
   if(p.size) rows.push(['Size',p.size]);
