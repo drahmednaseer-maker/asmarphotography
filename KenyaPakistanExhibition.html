@@ -441,6 +441,7 @@ const WHATSAPP = '923344334411';
 const EMAIL    = 'info@asmarphotography.com';
 const DEFAULT_SIZE  = '20 × 30 Print on Photo Paper | 24 × 33.5 PVC Frame';
 const DEFAULT_PRICE = 'PKR 35,000';
+const IMG_V = '3';   // bump when an enlarged image is replaced, so phones don't show a cached copy
 
 const OVERRIDES = {
 };
@@ -462,17 +463,17 @@ const WALL = n => WALLS.find(x=>n<=x.to).w;
 const U='Dr. Usman ul Haq', A='Asmar Hussain', B='Bahram Khan';
 const SEQUENCE = [
   // [Kenya: code, title]               [Pakistan: code, title, location]
-  [['UH06','Tracking'],          ['AH01','K6 Basecamp','Charakusa Valley, Hushe, Baltistan, Pakistan']],
+  [['UH11','Present and Future King!'],          ['AH01','K6 Basecamp','Charakusa Valley, Hushe, Baltistan, Pakistan']],
   [['UH02','Golden Lighting for the King!'],                  ['AH02','Khaplu','Shyok River, Khaplu, Ghanche, Pakistan']],
   [['UH03','Lounging on High Ground!'],     ['AH03','Hingol National Park','Balochistan, Pakistan']],
   [['UH04','Morning Family Walk'],         ['AH04','Broghil Valley','Chitral, Pakistan']],
   [['UH05','Lurking in the Shadows'],    ['AH05','K1 (Masherbrum)','7,821 m, Ghanche, Baltistan, Pakistan']],
-  [['UH01','Bedroom with a View!'],             ['AH06','Katpana Cold Desert','Skardu, Baltistan, Pakistan']],
+  [['UH06','Tracking'],             ['AH06','Katpana Cold Desert','Skardu, Baltistan, Pakistan']],
   [['UH07','Magical Sunset'],        ['AH07','Gwadar','Balochistan, Pakistan']],
   [['UH08','Young Males Compete for Dominancy'],             ['AH08','Passu Cones','Passu, Hunza, Pakistan']],
   [['UH09','Raw Power'],                 ['AH09','Kumrat Valley','Upper Dir, Khyber Pakhtunkhwa, Pakistan']],
   [['UH10','Rainbow over the Plains'],  ['AH10','Taobat','Neelum Valley, Azad Kashmir, Pakistan']],
-  [['UH11','Present and Future King!'],             ['AH11','Naltar Valley','Gilgit, Gilgit-Baltistan, Pakistan']],
+  [['UH01','Bedroom with a View!'],             ['AH11','Naltar Valley','Gilgit, Gilgit-Baltistan, Pakistan']],
   [['UH12','After the Storm'],  ['AH12','Skardu','Baltistan, Pakistan']],
   [['UH13','The Majestic King, Oleopolos!'],              ['AH13','Keris','Ghanche, Baltistan, Pakistan']],
   [['UH14','Friends, of Sorts!'],    ['AH14','Autumn Valley','Pakistan']],
@@ -593,7 +594,7 @@ const dlg=$('#viewer'); let cur=null;
 function visible(){return PRINTS.filter(matches)}
 function openPrint(key,push=true){
   const p=PRINTS.find(x=>x.key===key||x.cat===key); if(!p) return; cur=p;
-  $('#vImg').src=`assets/exhibition-2026/${p.key.toLowerCase()}.jpg`;   // watermarked with its EKP number
+  $('#vImg').src=`assets/exhibition-2026/${p.key.toLowerCase()}.jpg?v=${IMG_V}`;   // watermarked with its EKP number
   $('#vImg').alt=`${p.t}, ${p.loc}, photographed by ${p.p}`;
   $('#vNo').textContent=`${p.code} · Wall ${p.wall}`;
   $('#vTitle').textContent=p.t;
