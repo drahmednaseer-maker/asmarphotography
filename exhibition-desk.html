@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Order Desk — Kenya—Pakistan Exhibition</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0a0a0a">
+<style>
+@font-face{font-family:'Jost';font-style:normal;font-weight:300 500;font-display:swap;src:url('assets/fonts/jost-var.woff2') format('woff2-variations');}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300 600;font-display:swap;src:url('assets/fonts/cormorantgaramond-var.woff2') format('woff2-variations');}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a; --panel:#141412; --panel2:#1c1b18; --text:#f5f0e8; --muted:#a39c8f;
+  --line:rgba(200,169,110,.22); --gold:#c8a96e; --orange:#ff8a00; --on:#0b0a08;
+  --ok:#7fc77a; --err:#ff7a6b;
+}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:'Jost','Helvetica Neue',Arial,sans-serif;font-weight:400;line-height:1.5;padding-bottom:env(safe-area-inset-bottom)}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.wrap{width:min(720px,100% - 2rem);margin-inline:auto}
+header{position:sticky;top:0;z-index:10;background:rgba(10,10,10,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.75rem 0}
+header h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.35rem;line-height:1.1}
+header h1 span{display:block;font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+.tabs{display:flex;gap:.3rem;background:var(--panel);border-radius:999px;padding:.25rem}
+.tabs button{padding:.45rem .9rem;border-radius:999px;font-size:.85rem;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--text);color:var(--on)}
+section.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1.1rem;margin:1rem 0}
+.step{display:flex;align-items:baseline;gap:.6rem;margin-bottom:.8rem}
+.step b{display:inline-grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--orange);color:var(--on);font-size:.85rem;flex:none}
+.step h2{font-size:1.05rem;font-weight:500}
+label{display:block;font-size:.8rem;color:var(--muted);margin:.7rem 0 .25rem}
+label .req{color:var(--orange)}
+input[type=text],input[type=tel],input[type=email],input[type=search],textarea{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:.75rem .85rem;font-size:1rem}
+textarea{min-height:5rem;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--orange)}
+input.bad,textarea.bad{border-color:var(--err)}
+.hint{font-size:.8rem;color:var(--muted);margin-top:.35rem}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:.4rem;margin-top:.7rem}
+@media(min-width:520px){.grid{grid-template-columns:repeat(10,1fr)}}
+.grid button{aspect-ratio:1;border-radius:10px;background:var(--panel2);border:1px solid var(--line);font-size:.95rem;font-variant-numeric:tabular-nums}
+.grid button.k{border-bottom:3px solid #c9a24a}
+.grid button.p{border-bottom:3px solid #4f8fd6}
+.grid button[aria-pressed="true"]{background:var(--orange);color:var(--on);border-color:var(--orange)}
+.legend{display:flex;gap:1rem;font-size:.75rem;color:var(--muted);margin-top:.5rem}
+.legend i{display:inline-block;width:.8rem;height:3px;vertical-align:middle;margin-right:.3rem}
+.picked{display:grid;gap:.6rem;margin-top:.9rem}
+.pick{display:grid;grid-template-columns:96px 1fr auto;gap:.75rem;align-items:center;background:var(--panel2);border-radius:12px;padding:.5rem}
+.pick img{width:96px;height:64px;object-fit:cover;border-radius:8px;background:#222}
+.pick .t{font-weight:500;line-height:1.25}
+.pick .s{font-size:.8rem;color:var(--muted)}
+.pick button{width:40px;height:40px;border-radius:50%;color:var(--muted);font-size:1.3rem}
+.pick button:hover{color:var(--err)}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--line)}
+.total strong{font-size:1.4rem;color:var(--orange)}
+.empty{color:var(--muted);font-size:.9rem;margin-top:.7rem}
+.bank{display:grid;gap:.1rem;background:var(--panel2);border-radius:12px;padding:.4rem .9rem}
+.bank div{display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:.55rem 0;border-bottom:1px solid var(--line)}
+.bank div:last-child{border:0}
+.bank dt{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.bank dd{font-variant-numeric:tabular-nums;text-align:right;word-break:break-all}
+.copy{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid var(--line);border-radius:999px;padding:.35rem .7rem;margin-left:.4rem;flex:none}
+.photo{display:flex;gap:.8rem;align-items:center;margin-top:.6rem}
+.photo img{width:88px;height:88px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+.btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;min-height:52px;border-radius:14px;font-size:1rem;font-weight:500;margin-top:.7rem}
+.btn.primary{background:var(--orange);color:var(--on)}
+.btn.secondary{background:var(--panel2);border:1px solid var(--line)}
+.btn.wa{background:#25d366;color:#06200f}
+.btn[disabled]{background:var(--panel2);color:var(--muted);border:1px dashed var(--line);pointer-events:none}
+.btn svg{width:20px;height:20px}
+.check{display:flex;gap:.6rem;align-items:flex-start;margin-top:.8rem;font-size:.95rem;color:var(--text)}
+.check input{width:22px;height:22px;margin-top:.1rem;accent-color:var(--orange);flex:none}
+.done{border-color:var(--ok)}
+.status{font-size:.85rem;margin-top:.5rem;color:var(--ok)}
+.err{color:var(--err);font-size:.85rem;margin-top:.5rem}
+.orders{display:grid;gap:.7rem}
+.order{background:var(--panel2);border-radius:12px;padding:.8rem}
+.order .h{display:flex;justify-content:space-between;gap:.5rem;font-weight:500}
+.order .m{font-size:.85rem;color:var(--muted);margin-top:.2rem}
+.order .acts{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.6rem}
+.order .acts button{font-size:.8rem;padding:.45rem .75rem;border-radius:999px;border:1px solid var(--line)}
+.tag{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .5rem;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.tag.ok{color:var(--ok);border-color:var(--ok)}
+.sum{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.8rem}
+.sum strong{font-size:1.3rem;color:var(--orange)}
+.hidden{display:none!important}
+.toast{position:fixed;left:50%;bottom:calc(1rem + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--text);color:var(--on);padding:.6rem 1rem;border-radius:999px;font-size:.9rem;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1><span>Usher desk</span>Kenya—Pakistan</h1>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tabNew" aria-selected="true">Sale</button>
+      <button role="tab" id="tabList" aria-selected="false">Orders <span id="cnt"></span></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="viewNew">
+  <section class="card">
+    <div class="step"><b>0</b><h2>Usher</h2></div>
+    <label for="usher">Your name <span class="req">*</span></label>
+    <input type="text" id="usher" autocomplete="name" placeholder="e.g. Ali">
+    <p class="hint">Saved on this phone. It goes on every order you send.</p>
+  </section>
+
+  <section class="card">
+    <div class="step"><b>1</b><h2>Frames the buyer wants</h2></div>
+    <input type="search" id="find" placeholder="Type a frame number or title, e.g. 7" inputmode="search" autocomplete="off">
+    <div class="grid" id="grid"></div>
+    <div class="legend"><span><i style="background:#c9a24a"></i>Wildlife, Kenya (odd)</span><span><i style="background:#4f8fd6"></i>Landscape, Pakistan (even)</span></div>
+    <div class="picked" id="picked"></div>
+    <p class="empty" id="noPick">Tap a number above. Check the photo matches the frame on the wall.</p>
+    <div class="total"><span id="totLabel">Total</span><strong id="tot">PKR 0</strong></div>
+    <p class="hint">PKR 35,000 per frame · 20 × 30 print on photo paper, 24 × 33.5 PVC frame · courier charges paid separately.</p>
+  </section>
+
+  <section class="card">
+    <div class="step"><b>2</b><h2>Buyer details</h2></div>
+    <label for="bName">Full name <span class="req">*</span></label>
+    <input type="text" id="bName" autocomplete="off">
+    <label for="bPhone">Phone / WhatsApp <span class="req">*</span></label>
+    <input type="tel" id="bPhone" placeholder="03xx xxxxxxx or +country code" autocomplete="off">
+    <label for="bEmail">Email <span class="req">*</span></label>
+    <input type="email" id="bEmail" autocomplete="off" inputmode="email">
+    <label for="bAddr">Delivery address, with city <span class="req">*</span></label>
+    <textarea id="bAddr" autocomplete="off"></textarea>
+  </section>
+
+  <section class="card">
+    <div class="step"><b>3</b><h2>Payment</h2></div>
+    <p class="hint" style="margin:0 0 .6rem">Buyer pays the total by bank transfer or Raast from their banking app:</p>
+    <dl class="bank">
+      <div><dt>Title</dt><dd>Muhammad Asmar Hussain</dd></div>
+      <div><dt>Bank</dt><dd>HBL, College Road F-7, Islamabad</dd></div>
+      <div><dt>Account</dt><dd>24467901564703<button class="copy" data-copy="24467901564703">Copy</button></dd></div>
+      <div><dt>IBAN</dt><dd>PK74HABB0024467901564703<button class="copy" data-copy="PK74HABB0024467901564703">Copy</button></dd></div>
+    </dl>
+    <label for="txn">Transaction ID / reference (from the receipt)</label>
+    <input type="text" id="txn" autocomplete="off" placeholder="optional, but helps match the payment">
+    <label>Receipt photo <span class="req">*</span></label>
+    <input type="file" id="photo" accept="image/*" capture="environment" class="hidden">
+    <button class="btn secondary" id="takePhoto" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+      Photograph the payment receipt
+    </button>
+    <div class="photo hidden" id="photoBox"><img id="photoImg" alt="Receipt photo"><button class="copy" id="retake" type="button">Retake</button></div>
+    <label class="check"><input type="checkbox" id="seen"><span>I have seen the successful payment of <strong id="seenAmt">PKR 0</strong> on the buyer's screen.</span></label>
+  </section>
+
+  <section class="card" id="sendCard">
+    <div class="step"><b>4</b><h2>Send</h2></div>
+    <p class="err hidden" id="formErr"></p>
+    <button class="btn wa" id="sendAsmar" type="button">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 13.9c-.2.6-1.3 1.2-1.8 1.3-.5 0-.9.2-3-.6-2.5-1-4.1-3.6-4.2-3.8-.1-.2-1-1.3-1-2.5s.6-1.8.9-2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.4 2.5 1.5.3.2.5.1.6-.1l.8-1c.2-.2.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+      Send order + receipt to Asmar
+    </button>
+    <p class="hint" id="sendHint">Opens WhatsApp with the receipt photo and order details. Choose <strong>Asmar</strong> and send.</p>
+    <p class="status hidden" id="sentOk"></p>
+    <button class="btn primary" id="sendBuyer" type="button" disabled>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+      Send confirmation to buyer
+    </button>
+    <p class="hint">Opens WhatsApp to the buyer's number with their order confirmation.</p>
+    <button class="btn secondary" id="newSale" type="button">Start a new sale</button>
+  </section>
+</main>
+
+<main class="wrap hidden" id="viewList">
+  <section class="card">
+    <div class="sum"><span>Orders on this phone</span><strong id="sumTot">PKR 0</strong></div>
+    <div class="orders" id="orders"></div>
+    <p class="empty" id="noOrders">No orders yet on this phone.</p>
+    <button class="btn secondary" id="exportCsv" type="button">Download all orders (CSV for Excel)</button>
+    <p class="hint">Orders are kept on this phone only. Download the list at the end of the day and send it to Asmar.</p>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const FRAMES = [[1, "Present and Future King!", "Dr. Usman ul Haq", "uh11"], [2, "K6 Basecamp", "Asmar Hussain", "ah01"], [3, "Golden Lighting for the King!", "Dr. Usman ul Haq", "uh02"], [4, "Khaplu", "Asmar Hussain", "ah02"], [5, "Lounging on High Ground!", "Dr. Usman ul Haq", "uh03"], [6, "Hingol National Park", "Asmar Hussain", "ah03"], [7, "Morning Family Walk", "Dr. Usman ul Haq", "uh04"], [8, "Broghil Valley", "Asmar Hussain", "ah04"], [9, "Lurking in the Shadows", "Dr. Usman ul Haq", "uh05"], [10, "K1 (Masherbrum)", "Asmar Hussain", "ah05"], [11, "Tracking", "Dr. Usman ul Haq", "uh06"], [12, "Katpana Cold Desert", "Asmar Hussain", "ah06"], [13, "Magical Sunset", "Dr. Usman ul Haq", "uh07"], [14, "Gwadar", "Asmar Hussain", "ah07"], [15, "Young Males Compete for Dominancy", "Dr. Usman ul Haq", "uh08"], [16, "Passu Cones", "Asmar Hussain", "ah08"], [17, "Raw Power", "Dr. Usman ul Haq", "uh09"], [18, "Kumrat Valley", "Asmar Hussain", "ah09"], [19, "Rainbow over the Plains", "Dr. Usman ul Haq", "uh10"], [20, "Taobat", "Asmar Hussain", "ah10"], [21, "Bedroom with a View!", "Dr. Usman ul Haq", "uh01"], [22, "Naltar Valley", "Asmar Hussain", "ah11"], [23, "After the Storm", "Dr. Usman ul Haq", "uh12"], [24, "Skardu", "Asmar Hussain", "ah12"], [25, "The Majestic King, Oleopolos!", "Dr. Usman ul Haq", "uh13"], [26, "Keris", "Asmar Hussain", "ah13"], [27, "Friends, of Sorts!", "Dr. Usman ul Haq", "uh14"], [28, "Autumn Valley", "Asmar Hussain", "ah14"], [29, "Morning Patrol", "Dr. Usman ul Haq", "uh15"], [30, "Paye Meadows, Shogran", "Asmar Hussain", "ah15"], [31, "A Groovy Kind of Love!", "Dr. Usman ul Haq", "uh16"], [32, "Katpana", "Asmar Hussain", "ah16"], [33, "Enjoying the View!", "Dr. Usman ul Haq", "uh17"], [34, "Spring, Gulshan-e-Kabir", "Asmar Hussain", "ah17"], [35, "Sunset Hues", "Dr. Usman ul Haq", "uh18"], [36, "Hingol", "Asmar Hussain", "ah18"], [37, "A Family Affair!", "Dr. Usman ul Haq", "uh19"], [38, "Karambar Lake", "Asmar Hussain", "ah19"], [39, "Calling It a Day!", "Dr. Usman ul Haq", "uh20"], [40, "K6 Night", "Asmar Hussain", "ah20"], [41, "The Higher Throne!", "Dr. Usman ul Haq", "uh21"], [42, "Basho", "Bahram Khan", "bk01"], [43, "Kings and Queens", "Dr. Usman ul Haq", "uh22"], [44, "Machlu", "Bahram Khan", "bk02"], [45, "Three Sisters", "Dr. Usman ul Haq", "uh23"], [46, "Talu Brok", "Bahram Khan", "bk03"], [47, "Mama Bringing the Naughty One Home!", "Dr. Usman ul Haq", "uh24"], [48, "Shangrila", "Bahram Khan", "bk04"], [49, "Gazelles at Sunset", "Dr. Usman ul Haq", "uh25"], [50, "Kund Malir", "Bahram Khan", "bk05"], [51, "The Lion King", "Dr. Usman ul Haq", "uh26"], [52, "Passu", "Bahram Khan", "bk06"], [53, "The Chase", "Dr. Usman ul Haq", "uh27"], [54, "Deosai National Park", "Bahram Khan", "bk07"], [55, "In the Heat of the Moment!", "Dr. Usman ul Haq", "uh28"], [56, "Tirich Mir", "Bahram Khan", "bk08"], [57, "The Great African Savannah", "Dr. Usman ul Haq", "uh29"], [58, "Tarbela Dam", "Bahram Khan", "bk09"], [59, "Dinner Is Served!", "Dr. Usman ul Haq", "uh30"], [60, "Donga Gali", "Bahram Khan", "bk10"]];   // [frame no., title, photographer, image id], from the exhibition page
+const PRICE = 35000;
+const ASMAR_WA = '923344334411';
+const PAGE = 'https://www.asmarphotography.com/KenyaPakistanExhibition';
+const LS = 'kpDesk.v1';
+
+const $ = s => document.querySelector(s);
+const pad = n => String(n).padStart(2,'0');
+const pkr = n => 'PKR ' + n.toLocaleString('en-PK');
+const store = { get(){ try{ return JSON.parse(localStorage.getItem(LS)) || {orders:[],seq:0,usher:''} }catch(e){ return {orders:[],seq:0,usher:''} } },
+                set(v){ try{ localStorage.setItem(LS, JSON.stringify(v)) }catch(e){} } };
+let db = store.get();
+let picked = [];        // frame numbers
+let photoFile = null;
+let current = null;     // order saved after sending to Asmar
+
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.remove('show'),2200) }
+const frame = n => FRAMES.find(f=>f[0]===n);
+
+/* ── usher ── */
+$('#usher').value = db.usher || '';
+$('#usher').addEventListener('input', e=>{ db.usher=e.target.value.trim(); store.set(db) });
+
+/* ── frame picker ── */
+function drawGrid(){
+  const q=$('#find').value.trim().toLowerCase().replace(/^(ekp|#)\s*/,'');
+  const list = FRAMES.filter(f=> !q || String(f[0])===q.replace(/^0+/,'') || f[1].toLowerCase().includes(q) || f[2].toLowerCase().includes(q));
+  $('#grid').innerHTML = list.map(f=>`<button type="button" class="${f[0]%2?'k':'p'}" data-n="${f[0]}" aria-pressed="${picked.includes(f[0])}" aria-label="EKP ${pad(f[0])}, ${f[1]}">${pad(f[0])}</button>`).join('');
+}
+function drawPicked(){
+  $('#picked').innerHTML = picked.map(n=>{ const f=frame(n); return `<div class="pick"><img src="assets/exhibition-2026/${f[3]}-t.jpg" alt=""><div><div class="t">EKP ${pad(n)} · ${esc(f[1])}</div><div class="s">${esc(f[2])} · ${pkr(PRICE)}</div></div><button type="button" data-rm="${n}" aria-label="Remove EKP ${pad(n)}">×</button></div>` }).join('');
+  $('#noPick').classList.toggle('hidden', picked.length>0);
+  const total = picked.length*PRICE;
+  $('#tot').textContent = pkr(total); $('#seenAmt').textContent = pkr(total);
+  $('#totLabel').textContent = picked.length ? `Total for ${picked.length} frame${picked.length>1?'s':''}` : 'Total';
+  drawGrid();
+}
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+$('#grid').addEventListener('click', e=>{
+  const b=e.target.closest('button[data-n]'); if(!b) return;
+  const n=+b.dataset.n; picked = picked.includes(n) ? picked.filter(x=>x!==n) : [...picked,n].sort((a,b)=>a-b);
+  drawPicked();
+});
+$('#picked').addEventListener('click', e=>{ const b=e.target.closest('[data-rm]'); if(b){ picked=picked.filter(x=>x!==+b.dataset.rm); drawPicked() } });
+$('#find').addEventListener('input', drawGrid);
+$('#find').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); const f=$('#grid button'); if(f && $('#grid').children.length===1) f.click() } });
+
+/* ── receipt photo ── */
+$('#takePhoto').onclick = ()=> $('#photo').click();
+$('#retake').onclick = ()=> $('#photo').click();
+$('#photo').addEventListener('change', e=>{
+  photoFile = e.target.files[0] || null;
+  if(photoFile){ $('#photoImg').src = URL.createObjectURL(photoFile); $('#photoBox').classList.remove('hidden'); $('#takePhoto').classList.add('hidden') }
+});
+
+/* ── copy bank details ── */
+document.addEventListener('click', async e=>{ const b=e.target.closest('.copy[data-copy]'); if(!b) return; try{ await navigator.clipboard.writeText(b.dataset.copy); toast('Copied') }catch(err){ prompt('Copy:', b.dataset.copy) } });
+
+/* ── phone numbers: 03xx… → 923xx…, +country → digits ── */
+function waNumber(raw){
+  let d = raw.replace(/[^\d+]/g,'');
+  if(d.startsWith('+')) d=d.slice(1); else if(d.startsWith('00')) d=d.slice(2); else if(d.startsWith('0')) d='92'+d.slice(1);
+  return /^\d{10,15}$/.test(d) ? d : null;
+}
+
+/* ── validation ── */
+function collect(){
+  const v = { usher:$('#usher').value.trim(), name:$('#bName').value.trim(), phone:$('#bPhone').value.trim(),
+              email:$('#bEmail').value.trim(), addr:$('#bAddr').value.trim(), txn:$('#txn').value.trim() };
+  const problems=[];
+  const mark=(id,bad)=>$(id).classList.toggle('bad',bad);
+  mark('#usher',!v.usher); if(!v.usher) problems.push('your name');
+  if(!picked.length) problems.push('at least one frame');
+  mark('#bName',!v.name); if(!v.name) problems.push("buyer's name");
+  const wa=waNumber(v.phone); mark('#bPhone',!wa); if(!wa) problems.push('a valid phone number');
+  const emOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email); mark('#bEmail',!emOk); if(!emOk) problems.push('a valid email');
+  mark('#bAddr',v.addr.length<8); if(v.addr.length<8) problems.push('the delivery address');
+  if(!photoFile) problems.push('the receipt photo');
+  if(!$('#seen').checked) problems.push('tick that you saw the payment');
+  return {v, wa, problems};
+}
+
+function orderText(o){
+  const lines = o.frames.map(n=>{ const f=frame(n); return `• EKP ${pad(n)} — ${f[1]} (${f[2]})` }).join('\n');
+  return `NEW SALE · Kenya—Pakistan exhibition\nOrder ${o.id}\n\n${lines}\nTotal paid: ${pkr(o.total)} (bank transfer)${o.txn?`\nTransaction ID: ${o.txn}`:''}\n\nBuyer: ${o.name}\nPhone: ${o.phone}\nEmail: ${o.email}\nAddress: ${o.addr}\n\nUsher: ${o.usher} · ${new Date(o.at).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'})}\nReceipt photo attached.`;
+}
+function buyerText(o){
+  const lines = o.frames.map(n=>{ const f=frame(n); return `• EKP ${pad(n)} — ${f[1]}, by ${f[2]}` }).join('\n');
+  return `Dear ${o.name},\n\nThank you for your purchase at the Kenya—Pakistan: Landscapes & Wildlife Beyond Borders exhibition.\n\nOrder ${o.id}\n${lines}\n\nEach: 20 × 30 print on photo paper in a 24 × 33.5 PVC frame.\nAmount received: ${pkr(o.total)}\n\nDelivery to: ${o.addr}\nWe will contact you to arrange delivery. Courier charges are paid separately.\n\nQuestions: WhatsApp +92 334 4334411 or info@asmarphotography.com\nView the photographs: ${PAGE}\n\nAsmar's Photography`;
+}
+
+/* ── step 4: send to Asmar ── */
+$('#sendAsmar').onclick = async ()=>{
+  const {v, wa, problems} = collect();
+  const err=$('#formErr');
+  if(problems.length){ err.textContent='Still needed: '+problems.join(', ')+'.'; err.classList.remove('hidden'); err.scrollIntoView({block:'center'}); return }
+  err.classList.add('hidden');
+  if(!current){
+    db.seq=(db.seq||0)+1;
+    const ini=(v.usher.match(/[A-Za-z]/)||['X'])[0].toUpperCase();
+    const now=new Date();
+    current={ id:`KP-${pad(now.getDate())}${pad(now.getMonth()+1)}-${ini}${String(db.seq).padStart(3,'0')}`, at:now.toISOString(),
+              usher:v.usher, frames:[...picked], total:picked.length*PRICE, name:v.name, phone:v.phone, wa, email:v.email, addr:v.addr, txn:v.txn,
+              sentAsmar:false, sentBuyer:false };
+    db.orders.unshift(current); store.set(db); updateCount();
+  }
+  const text=orderText(current);
+  let shared=false;
+  if(photoFile && navigator.canShare && navigator.canShare({files:[photoFile]})){
+    try{
+      const f=new File([photoFile], `${current.id}-receipt.${(photoFile.type.split('/')[1]||'jpg').replace('jpeg','jpg')}`, {type:photoFile.type||'image/jpeg'});
+      await navigator.share({files:[f], text});
+      shared=true;
+    }catch(e){ if(e.name==='AbortError'){ toast('Not sent. Tap again when ready.'); return } }
+  }
+  if(!shared){
+    window.open('https://wa.me/'+ASMAR_WA+'?text='+encodeURIComponent(text),'_blank');
+    toast('Attach the receipt photo in WhatsApp before sending');
+  }
+  current.sentAsmar=true; store.set(db);
+  $('#sentOk').textContent=`Order ${current.id} saved on this phone.`; $('#sentOk').classList.remove('hidden');
+  $('#sendBuyer').disabled=false; $('#sendCard').classList.add('done');
+};
+
+/* ── step 4b: confirmation to buyer ── */
+function sendBuyer(o){
+  window.open('https://wa.me/'+o.wa+'?text='+encodeURIComponent(buyerText(o)),'_blank');
+  o.sentBuyer=true; store.set(db); drawOrders();
+}
+$('#sendBuyer').onclick = ()=>{ if(current) sendBuyer(current) };
+
+/* ── new sale ── */
+$('#newSale').onclick = ()=>{
+  if(!current && (picked.length || $('#bName').value) && !confirm('Clear this sale without sending it?')) return;
+  picked=[]; photoFile=null; current=null;
+  ['#bName','#bPhone','#bEmail','#bAddr','#txn','#find'].forEach(id=>{ $(id).value=''; $(id).classList.remove('bad') });
+  $('#photo').value=''; $('#photoBox').classList.add('hidden'); $('#takePhoto').classList.remove('hidden');
+  $('#seen').checked=false; $('#sentOk').classList.add('hidden'); $('#formErr').classList.add('hidden');
+  $('#sendBuyer').disabled=true; $('#sendCard').classList.remove('done');
+  drawPicked(); scrollTo({top:0});
+};
+
+/* ── orders list ── */
+function updateCount(){ $('#cnt').textContent = db.orders.length ? `(${db.orders.length})` : '' }
+function drawOrders(){
+  $('#noOrders').classList.toggle('hidden', db.orders.length>0);
+  $('#sumTot').textContent = pkr(db.orders.reduce((a,o)=>a+o.total,0));
+  $('#orders').innerHTML = db.orders.map((o,i)=>`<div class="order">
+    <div class="h"><span>${o.id}</span><span>${pkr(o.total)}</span></div>
+    <div class="m">${esc(o.name)} · ${esc(o.phone)}</div>
+    <div class="m">${o.frames.map(n=>'EKP '+pad(n)).join(', ')} · ${new Date(o.at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</div>
+    <div class="acts"><span class="tag ${o.sentAsmar?'ok':''}">${o.sentAsmar?'Sent to Asmar':'Not sent'}</span><span class="tag ${o.sentBuyer?'ok':''}">${o.sentBuyer?'Buyer confirmed':'Buyer not confirmed'}</span>
+      <button type="button" data-a="asmar" data-i="${i}">Re-send to Asmar</button><button type="button" data-a="buyer" data-i="${i}">Send buyer confirmation</button></div>
+  </div>`).join('');
+}
+$('#orders').addEventListener('click', e=>{
+  const b=e.target.closest('button[data-a]'); if(!b) return; const o=db.orders[+b.dataset.i];
+  if(b.dataset.a==='buyer') sendBuyer(o);
+  else { window.open('https://wa.me/'+ASMAR_WA+'?text='+encodeURIComponent(orderText(o)),'_blank'); o.sentAsmar=true; store.set(db); drawOrders() }
+});
+$('#exportCsv').onclick = ()=>{
+  if(!db.orders.length){ toast('No orders yet'); return }
+  const q=s=>'"'+String(s??'').replace(/"/g,'""')+'"';
+  const rows=[['Order','Time','Usher','Frames','Titles','Total PKR','Buyer','Phone','Email','Address','Transaction ID','Sent to Asmar','Buyer confirmed']]
+    .concat(db.orders.map(o=>[o.id,new Date(o.at).toLocaleString('en-GB'),o.usher,o.frames.map(n=>'EKP '+pad(n)).join(' '),o.frames.map(n=>frame(n)[1]).join(' | '),o.total,o.name,o.phone,o.email,o.addr,o.txn,o.sentAsmar?'yes':'no',o.sentBuyer?'yes':'no']));
+  const blob=new Blob(['﻿'+rows.map(r=>r.map(q).join(',')).join('\r\n')],{type:'text/csv'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`exhibition-orders-${(db.usher||'usher').replace(/\W+/g,'-')}.csv`; a.click();
+};
+
+/* ── tabs ── */
+function show(list){ $('#viewNew').classList.toggle('hidden',list); $('#viewList').classList.toggle('hidden',!list); $('#tabNew').setAttribute('aria-selected',!list); $('#tabList').setAttribute('aria-selected',list); if(list) drawOrders(); scrollTo({top:0}) }
+$('#tabNew').onclick=()=>show(false); $('#tabList').onclick=()=>show(true);
+
+drawPicked(); updateCount();
+</script>
+</body>
+</html>
