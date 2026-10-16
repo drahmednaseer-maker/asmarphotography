@@ -152,7 +152,7 @@ input.bad,textarea.bad{border-color:var(--err)}
       Photograph the payment receipt
     </button>
     <div class="photo hidden" id="photoBox"><img id="photoImg" alt="Receipt photo"><button class="copy" id="retake" type="button">Retake</button></div>
-    <label class="check"><input type="checkbox" id="seen"><span>I have seen the successful payment of <strong id="seenAmt">PKR 0</strong> on the buyer's screen.</span></label>
+    <p class="hint">Every sale needs its receipt. The photo must clearly show the amount and the transaction reference. It is kept on this phone and sent to Asmar with the order.</p>
   </section>
 
   <section class="card" id="sendCard">
@@ -179,7 +179,8 @@ input.bad,textarea.bad{border-color:var(--err)}
     <div class="orders" id="orders"></div>
     <p class="empty" id="noOrders">No orders yet on this phone.</p>
     <button class="btn secondary" id="exportCsv" type="button">Download all orders (CSV for Excel)</button>
-    <p class="hint">Orders are kept on this phone only. Download the list at the end of the day and send it to Asmar.</p>
+    <button class="btn secondary" id="exportReceipts" type="button">Download all receipt photos</button>
+    <p class="hint">Orders and receipt photos are kept on this phone only. At the end of the day, download the order list and the receipt photos and send them to Asmar.</p>
   </section>
 </main>
 
@@ -200,6 +201,24 @@ const store = { get(){ try{ return JSON.parse(localStorage.getItem(LS)) || {orde
 let db = store.get();
 let picked = [];        // frame numbers
 let photoFile = null;
+
+/* receipt photos are kept on the phone (IndexedDB), so none is lost and they can be re-sent or downloaded later */
+const rdb = new Promise((res,rej)=>{ try{ const r=indexedDB.open('kpDeskReceipts',1); r.onupgradeneeded=()=>r.result.createObjectStore('r'); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error) }catch(e){ rej(e) } });
+const putReceipt = async (id,blob)=>{ try{ const d=await rdb; await new Promise((res,rej)=>{ const t=d.transaction('r','readwrite'); t.objectStore('r').put(blob,id); t.oncomplete=res; t.onerror=()=>rej(t.error) }); return true }catch(e){ return false } };
+const getReceipt = async id=>{ try{ const d=await rdb; return await new Promise((res,rej)=>{ const q=d.transaction('r').objectStore('r').get(id); q.onsuccess=()=>res(q.result||null); q.onerror=()=>rej(q.error) }) }catch(e){ return null } };
+const receiptName = (o,blob)=>`${o.id}-receipt.${((blob&&blob.type||'image/jpeg').split('/')[1]||'jpg').replace('jpeg','jpg')}`;
+async function sendToAsmar(o,blob){
+  const text=orderText(o);
+  if(blob && navigator.canShare){
+    const f=new File([blob], receiptName(o,blob), {type:blob.type||'image/jpeg'});
+    if(navigator.canShare({files:[f]})){
+      try{ await navigator.share({files:[f], text}); return true }catch(e){ if(e.name==='AbortError') return false }
+    }
+  }
+  window.open('https://wa.me/'+ASMAR_WA+'?text='+encodeURIComponent(text),'_blank');
+  toast('Attach the receipt photo in WhatsApp before sending');
+  return true;
+}
 let current = null;     // order saved after sending to Asmar
 
 function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.remove('show'),2200) }
@@ -219,7 +238,7 @@ function drawPicked(){
   $('#picked').innerHTML = picked.map(n=>{ const f=frame(n); return `<div class="pick"><img src="assets/exhibition-2026/${f[3]}-t.jpg" alt=""><div><div class="t">EKP ${pad(n)} · ${esc(f[1])}</div><div class="s">${esc(f[2])} · ${pkr(PRICE)}</div></div><button type="button" data-rm="${n}" aria-label="Remove EKP ${pad(n)}">×</button></div>` }).join('');
   $('#noPick').classList.toggle('hidden', picked.length>0);
   const total = picked.length*PRICE;
-  $('#tot').textContent = pkr(total); $('#seenAmt').textContent = pkr(total);
+  $('#tot').textContent = pkr(total);
   $('#totLabel').textContent = picked.length ? `Total for ${picked.length} frame${picked.length>1?'s':''}` : 'Total';
   drawGrid();
 }
@@ -264,7 +283,6 @@ function collect(){
   const emOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email); mark('#bEmail',!emOk); if(!emOk) problems.push('a valid email');
   mark('#bAddr',v.addr.length<8); if(v.addr.length<8) problems.push('the delivery address');
   if(!photoFile) problems.push('the receipt photo');
-  if(!$('#seen').checked) problems.push('tick that you saw the payment');
   return {v, wa, problems};
 }
 
@@ -292,19 +310,8 @@ $('#sendAsmar').onclick = async ()=>{
               sentAsmar:false, sentBuyer:false };
     db.orders.unshift(current); store.set(db); updateCount();
   }
-  const text=orderText(current);
-  let shared=false;
-  if(photoFile && navigator.canShare && navigator.canShare({files:[photoFile]})){
-    try{
-      const f=new File([photoFile], `${current.id}-receipt.${(photoFile.type.split('/')[1]||'jpg').replace('jpeg','jpg')}`, {type:photoFile.type||'image/jpeg'});
-      await navigator.share({files:[f], text});
-      shared=true;
-    }catch(e){ if(e.name==='AbortError'){ toast('Not sent. Tap again when ready.'); return } }
-  }
-  if(!shared){
-    window.open('https://wa.me/'+ASMAR_WA+'?text='+encodeURIComponent(text),'_blank');
-    toast('Attach the receipt photo in WhatsApp before sending');
-  }
+  if(!current.hasReceipt){ current.hasReceipt = await putReceipt(current.id, photoFile); store.set(db) }
+  if(!await sendToAsmar(current, photoFile)){ toast('Not sent. Tap again when ready.'); return }
   current.sentAsmar=true; store.set(db);
   $('#sentOk').textContent=`Order ${current.id} saved on this phone.`; $('#sentOk').classList.remove('hidden');
   $('#sendBuyer').disabled=false; $('#sendCard').classList.add('done');
@@ -323,7 +330,7 @@ $('#newSale').onclick = ()=>{
   picked=[]; photoFile=null; current=null;
   ['#bName','#bPhone','#bEmail','#bAddr','#txn','#find'].forEach(id=>{ $(id).value=''; $(id).classList.remove('bad') });
   $('#photo').value=''; $('#photoBox').classList.add('hidden'); $('#takePhoto').classList.remove('hidden');
-  $('#seen').checked=false; $('#sentOk').classList.add('hidden'); $('#formErr').classList.add('hidden');
+  $('#sentOk').classList.add('hidden'); $('#formErr').classList.add('hidden');
   $('#sendBuyer').disabled=true; $('#sendCard').classList.remove('done');
   drawPicked(); scrollTo({top:0});
 };
@@ -337,20 +344,29 @@ function drawOrders(){
     <div class="h"><span>${o.id}</span><span>${pkr(o.total)}</span></div>
     <div class="m">${esc(o.name)} · ${esc(o.phone)}</div>
     <div class="m">${o.frames.map(n=>'EKP '+pad(n)).join(', ')} · ${new Date(o.at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</div>
-    <div class="acts"><span class="tag ${o.sentAsmar?'ok':''}">${o.sentAsmar?'Sent to Asmar':'Not sent'}</span><span class="tag ${o.sentBuyer?'ok':''}">${o.sentBuyer?'Buyer confirmed':'Buyer not confirmed'}</span>
+    <div class="acts"><span class="tag ${o.sentAsmar?'ok':''}">${o.sentAsmar?'Sent to Asmar':'Not sent'}</span><span class="tag ${o.hasReceipt?'ok':''}">${o.hasReceipt?'Receipt saved':'Receipt NOT saved'}</span><span class="tag ${o.sentBuyer?'ok':''}">${o.sentBuyer?'Buyer confirmed':'Buyer not confirmed'}</span>
       <button type="button" data-a="asmar" data-i="${i}">Re-send to Asmar</button><button type="button" data-a="buyer" data-i="${i}">Send buyer confirmation</button></div>
   </div>`).join('');
 }
 $('#orders').addEventListener('click', e=>{
   const b=e.target.closest('button[data-a]'); if(!b) return; const o=db.orders[+b.dataset.i];
   if(b.dataset.a==='buyer') sendBuyer(o);
-  else { window.open('https://wa.me/'+ASMAR_WA+'?text='+encodeURIComponent(orderText(o)),'_blank'); o.sentAsmar=true; store.set(db); drawOrders() }
+  else (async()=>{ if(await sendToAsmar(o, await getReceipt(o.id))){ o.sentAsmar=true; store.set(db); drawOrders() } })();
 });
+$('#exportReceipts').onclick = async ()=>{
+  let n=0;
+  for(const o of db.orders){
+    const blob=await getReceipt(o.id); if(!blob) continue;
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=receiptName(o,blob); document.body.appendChild(a); a.click(); a.remove(); n++;
+    await new Promise(r=>setTimeout(r,500));
+  }
+  toast(n?`${n} receipt photo${n>1?'s':''} saved`:'No receipts on this phone');
+};
 $('#exportCsv').onclick = ()=>{
   if(!db.orders.length){ toast('No orders yet'); return }
   const q=s=>'"'+String(s??'').replace(/"/g,'""')+'"';
-  const rows=[['Order','Time','Usher','Frames','Titles','Total PKR','Buyer','Phone','Email','Address','Transaction ID','Sent to Asmar','Buyer confirmed']]
-    .concat(db.orders.map(o=>[o.id,new Date(o.at).toLocaleString('en-GB'),o.usher,o.frames.map(n=>'EKP '+pad(n)).join(' '),o.frames.map(n=>frame(n)[1]).join(' | '),o.total,o.name,o.phone,o.email,o.addr,o.txn,o.sentAsmar?'yes':'no',o.sentBuyer?'yes':'no']));
+  const rows=[['Order','Time','Usher','Frames','Titles','Total PKR','Buyer','Phone','Email','Address','Transaction ID','Receipt file','Sent to Asmar','Buyer confirmed']]
+    .concat(db.orders.map(o=>[o.id,new Date(o.at).toLocaleString('en-GB'),o.usher,o.frames.map(n=>'EKP '+pad(n)).join(' '),o.frames.map(n=>frame(n)[1]).join(' | '),o.total,o.name,o.phone,o.email,o.addr,o.txn,o.hasReceipt?o.id+'-receipt':'MISSING',o.sentAsmar?'yes':'no',o.sentBuyer?'yes':'no']));
   const blob=new Blob(['﻿'+rows.map(r=>r.map(q).join(',')).join('\r\n')],{type:'text/csv'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`exhibition-orders-${(db.usher||'usher').replace(/\W+/g,'-')}.csv`; a.click();
 };
