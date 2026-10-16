@@ -193,8 +193,6 @@ html[data-theme="light"] .sub{color:var(--gold)}
 .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
 .card .ph:hover img{transform:scale(1.035)}
 .no{position:absolute;left:.6rem;top:.6rem;font-size:.72rem;letter-spacing:.08em;padding:.25rem .55rem;border-radius:6px;background:rgba(8,8,8,.72);color:#f5f0e8}
-.tag{position:absolute;right:.6rem;top:.6rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;border-radius:6px;background:rgba(8,8,8,.72)}
-.tag.reserved{color:#e8b56d}.tag.sold{color:#ec8e7e}
 .meta{padding:.85rem .1rem 0;display:flex;flex-direction:column;gap:.15rem;flex:1}
 .meta h3{font-family:var(--serif);font-weight:500;font-size:1.35rem;line-height:1.2}
 .meta .by{font-size:.85rem;color:var(--muted)}
@@ -313,7 +311,7 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
         <div><dt>Date</dt><dd>22 October 2026</dd></div>
         <div><dt>Venue</dt><dd>PNCA Gallery No. 6, Islamabad</dd></div>
       </dl>
-      <p class="spec"><strong>PKR 35,000</strong> per frame · 20 × 30 print on photo paper · 24 × 33.5 PVC frame · courier charges paid separately</p>
+      <p class="spec"><strong>PKR 35,000</strong> per frame · print on photo paper · print size 20 × 30 in · frame size 24 × 34 in · courier charges paid separately</p>
     </div>
     <aside class="how" aria-labelledby="howTitle">
       <h2 id="howTitle">How to buy a print</h2>
@@ -379,18 +377,18 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
         <li>Contact number</li>
         <li>Email address</li>
       </ul>
-      <p class="fine">Your print is reserved for you once we've confirmed the payment.</p>
+      <p class="fine">We'll confirm your order once we've received your payment.</p>
     </div>
   </section>
 
   <section class="notes">
     <div>
       <h3>The prints</h3>
-      <p>Each work is a 20 × 30 inch print on photo paper from the photographer's full-resolution file, in a 24 × 33.5 inch PVC frame. Courier charges are paid separately.</p>
+      <p>Each work is a print on photo paper, made from the photographer's full-resolution file. Print size is 20 × 30 inches and frame size is 24 × 34 inches. Courier charges are paid separately.</p>
     </div>
     <div>
-      <h3>Proceeds</h3>
-      <p>All proceeds from the sale of framed prints go entirely to support the photographers’ work. Nothing goes to the High Commission of Kenya or the Pakistan Africa Economic Council. Reservations are first come, first served.</p>
+      <h3>Availability</h3>
+      <p>Every photograph is available to order, even if others have already been sold. All proceeds from the sale of framed prints go entirely to support the photographers’ work. Nothing goes to the High Commission of Kenya or the Pakistan Africa Economic Council.</p>
     </div>
     <div>
       <h3>Questions</h3>
@@ -432,14 +430,12 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
 
 <script>
 /* ════════════════════════════════════════════════════════════════
-   EDIT HERE: price, size and availability.
-   Mark a print sold or reserved in OVERRIDES below, by its frame number:
-     EKP07:{status:'sold'},  EKP12:{status:'reserved'}
-   status: 'available' | 'reserved' | 'sold'
+   EDIT HERE: price and size. Every photograph is always available; there is no sold state.
+   A different price for one frame goes in OVERRIDES by frame number, e.g.  EKP07:{price:'PKR 45,000'}
    ════════════════════════════════════════════════════════════════ */
 const WHATSAPP = '923344334411';
 const EMAIL    = 'info@asmarphotography.com';
-const DEFAULT_SIZE  = '20 × 30 Print on Photo Paper | 24 × 33.5 PVC Frame';
+const DEFAULT_SIZE  = 'Print on Photo Paper · Print size 20 × 30 in · Frame size 24 × 34 in';
 const DEFAULT_PRICE = 'PKR 35,000';
 const IMG_V = '3';   // bump when an enlarged image is replaced, so phones don't show a cached copy
 
@@ -499,7 +495,7 @@ const SEQUENCE = [
 const PAGE_URL = 'https://www.asmarphotography.com/KenyaPakistanExhibition';
 const PRINTS = [];   // in hanging order: 01 Kenya, 01 Pakistan, 02 Kenya, ...
 SEQUENCE.forEach(([k,pk],i)=>{
-  const pos=i+1, base={pos,size:DEFAULT_SIZE,price:DEFAULT_PRICE,status:'available'};
+  const pos=i+1, base={pos,size:DEFAULT_SIZE,price:DEFAULT_PRICE};
   PRINTS.push({...base,n:pos*2-1,cat:k[0],t:k[1],p:U,loc:'Masai Mara, Kenya',country:'Kenya'});
   PRINTS.push({...base,n:pos*2,cat:pk[0],t:pk[1],p:pk[0].startsWith('AH')?A:B,loc:pk[2],country:'Pakistan'});
 });
@@ -514,8 +510,7 @@ PRINTS.forEach(p=>{
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const pad=n=>String(n).padStart(2,'0');
-const STATUS={available:'Available',reserved:'Reserved',sold:'Sold'};
-const priceText=p=>p.status==='sold'?'Sold':(p.price||'Price on request');
+const priceText=p=>p.price||'Price on request';
 const link=p=>PAGE_URL+'#'+p.key;
 const waMsg=p=>`Hello, I'd like to buy a print from the Kenya—Pakistan exhibition:\n\n${p.code} — "${p.t}"\nby ${p.p}, ${p.loc}\n${p.price||''}\n${link(p)}\n\nPayment receipt: (attached)\nFull name: \nDelivery address: \nContact number: \nEmail: `;
 const waHref=p=>'https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(waMsg(p));
@@ -530,7 +525,6 @@ const FILTERS=[
   {k:'usman',    label:U,                f:p=>p.p===U},
   {k:'asmar',    label:A,                f:p=>p.p===A},
   {k:'bahram',   label:B,                f:p=>p.p===B},
-  {k:'avail',    label:'Available now',  f:p=>p.status==='available'},
 ];
 let active='all', query='';
 $('#chips').innerHTML=FILTERS.map(x=>`<button class="chip" data-k="${x.k}" aria-pressed="${x.k===active}">${esc(x.label)}<b>${PRINTS.filter(x.f).length}</b></button>`).join('');
@@ -555,11 +549,10 @@ function matches(p){
 }
 
 function card(p){
-  const tag=p.status!=='available'?`<span class="tag ${p.status}">${STATUS[p.status]}</span>`:'';
   return `<article class="card" id="${p.id}">
     <div class="ph" data-key="${p.key}" role="button" tabindex="0" aria-label="View ${p.code}, ${esc(p.t)}">
       <img src="assets/exhibition-2026/${p.id}-t.jpg" alt="${esc(p.t)} — ${esc(p.loc)}, photographed by ${esc(p.p)}" loading="lazy" decoding="async" width="720" height="480">
-      <span class="no">${p.code}</span>${tag}
+      <span class="no">${p.code}</span>
     </div>
     <div class="meta">
       <p class="kind">${p.country==='Kenya'?'Wildlife of Kenya':'Landscape of Pakistan'}</p>
@@ -567,10 +560,8 @@ function card(p){
       <p class="by">${esc(p.loc)} · © ${esc(p.p)}</p>
       <p class="spec-line">${esc(p.size)}</p>
       <div class="row">
-        <span class="price${p.price||p.status==='sold'?'':' na'}">${esc(priceText(p))}</span>
-        ${p.status==='sold'
-          ? `<button class="btn" data-key="${p.key}" data-open>Details</button>`
-          : `<a class="btn" href="${waHref(p)}" target="_blank" rel="noopener">${WA_ICON}Buy</a>`}
+        <span class="price${p.price?'':' na'}">${esc(priceText(p))}</span>
+        <a class="btn" href="${waHref(p)}" target="_blank" rel="noopener">${WA_ICON}Buy</a>
       </div>
     </div>
   </article>`;
@@ -600,10 +591,10 @@ function openPrint(key,push=true){
   $('#vTitle').textContent=p.t;
   const rows=[['Photographer',p.p],['Location',p.loc]];
   if(p.size) rows.push(['Size',p.size]);
-  rows.push(['Price',priceText(p)],['Status',STATUS[p.status]]);
+  rows.push(['Price',priceText(p)]);
   $('#vDl').innerHTML=rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
   const wa=$('#vWa');
-  wa.innerHTML=WA_ICON+(p.status==='available'?'Buy on WhatsApp':p.status==='reserved'?'Ask to be next in line':'Ask about a similar print');
+  wa.innerHTML=WA_ICON+'Buy on WhatsApp';
   wa.href=waHref(p);
   $('#vMail').textContent='Enquire by email'; $('#vMail').href=mailHref(p);
   $('#vLink').textContent=link(p).replace('https://www.',''); $('#vLink').href='#'+p.key;
@@ -615,7 +606,7 @@ function step(d){
   let i=v.findIndex(x=>x===cur); i=(i+d+v.length)%v.length; openPrint(v[i].key);
 }
 $('#main').addEventListener('click',e=>{
-  const t=e.target.closest('.ph,[data-open]'); if(t) openPrint(t.dataset.key);
+  const t=e.target.closest('.ph'); if(t) openPrint(t.dataset.key);
 });
 $('#main').addEventListener('keydown',e=>{
   const t=e.target.closest('.ph'); if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openPrint(t.dataset.key)}

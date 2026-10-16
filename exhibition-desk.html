@@ -119,7 +119,7 @@ input.bad,textarea.bad{border-color:var(--err)}
     <div class="picked" id="picked"></div>
     <p class="empty" id="noPick">Tap a number above. Check the photo matches the frame on the wall.</p>
     <div class="total"><span id="totLabel">Total</span><strong id="tot">PKR 0</strong></div>
-    <p class="hint">PKR 35,000 per frame · 20 × 30 print on photo paper, 24 × 33.5 PVC frame · courier charges paid separately.</p>
+    <p class="hint">PKR 35,000 per frame · print on photo paper, print size 20 × 30 in, frame size 24 × 34 in · courier charges paid separately.</p>
   </section>
 
   <section class="card">
@@ -274,7 +274,7 @@ function orderText(o){
 }
 function buyerText(o){
   const lines = o.frames.map(n=>{ const f=frame(n); return `• EKP ${pad(n)} — ${f[1]}, by ${f[2]}` }).join('\n');
-  return `Dear ${o.name},\n\nThank you for your purchase at the Kenya—Pakistan: Landscapes & Wildlife Beyond Borders exhibition.\n\nOrder ${o.id}\n${lines}\n\nEach: 20 × 30 print on photo paper in a 24 × 33.5 PVC frame.\nAmount received: ${pkr(o.total)}\n\nDelivery to: ${o.addr}\nWe will contact you to arrange delivery. Courier charges are paid separately.\n\nQuestions: WhatsApp +92 334 4334411 or info@asmarphotography.com\nView the photographs: ${PAGE}\n\nAsmar's Photography`;
+  return `Dear ${o.name},\n\nThank you for your purchase at the Kenya—Pakistan: Landscapes & Wildlife Beyond Borders exhibition.\n\nOrder ${o.id}\n${lines}\n\nEach: print on photo paper, print size 20 × 30 inches, frame size 24 × 34 inches.\nAmount received: ${pkr(o.total)}\n\nDelivery to: ${o.addr}\nWe will contact you to arrange delivery. Courier charges are paid separately.\n\nQuestions: WhatsApp +92 334 4334411 or info@asmarphotography.com\nView the photographs: ${PAGE}\n\nAsmar's Photography`;
 }
 
 /* ── step 4: send to Asmar ── */
