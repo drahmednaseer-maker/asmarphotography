@@ -196,6 +196,8 @@ html[data-theme="light"] .sub{color:var(--gold)}
 .meta{padding:.85rem .1rem 0;display:flex;flex-direction:column;gap:.15rem;flex:1}
 .meta h3{font-family:var(--serif);font-weight:500;font-size:1.35rem;line-height:1.2}
 .meta .by{font-size:.85rem;color:var(--muted)}
+.meta .story{margin-top:.45rem;font-size:.86rem;line-height:1.5;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.v-story{font-size:.95rem;line-height:1.6;color:var(--text);opacity:.88}
 .meta .spec-line{margin-top:auto;padding-top:.7rem;font-size:.8rem;color:var(--text);opacity:.8}
 .meta .row{padding-top:.5rem;display:flex;align-items:center;justify-content:space-between;gap:.6rem}
 .price{font-size:.92rem}
@@ -414,6 +416,7 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
     <div class="v-info">
       <p class="eyebrow" id="vNo"></p>
       <h2 id="vTitle"></h2>
+      <p class="v-story" id="vStory"></p>
       <dl id="vDl"></dl>
       <div class="v-actions">
         <a class="btn solid" id="vWa" target="_blank" rel="noopener"></a>
@@ -459,7 +462,7 @@ const WALL = n => WALLS.find(x=>n<=x.to).w;
 const U='Dr. Usman ul Haq', A='Asmar Hussain', B='Bahram Khan';
 const SEQUENCE = [
   // [Kenya: code, title]               [Pakistan: code, title, location]
-  [['UH11','Present and Future King!'],          ['AH01','K6 Basecamp','Charakusa Valley, Hushe, Baltistan, Pakistan']],
+  [['UH11','Present and Future King!'],          ['AH01','The Mighty Karakorams','Charakusa Valley, Hushe, Baltistan, Pakistan']],
   [['UH02','Golden Lighting for the King!'],                  ['AH02','Khaplu','Shyok River, Khaplu, Ghanche, Pakistan']],
   [['UH03','Lounging on High Ground!'],     ['AH03','Hingol National Park','Balochistan, Pakistan']],
   [['UH04','Morning Family Walk'],         ['AH04','Broghil Valley','Chitral, Pakistan']],
@@ -475,7 +478,7 @@ const SEQUENCE = [
   [['UH14','Friends, of Sorts!'],    ['AH14','Autumn Valley','Pakistan']],
   [['UH15','Morning Patrol'],           ['AH15','Paye Meadows, Shogran','Kaghan Valley, Khyber Pakhtunkhwa, Pakistan']],
   [['UH16','A Groovy Kind of Love!'],         ['AH16','Katpana','Skardu, Baltistan, Pakistan']],
-  [['UH17','Enjoying the View!'],              ['AH17','Spring, Gulshan-e-Kabir','Ghanche, Baltistan, Pakistan']],
+  [['UH17','Enjoying the View!'],              ['AH17','Green Terraces in Gulshan-e-Kabir, Ghanche','Ghanche, Baltistan, Pakistan']],
   [['UH18','Sunset Hues'],           ['AH18','Hingol','Balochistan, Pakistan']],
   [['UH19','A Family Affair!'],       ['AH19','Karambar Lake','4,272 m, Ishkoman Valley, Ghizer, Pakistan']],
   [['UH20','Calling It a Day!'],      ['AH20','K6 Night','Charakusa Valley, Hushe, Baltistan, Pakistan']],
@@ -493,6 +496,70 @@ const SEQUENCE = [
 
 /* ════════════════════════════════════════════════════════════════ */
 const PAGE_URL = 'https://www.asmarphotography.com/KenyaPakistanExhibition';
+/* Story and camera details for each frame, exactly as on the printed photo tags (Photo-Tags-4x6-final-v19).
+   [story, camera, lens, aperture, shutter, ISO] — keyed by frame number. */
+const DETAILS = {
+  1:["Photographed here are two of the four famous Black Rock Boys, Oloimina and Oloshipa. Sitting with them is the future of the Rongai Pride, a young, playful male cub: the present and the future kings!", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/1200 s", "1000"],
+  2:["The majestic view of K6 peak, Fateh Brak and Farhat Brak: a paradise for rock climbers. Reaching this view was a 12-day round trip, one of the toughest journeys I have ever made.", "Sony ILCE-7RM6", "Sony 16-35mm f2.8 GM II", "f/11", "1/1000 s", "400"],
+  3:["This beautiful young male lion walked towards my jeep on a crisp, cold morning in the Masai Mara, giving me a perfect moment in golden light!", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/640 s", "2000"],
+  4:["Sunset light on the Haldi Cones above the Shyok River, while the valley below is already in blue shadow. Khaplu is the old seat of the Yabgo rajas of Ghanche.", "Sony ILCE-7M5", "Sony 16-35mm f2.8 GM II", "f/11", "1/200 s", "800"],
+  5:["Cheetahs are elegant and beautiful animals, known for their speed and agility. Seen here is a female cheetah named Nora, resting on a mound at midday and keeping a vigilant eye on her surroundings.", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/10", "1/640 s", "400"],
+  6:["Three years of chasing this light, finally captured: the layered mud mountains of Hingol National Park in the blue hour just after sunset. Pakistan's largest national park, in Balochistan.", "Sony ILCE-7RM5", "Sony 70-200mm f2.8 GM OSS II", "f/8", "1/800 s", "100"],
+  7:["Lions live in prides, and all the females share responsibility for the young ones. This photo was taken early in the morning as the lionesses led their cubs to the safety of the bushes, where they will spend most of the day sleeping!", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/640 s", "200"],
+  8:["Remote high pastures in the far north of Chitral, close to the Wakhan Corridor. In the far background rises Koyo Zom, 6,872 m, the highest peak of the Hindu Raj, where the Hindu Kush meets the Karakoram.", "Sony ILCE-7M4", "Sony 70-200mm f2.8 GM OSS II", "f/9", "1/400 s", "125"],
+  9:["It is often difficult to spot leopards out in the open savannah. They stay hidden in the bushes or high up in a tree during the day. When you do see one, it is always an amazing sight!", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/400 s", "400"],
+  10:["Masherbrum, 7,821 m, the first peak surveyed in the Karakoram and so named K1. Cloud pours off its summit as the evening sun lights the face.", "Sony ILCE-1", "Sony 200-600mm f5.6-6.3 G OSS", "f/8", "1/1600 s", "250"],
+  11:["These three sister cheetahs are daughters of Nishapai, a famous female cheetah of the Masai Mara. They have picked up a scent and are tracking their prey!", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/5.6", "1/250 s", "1600"],
+  12:["Sand dunes at 2,200 m in Skardu, one of the highest deserts in the world and one of the most remarkable landscapes in Pakistan. Photographed to help preserve it from the urbanisation closing in around it.", "DJI Mini 3 Pro", "DJI 6.7 mm (24 mm equiv.) f/1.7", "f/1.7", "1/3200 s", "100"],
+  13:["Sunsets in the Masai Mara are amazingly beautiful. The skyscape is magical, and wildlife subjects make them even more interesting.", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/320 s", "800"],
+  14:["The Arabian Sea meets the Makran coast at sunset, the surf drawing a white line along the beach.", "DJI Mini 3 Pro", "DJI 6.7 mm (24 mm equiv.) f/1.7", "f/1.7", "1/1000 s", "100"],
+  15:["Young males compete for dominance to gain access to mates. Seen here are two young males engaged in a mild battle on a beautiful rainy afternoon.", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/1000 s", "250"],
+  16:["The Cathedral Ridge above Passu, Hunza, lit at the day's last light. One of the most photographed skylines on the Karakoram Highway.", "Hasselblad X2D II 100C", "Hasselblad XCD 35-100E f/2.8", "f/27", "203 s", "50"],
+  17:["The Masai Mara is always full of high-action drama: what you only see on TV happens right in front of your eyes! Here the Topi Pride females take on a buffalo. The sheer strength and coordination of the lionesses has left the buffalo helpless as it senses its demise.", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/8", "1/2000 s", "3200"],
+  18:["A glacial stream rushes through deodar forest in Upper Dir, under a sky heavy with evening cloud. A surreal, green and beautiful valley.", "Sony ILCE-7C", "Sony 16-35mm f2.8 GM", "f/13", "20 s", "200"],
+  19:["The Masai Mara is not only for animal lovers but also a dream destination for nature and landscape lovers. A lonely elephant walks across the open savannah, and the whole scene is painted by a rainbow!", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/640 s", "100"],
+  20:["The last village of the Neelum Valley, where the river turns back from the Line of Control. Mist hangs over wooden houses and grazing sheep and lambs after the rain.", "Sony ILCE-7M4", "Sony 16-35mm f2.8 GM", "f/8", "1/400 s", "100"],
+  21:["Jilime, the famous female leopard of the Masai Mara, relaxes in her treetop sanctuary, high above the ground. A perfect bedroom with a spectacular 360° view of the savannah!", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/9", "1/2500 s", "1250"],
+  22:["The glacial lakes of Naltar are famous for water that shifts from turquoise to emerald. Snow still lies on the peaks while the lake bed shows every stone.", "Canon EOS 5D Mark II", "Canon 16-35mm f/2.8", "f/11", "1/1600 s", "100"],
+  23:["A young male elephant grazes across the savannah just as the clouds began to clear after heavy afternoon showers. The greens, the blues and the orange backdrop made it an outstanding portrait!", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/640 s", "2000"],
+  24:["Morning sun bursts over the ridge as mist drifts across the Indus plain at Skardu. The gateway town to K2, Deosai and the Baltistan valleys.", "Canon EOS 6D Mark II", "Canon EF 16-35mm f/4L IS USM", "f/18", "1/125 s", "160"],
+  25:["Oleopolos is built like a tank, strong and ferocious. He is one of the dominant males of the Topi Pride, the largest pride of lions in the Masai Mara. He is photographed here after he and his pride took down a giraffe for breakfast!", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/800 s", "640"],
+  26:["A quiet bend of the Shyok at Keris in Ghanche, poplars yellowing in autumn mist. Light rain and still water turn the valley into a watercolour.", "Sony ILCE-7RM5", "Sony 50-150mm f2 GM", "f/2", "1/4000 s", "50"],
+  27:["", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/1000 s", "2000"],
+  28:["Misty autumn mornings over the Hunza Valley, one of Pakistan's most historic and most visited destinations. In the far distance stands Altit Fort, hundreds of years old.", "Sony ILCE-7M4", "Sony 16-35mm f2.8 GM", "f/16", "1/100 s", "100"],
+  29:["The Masai Mara is a major tourism destination, and hot-air balloons are just one of the many ways to witness wildlife in its full glory.", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/640 s", "200"],
+  30:["Alpine meadows at 3,000 m above Shogran in the Kaghan Valley, carpeted with wildflowers after the monsoon. Clouds roll in from the Makra Peak side most afternoons.", "Canon EOS 5D Mark II", "Sony 16-35mm", "f/11", "1/1600 s", "200"],
+  31:["A buffalo and an oxpecker pose for this lovely portrait, showing their symbiotic relationship in its full glory.", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/9", "1/2500 s", "2000"],
+  32:["Morning fog in autumn makes the Katpana sand desert majestic. A friend stands in the far distance, watching the phenomenon unfold.", "Sony ILCE-7RM5", "Sony 70-200mm f2.8 GM OSS II", "f/11", "1/400 s", "100"],
+  33:["Two young lions lie cosily together on a cool April afternoon. April is a good time to visit the Masai Mara: there are fewer tourists, the rates are cheaper, the grass is a lush green and the animals can be viewed without much disturbance.", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/800 s", "400"],
+  34:["Apricot and cherry blossom over new green terraces in Ghanche. Spring arrives in Baltistan in April.", "Sony ILCE-7M5", "Sony 16-35mm f2.8 GM II", "f/13", "1/1250 s", "100"],
+  35:["A lone topi looks at the camera as if to say, “Please take a photo of me as well, the background is lovely!” I happily obliged.", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/400 s", "3200"],
+  36:["The Hingol River winds through the badlands like lava flowing from the setting sun. The park holds the pilgrimage site of Hinglaj and the mud volcanoes of the Makran.", "Sony ILCE-7RM5", "Sony 70-200mm f2.8 GM OSS II", "f/9", "1/200 s", "100"],
+  37:["The Breakaway Pride of Rongai is led by Dubo Mtoto. His gang of young lionesses is photographed here with him, all of them keeping an eye on warthogs across the river.", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/640 s", "125"],
+  38:["At 4,272 m in the Ishkoman Valley, one of the highest lakes in Pakistan. Snow peaks and evening cloud reflect in water that is among the clearest in the country.", "Sony ILCE-7M4", "Sony 16-35mm f2.8 GM", "f/22", "1/20 s", "50"],
+  39:["Giraffes march against the backdrop of a magical sunset, like soldiers walking in a line. Their silhouettes create a magical picture across the dark, flaming sky.", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/7.1", "1/800 s", "640"],
+  40:["The Milky Way over the Charakusa Valley, with K6 (7,282 m) glowing under starlight. It is very rare to get such a clear view of the K6 peak and the sky at this basecamp.", "Sony ILCE-7RM6", "Sony 16-35mm f2.8 GM II", "f/2.8", "15 s", "6400"],
+  41:["Jilime, a famous female leopard of the Masai Mara, poses for me, as if she knew I had come thousands of kilometres from home and was waiting for her to pose so I could take her picture.", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/7.1", "1/2000 s", "1000"],
+  42:["Rock towers of the Basho Valley near Skardu, lit by a shaft of late sun. A side valley of pine forest and pasture that few travellers turn into.", "Sony ILCE-7M4", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/250 s", "100"],
+  43:["Princes and princesses walk down the red carpet of the Masai Mara Grand Theatre, with the queen following.", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/800 s", "200"],
+  44:["The braided Hushe River spreads across its gravel bed below Machlu in Ghanche. From the air, villages and poplar lines sit on the narrow green edge of the valley.", "DJI Mini 4 Pro", "DJI 6.7 mm (24 mm equiv.) f/1.7", "f/1.7", "1/8000 s", "100"],
+  45:["Three sisters rest for a while on the lookout for a meal, each looking in a different direction, always alert!", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/400 s", "125"],
+  46:["Summer pastures high above the valley, where herders bring their animals in June. Snow ridges close the horizon on every side.", "DJI Mini 3 Pro", "DJI 6.7 mm (24 mm equiv.) f/1.7", "f/2.8", "1/2000 s", "100"],
+  47:["The naughty prince got lost, and Mama searched for him for nearly four hours. We looked for the cub with her. This picture was taken soon after she found him and was bringing him home.", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/1000 s", "400"],
+  48:["The resort on Lower Kachura Lake near Skardu, with its red-roofed cottages mirrored in the water. A stopping point for most travellers on the way to Baltistan's higher valleys.", "Sony ILCE-7M4", "Sony 24-70mm f2.8 GM", "f/11", "1/1600 s", "100"],
+  49:["There is so much action everywhere in the Masai Mara that sometimes you can’t even afford to blink. Blink, and you miss these gazelles running across the horizon!", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/1250 s", "2000"],
+  50:["The Makran Coastal Highway runs between the desert hills and the sea at Kund Malir. The beach is among the least visited on the Arabian Sea.", "DJI Mini 3 Pro", "DJI 6.7 mm (24 mm equiv.) f/1.7", "f/1.7", "1/800 s", "100"],
+  51:["Lions sleep most of the day. This photo of King Chongo was taken when he woke up for a moment from his daily morning sleep.", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/400 s", "100"],
+  52:["Autumn poplars at Passu, with the Hunza River braiding through the gravel flats below. The village sits between the Passu and Batura glaciers.", "Canon EOS 6D Mark II", "Canon EF 135mm f/2L USM", "f/9", "1/400 s", "100"],
+  53:["Like I said, if you blink, you miss it! All this action lasted only a couple of seconds. This time, the gazelle lived to see another day!", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/9", "1/2000 s", "1250"],
+  54:["The Deosai plateau, at over 4,000 m, is grassland larger than some countries and home to the Himalayan brown bear. Streams cut through the meadows in the brief summer.", "Sony ILCE-7M4", "Sony 16-35mm f2.8 GM", "f/11", "1/320 s", "800"],
+  55:["You just can’t get comfortable with wild lions, even if you’re lovers. This lioness did not hesitate to throw a ferocious punch at her mate!", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/8", "1/800 s", "1600"],
+  56:["The highest peak of the Hindu Kush, 7,708 m, catching the last light above the Chitral valley. Visible from Chitral town on clear days.", "Sony ILCE-7M4", "Sony 70-200mm f2.8 GM OSS II", "f/7.1", "1/200 s", "100"],
+  57:["A beautiful tapestry of clouds spreads across the blue sky as two giraffes traverse the savannah like lovers. The iconic acacia trees of the Masai Mara add a very interesting touch to the whole scene.", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/8", "1/2500 s", "640"],
+  58:["The Indus held back by one of the world's largest earth-filled dams, seen from the air. The reservoir supplies much of Pakistan's irrigation and hydropower.", "Sony ILCE-7M4", "Sony 24-70mm f2.8 GM", "f/11", "1/1600 s", "100"],
+  59:["The gazelle managed to escape, but this female impala was not so lucky. This photo is very close to my heart: the cheetah looks into my eyes, blood trickling down its face, while the lifeless eyes of the impala remind us that one day, none of us shall remain.", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/1250 s", "250"],
+  60:["Evening lights come on in the hill station of Donga Gali, in the pine forests of the Galiyat above Murree. The Pipeline Track to Ayubia starts here.", "Sony ILCE-7M3", "Sony 70-200mm f2.8 GM OSS II", "f/2.8", "1/2500 s", "160"]
+};
 const PRINTS = [];   // in hanging order: 01 Kenya, 01 Pakistan, 02 Kenya, ...
 SEQUENCE.forEach(([k,pk],i)=>{
   const pos=i+1, base={pos,size:DEFAULT_SIZE,price:DEFAULT_PRICE};
@@ -504,6 +571,8 @@ PRINTS.forEach(p=>{
   p.key='EKP'+String(p.n).padStart(2,'0');        // used in links: #EKP07
   p.code='EKP '+String(p.n).padStart(2,'0');      // shown: EKP 07
   p.wall=WALL(p.n);
+  const dt=DETAILS[p.n]||[];
+  p.story=dt[0]||''; p.gear=[['Camera',dt[1]],['Lens',dt[2]],['Aperture',dt[3]],['Shutter',dt[4]],['ISO',dt[5]]].filter(x=>x[1]);
   Object.assign(p,OVERRIDES[p.key]||{});
 });
 
@@ -545,7 +614,7 @@ function matches(p){
   if(cat) return p.cat===cat[1].toUpperCase()+pad(cat[2]);
   const num=q.match(/^(?:ekp|ecp|no\.?|#)?-?0*(\d{1,2})$/);
   if(num) return p.n===parseInt(num[1],10);
-  return (p.t+' '+p.p+' '+p.loc+' '+p.country).toLowerCase().includes(query);
+  return (p.t+' '+p.p+' '+p.loc+' '+p.country+' '+p.story).toLowerCase().includes(query);
 }
 
 function card(p){
@@ -558,6 +627,7 @@ function card(p){
       <p class="kind">${p.country==='Kenya'?'Wildlife of Kenya':'Landscape of Pakistan'}</p>
       <h3>${esc(p.t)}</h3>
       <p class="by">${esc(p.loc)} · © ${esc(p.p)}</p>
+      ${p.story?`<p class="story">${esc(p.story)}</p>`:''}
       <p class="spec-line">${esc(p.size)}</p>
       <div class="row">
         <span class="price${p.price?'':' na'}">${esc(priceText(p))}</span>
@@ -589,7 +659,8 @@ function openPrint(key,push=true){
   $('#vImg').alt=`${p.t}, ${p.loc}, photographed by ${p.p}`;
   $('#vNo').textContent=`${p.code} · Wall ${p.wall}`;
   $('#vTitle').textContent=p.t;
-  const rows=[['Photographer',p.p],['Location',p.loc]];
+  $('#vStory').textContent=p.story; $('#vStory').hidden=!p.story;
+  const rows=[['Photographer',p.p],['Location',p.loc],...p.gear];
   if(p.size) rows.push(['Size',p.size]);
   rows.push(['Price',priceText(p)]);
   $('#vDl').innerHTML=rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
