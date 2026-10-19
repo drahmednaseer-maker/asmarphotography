@@ -213,25 +213,35 @@ html[data-theme="light"] .sub{color:var(--gold)}
 /* ── viewer ── */
 dialog.viewer{border:0;padding:0;margin:0;width:100%;height:100%;max-width:none;max-height:none;background:var(--bg);color:var(--text)}
 dialog.viewer::backdrop{background:rgba(0,0,0,.8)}
-.v{display:grid;height:100%;grid-template-rows:minmax(0,1fr) auto}
-@media (min-width:980px){.v{grid-template-columns:minmax(0,1fr) 380px;grid-template-rows:1fr}}
-.v-img{position:relative;display:grid;place-items:center;padding:3.5rem .75rem 1rem;background:#050505;min-height:0}
+.v{display:grid;height:100%;grid-template-columns:minmax(0,1fr) 410px;grid-template-rows:auto minmax(0,1fr);grid-template-areas:"img buy" "img more"}
+.v-img{grid-area:img;position:relative;display:grid;place-items:center;padding:3.5rem .75rem 1rem;background:#050505;min-height:0}
 .v-img img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
 .v-nav{position:absolute;top:50%;translate:0 -50%;width:46px;height:46px;border-radius:50%;background:rgba(20,20,20,.7);color:#f5f0e8;display:grid;place-items:center}
 .v-nav:hover{background:var(--gold);color:#0b0a08}
 .v-nav.prev{left:.75rem}.v-nav.next{right:.75rem}
 .v-nav svg{width:20px;height:20px}
-.v-close{position:absolute;top:.75rem;right:.75rem;width:44px;height:44px;border-radius:50%;background:rgba(20,20,20,.7);color:#f5f0e8;display:grid;place-items:center;z-index:2}
+.v-close{position:fixed;top:.75rem;right:.75rem;width:44px;height:44px;border-radius:50%;background:rgba(20,20,20,.78);color:#f5f0e8;display:grid;place-items:center;z-index:5}
 .v-close:hover{background:var(--gold);color:#0b0a08}
-.v-info{padding:1.4rem 1.25rem 1.6rem;overflow-y:auto;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:1rem}
-@media (min-width:980px){.v-info{border-top:0;border-left:1px solid var(--border);padding:3rem 2rem;justify-content:center}}
-.v-info h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,4vw,2.5rem);line-height:1.05}
-.v-info dl{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1.2rem;font-size:.92rem}
-.v-info dt{color:var(--muted);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;padding-top:.15rem}
+.v-buy{grid-area:buy;padding:3.4rem 2rem 1.1rem;border-left:1px solid var(--border);display:flex;flex-direction:column;gap:.6rem}
+.v-more{grid-area:more;padding:.9rem 2rem 2rem;border-left:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;gap:1.1rem;min-height:0}
+.v-buy h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,4vw,2.4rem);line-height:1.05}
+.v-by{font-size:.9rem;color:var(--muted)}
+.take{margin-top:.5rem;border:1px solid var(--gold);border-radius:14px;padding:1rem 1.1rem 1.1rem;background:color-mix(in srgb,var(--gold) 9%,transparent)}
+.take-label{font-size:.74rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.take-price{font-family:var(--serif);font-size:2.1rem;line-height:1.1;margin:.2rem 0 .1rem}
+.take-spec{font-size:.82rem;line-height:1.45;color:var(--muted)}
+.btn.wa-btn{width:100%;margin-top:.85rem;min-height:56px;background:#25d366;border-color:#25d366;color:#06200f;font-size:.86rem;font-weight:500}
+.btn.wa-btn:hover{background:#52e585;border-color:#52e585;color:#06200f}
+.v-mail{display:block;text-align:center;margin-top:.7rem;font-size:.82rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.v-mail:hover{color:var(--gold)}
+.v-more h3{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:400;margin-bottom:.5rem}
+.v-more dl{display:grid;grid-template-columns:auto 1fr;gap:.4rem 1.2rem;font-size:.92rem}
+.v-more dt{color:var(--muted);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;padding-top:.15rem}
+.v-more dd{text-align:right}
 .v-actions{display:flex;flex-direction:column;gap:.6rem}
 .v-small{font-size:.82rem;color:var(--muted)}
 .v-small a{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
-@media (max-width:979px){dialog.viewer{overflow-y:auto}.v{display:block;height:auto}.v-img{height:min(62vh,100vw);padding-top:3.5rem}.v-nav{top:auto;bottom:1rem;translate:none}.v-info{overflow:visible}}
+@media (max-width:979px){dialog.viewer{overflow-y:auto}.v{display:flex;flex-direction:column;height:auto}.v-buy{order:1;padding:3.6rem 1.25rem 1rem;border-left:0}.v-img{order:2;height:auto;display:block;padding:.4rem .75rem 3.6rem}.v-img img{width:100%;height:auto;max-height:none}.v-more{order:3;border-left:0;padding:1.2rem 1.25rem 2.2rem;overflow:visible}.v-nav{top:auto;bottom:1rem;translate:none}}
 
 /* ── foot ── */
 .spec{margin-top:1.6rem;font-size:.92rem;color:var(--muted);max-width:36rem}
@@ -404,25 +414,31 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
 </div>
 
 <dialog class="viewer" id="viewer" aria-labelledby="vTitle">
+  <button class="v-close" id="vClose" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
   <div class="v">
+    <section class="v-buy">
+      <p class="eyebrow" id="vNo"></p>
+      <h2 id="vTitle"></h2>
+      <p class="v-by" id="vBy"></p>
+      <div class="take">
+        <p class="take-label">Take it home</p>
+        <p class="take-price" id="vPrice"></p>
+        <p class="take-spec" id="vSpec"></p>
+        <a class="btn wa-btn" id="vWa" target="_blank" rel="noopener"></a>
+        <a class="v-mail" id="vMail"></a>
+      </div>
+    </section>
     <div class="v-img">
-      <button class="v-close" id="vClose" aria-label="Close">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
-      </button>
       <img id="vImg" alt="">
       <button class="v-nav prev" id="vPrev" aria-label="Previous print"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
       <button class="v-nav next" id="vNext" aria-label="Next print"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
     </div>
-    <div class="v-info">
-      <p class="eyebrow" id="vNo"></p>
-      <h2 id="vTitle"></h2>
+    <div class="v-more">
+      <div id="vExifWrap"><h3>Camera details</h3><dl id="vExif"></dl></div>
       <p class="v-story" id="vStory"></p>
-      <dl id="vDl"></dl>
-      <div class="v-actions">
-        <a class="btn solid" id="vWa" target="_blank" rel="noopener"></a>
-        <a class="btn" id="vMail"></a>
-        <button class="btn" id="vShare">Copy link to this print</button>
-      </div>
+      <div class="v-actions"><button class="btn" id="vShare">Copy link to this print</button></div>
       <p class="v-small">Pay by bank transfer, then attach your receipt to the WhatsApp or email message with your name, address, phone number and email. <a href="#pay" id="vPay">Bank details</a></p>
       <p class="v-small">Link to this print: <a id="vLink" href="#"></a></p>
     </div>
@@ -473,7 +489,7 @@ const SEQUENCE = [
   [['UH09','Raw Power'],                 ['AH09','Kumrat Valley','Upper Dir, Khyber Pakhtunkhwa, Pakistan']],
   [['UH10','Rainbow over the Plains'],  ['AH10','Taobat','Neelum Valley, Azad Kashmir, Pakistan']],
   [['UH01','Bedroom with a View!'],             ['AH11','Naltar Valley','Gilgit, Gilgit-Baltistan, Pakistan']],
-  [['UH12','After the Storm'],  ['AH12','Skardu','Baltistan, Pakistan']],
+  [['UH12','After the Storm'],  ['AH12','Autumnal Bliss','Skardu, Pakistan']],
   [['UH13','The Majestic King, Oleopolos!'],              ['AH13','Keris Valley','Ghanche, Baltistan, Pakistan']],
   [['UH14','Friends, of Sorts!'],    ['AH14','Autumn Valley','Pakistan']],
   [['UH15','Morning Patrol'],           ['AH15','Paye Meadows, Shogran','Kaghan Valley, Khyber Pakhtunkhwa, Pakistan']],
@@ -496,10 +512,10 @@ const SEQUENCE = [
 
 /* ════════════════════════════════════════════════════════════════ */
 const PAGE_URL = 'https://www.asmarphotography.com/KenyaPakistanExhibition';
-/* Story and camera details for each frame, exactly as on the printed photo tags (Photo-Tags-4x6-final-v22).
+/* Story and camera details for each frame, exactly as on the printed photo tags (Photo-Tags-4x6-final-v25).
    [story, camera, lens, aperture, shutter, ISO] — keyed by frame number. */
 const DETAILS = {
-  1:["Photographed here are two of the four famous Black Rock Boys, Oloimina and Oloshipa. Sitting with them is the future of the Rongai Pride, a young, playful male cub: the present and the future kings!", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/1200 s", "1000"],
+  1:["Photographed here are two of the four famous Black Rock Boys, Oloimina and Oloshipa. Sitting with them is the future of the Rongai Pride, a young, playful male cub: the present and the future kings!", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/250 s", "200"],
   2:["The majestic view of K6 peak, Fateh Brak and Farhat Brak: a paradise for rock climbers. Reaching this view was a 12-day round trip, one of the toughest journeys I have ever made.", "Sony ILCE-7RM6", "Sony 16-35mm f2.8 GM II", "f/11", "1/1000 s", "400"],
   3:["This beautiful young male lion walked towards my jeep on a crisp, cold morning in the Masai Mara, giving me a perfect moment in golden light!", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/640 s", "2000"],
   4:["Sunset light on the Haldi Cones above the Shyok River, while the valley below is already in blue shadow. Khaplu is the old seat of the Yabgo rajas of Ghanche.", "Sony ILCE-7M5", "Sony 16-35mm f2.8 GM II", "f/11", "1/200 s", "800"],
@@ -517,7 +533,7 @@ const DETAILS = {
   16:["The Cathedral Ridge above Passu, Hunza, lit at the day's last light. One of the most photographed skylines on the Karakoram Highway.", "Hasselblad X2D II 100C", "Hasselblad XCD 35-100E f/2.8", "f/27", "203 s", "50"],
   17:["The Masai Mara is always full of high-action drama: what you only see on TV happens right in front of your eyes! Here the Topi Pride females take on a buffalo. The sheer strength and coordination of the lionesses has left the buffalo helpless as it senses its demise.", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/8", "1/2000 s", "3200"],
   18:["A glacial stream rushes through deodar forest in Upper Dir, under a sky heavy with evening cloud. A surreal, green and beautiful valley.", "Sony ILCE-7C", "Sony 16-35mm f2.8 GM", "f/13", "20 s", "200"],
-  19:["The Masai Mara is not only for animal lovers but also a dream destination for nature and landscape lovers. A lonely elephant walks across the open savannah, and the whole scene is painted by a rainbow!", "Sony ILCE-9M2", "Sony 200-600mm f5.6-6.3 G OSS", "f/6.3", "1/640 s", "100"],
+  19:["The Masai Mara is not only for animal lovers but also a dream destination for nature and landscape lovers. A lonely elephant walks across the open savannah, and the whole scene is painted by a rainbow!", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/5.6", "1/6400 s", "400"],
   20:["The last village of the Neelum Valley, where the river turns back from the Line of Control. Mist hangs over wooden houses and grazing sheep and lambs after the rain.", "Sony ILCE-7M4", "Sony 16-35mm f2.8 GM", "f/8", "1/400 s", "100"],
   21:["Jilime, the famous female leopard of the Masai Mara, relaxes in her treetop sanctuary, high above the ground. A perfect bedroom with a spectacular 360° view of the savannah!", "Sony ILCE-7M3", "Sony 200-600mm f5.6-6.3 G OSS", "f/9", "1/2500 s", "1250"],
   22:["The glacial lakes of Naltar are famous for water that shifts from turquoise to emerald. Snow still lies on the peaks while the lake bed shows every stone.", "Canon EOS 5D Mark II", "Canon 16-35mm f/2.8", "f/11", "1/1600 s", "100"],
@@ -659,18 +675,20 @@ function openPrint(key,push=true){
   $('#vImg').alt=`${p.t}, ${p.loc}, photographed by ${p.p}`;
   $('#vNo').textContent=`${p.code} · Wall ${p.wall}`;
   $('#vTitle').textContent=p.t;
-  $('#vStory').textContent=p.story; $('#vStory').hidden=!p.story;
-  const rows=[['Photographer',p.p],['Location',p.loc],...p.gear];
-  if(p.size) rows.push(['Size',p.size]);
-  rows.push(['Price',priceText(p)]);
-  $('#vDl').innerHTML=rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
+  $('#vBy').textContent=`${p.loc} · © ${p.p}`;
+  $('#vPrice').textContent=priceText(p);
+  $('#vSpec').textContent=p.size||'';
   const wa=$('#vWa');
   wa.innerHTML=WA_ICON+'Buy on WhatsApp';
   wa.href=waHref(p);
-  $('#vMail').textContent='Enquire by email'; $('#vMail').href=mailHref(p);
+  $('#vMail').textContent='or enquire by email'; $('#vMail').href=mailHref(p);
+  $('#vExif').innerHTML=p.gear.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
+  $('#vExifWrap').hidden=!p.gear.length;
+  $('#vStory').textContent=p.story; $('#vStory').hidden=!p.story;
   $('#vLink').textContent=link(p).replace('https://www.',''); $('#vLink').href='#'+p.key;
   if(push) history.replaceState(null,'','#'+p.key);
   if(!dlg.open) dlg.showModal();
+  dlg.scrollTop=0; $('.v-more').scrollTop=0;
 }
 function step(d){
   const v=visible(); if(!v.length) return;
