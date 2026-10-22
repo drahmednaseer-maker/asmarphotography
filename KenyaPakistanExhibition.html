@@ -232,6 +232,16 @@ dialog.viewer::backdrop{background:rgba(0,0,0,.8)}
 .take-spec{font-size:.82rem;line-height:1.45;color:var(--muted)}
 .btn.wa-btn{width:100%;margin-top:.85rem;min-height:56px;background:#25d366;border-color:#25d366;color:#06200f;font-size:.86rem;font-weight:500}
 .btn.wa-btn:hover{background:#52e585;border-color:#52e585;color:#06200f}
+.paymini{margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--border)}
+.pm-label{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.45rem}
+.pm-title{font-size:1rem;line-height:1.35}
+.pm-title span{display:block;font-size:.8rem;color:var(--muted)}
+.pm-row{display:flex;align-items:center;justify-content:space-between;gap:.7rem;margin-top:.7rem}
+.pm-k{display:block;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.pm-acc{display:block;font-size:1.55rem;line-height:1.15;letter-spacing:.05em;font-weight:500;font-variant-numeric:tabular-nums;word-break:break-all}
+.pm-iban{display:block;font-size:clamp(.7rem,3.7vw,.9rem);line-height:1.3;letter-spacing:.01em;font-weight:500;white-space:nowrap}
+.paymini .copy{flex:none;min-height:40px;padding:.4rem .9rem;background:var(--gold);color:var(--on-gold);border-color:var(--gold)}
+.pm-note{margin-top:.8rem;font-size:.8rem;line-height:1.45;color:var(--muted)}
 .v-mail{display:block;text-align:center;margin-top:.7rem;font-size:.82rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 .v-mail:hover{color:var(--gold)}
 .v-more h3{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:400;margin-bottom:.5rem}
@@ -427,6 +437,13 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
         <p class="take-price" id="vPrice"></p>
         <p class="take-spec" id="vSpec"></p>
         <a class="btn wa-btn" id="vWa" target="_blank" rel="noopener"></a>
+        <div class="paymini">
+          <p class="pm-label">Pay by bank transfer</p>
+          <p class="pm-title">Muhammad Asmar Hussain<span>HBL, College Road F-7 Markaz, Islamabad</span></p>
+          <div class="pm-row"><div><span class="pm-k">Account no.</span><b class="pm-acc">24467901564703</b></div><button class="copy" data-copy="24467901564703" aria-label="Copy account number">Copy</button></div>
+          <div class="pm-row"><div><span class="pm-k">IBAN</span><b class="pm-iban">PK74HABB0024467901564703</b></div><button class="copy" data-copy="PK74HABB0024467901564703" aria-label="Copy IBAN">Copy</button></div>
+          <p class="pm-note">After paying, send the receipt on WhatsApp with your name, address, phone number and email.</p>
+        </div>
         <a class="v-mail" id="vMail"></a>
       </div>
     </section>
@@ -439,7 +456,6 @@ footer{padding:2rem 0 3rem;font-size:.8rem;color:var(--muted);display:flex;justi
       <div id="vExifWrap"><h3>Camera details</h3><dl id="vExif"></dl></div>
       <p class="v-story" id="vStory"></p>
       <div class="v-actions"><button class="btn" id="vShare">Copy link to this print</button></div>
-      <p class="v-small">Pay by bank transfer, then attach your receipt to the WhatsApp or email message with your name, address, phone number and email. <a href="#pay" id="vPay">Bank details</a></p>
       <p class="v-small">Link to this print: <a id="vLink" href="#"></a></p>
     </div>
   </div>
@@ -721,7 +737,6 @@ document.addEventListener('click',async e=>{
   const b=e.target.closest('.copy'); if(!b) return;
   try{await navigator.clipboard.writeText(b.dataset.copy);toast('Copied')}catch(err){prompt('Copy:',b.dataset.copy)}
 });
-$('#vPay').addEventListener('click',e=>{e.preventDefault();cur=null;dlg.close();setTimeout(()=>$('#pay').scrollIntoView({behavior:'instant'}),0)});
 
 /* deep links: /KenyaPakistanExhibition#EKP07 opens that frame (used by the per-print QR codes);
    older catalogue-code links like #UH04 still work */
