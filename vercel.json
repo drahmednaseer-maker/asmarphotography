@@ -7,11 +7,27 @@
     { "source": "/shop", "destination": "/#shop", "permanent": true },
     { "source": "/works", "destination": "/#portfolio", "permanent": true },
     { "source": "/about-me", "destination": "/#about", "permanent": true },
-    { "source": "/services", "destination": "/#tours", "permanent": true },
+    { "source": "/services", "destination": "/pakistan-photography-tours", "permanent": true },
+    { "source": "/tours", "destination": "/pakistan-photography-tours", "permanent": true },
+    { "source": "/photo-tours", "destination": "/pakistan-photography-tours", "permanent": true },
     { "source": "/stories", "destination": "/#ted", "permanent": true },
     { "source": "/contacts", "destination": "/#contact", "permanent": true }
   ],
   "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin-allow-popups" },
+        { "key": "X-Permitted-Cross-Domain-Policies", "value": "none" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), bluetooth=(), hid=(), midi=(), browsing-topics=()" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; media-src 'self' blob:; frame-src https://www.youtube-nocookie.com; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests" }
+      ]
+    },
+    { "source": "/exhibition-desk", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }] },
     { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
     { "source": "/gallery/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }
   ]

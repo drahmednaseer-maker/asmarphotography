@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.asmarphotography.com/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -163,4 +163,254 @@
     <loc>https://www.asmarphotography.com/KenyaPakistanExhibition</loc>
     <lastmod>2026-10-12</lastmod>
   </url>
+  <!-- tours:start -->
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/passu-cones-sunset.jpg</image:loc>
+      <image:title>Passu Cones at dusk in Hunza, northern Pakistan, photographed by Asmar Hussain</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours/hunza</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/passu-cones-sunset.jpg</image:loc>
+      <image:title>Passu Cones at dusk above the Hunza River, Gilgit-Baltistan, photographed by Asmar Hussain</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/sunset-over-hunza-peak-and-lady-finger.jpg</image:loc>
+      <image:title>Sunset over Hunza Peak and Ladyfinger, from above Karimabad.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/altit-fort.jpg</image:loc>
+      <image:title>Altit Fort in morning mist, Hunza.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/spring-herding.jpg</image:loc>
+      <image:title>Spring herding under blossom, Hunza.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/assets/print-attabad-lake.jpg</image:loc>
+      <image:title>Attabad Lake, upper Hunza.</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours/passu</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/passu-cones-passu.jpg</image:loc>
+      <image:title>The Passu Cones above the village of Passu, Upper Hunza, photographed by Asmar Hussain</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/passu-cones-sunset.jpg</image:loc>
+      <image:title>Passu Cones at dusk.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/spring-passu.jpg</image:loc>
+      <image:title>Spring awakening at Passu: blossom under the peaks.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/assets/print-passu-cones.jpg</image:loc>
+      <image:title>Passu Cones, Upper Hunza.</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours/skardu</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/cold-desert.jpg</image:loc>
+      <image:title>Dunes of the Katpana Cold Desert below snow peaks at Skardu, Gilgit-Baltistan, photographed by Asmar Hussain</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/katpana-desert-sunrise-skardu.jpg</image:loc>
+      <image:title>Katpana Desert at sunrise, Skardu.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/desert-dawn.jpg</image:loc>
+      <image:title>Katpana Desert at dawn.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/passu-reflection.jpg</image:loc>
+      <image:title>Sunset at the Haldi Cones, Shyok River, Khaplu.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/haldi-cones-ghanche.jpg</image:loc>
+      <image:title>Haldi Cones, Ghanche.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/aerial-blossoms.jpg</image:loc>
+      <image:title>Valley in bloom at Machulu, Ghanche.</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours/deosai</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/bears-deosai.jpg</image:loc>
+      <image:title>Himalayan brown bears on the Deosai Plains, Deosai National Park, photographed by Asmar Hussain</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours/nagar</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/nagar-valley.jpg</image:loc>
+      <image:title>Nagar Valley in Gilgit-Baltistan, photographed by Asmar Hussain</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/assets/print-rakaposhi-sunset.jpg</image:loc>
+      <image:title>Rakaposhi at sunset.</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours/chitral-broghil</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/deosai-plains.jpg</image:loc>
+      <image:title>Broghil Valley in upper Chitral, high grassland and lakes in the Hindu Kush, photographed by Asmar Hussain</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/birmughlasht-chitral.jpg</image:loc>
+      <image:title>Birmoghlasht, above Chitral town.</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours/kumrat</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/neelum-valley.jpg</image:loc>
+      <image:title>Kumrat Valley at sunset, Upper Dir, Khyber Pakhtunkhwa, photographed by Asmar Hussain</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours/minimarg-domail</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/ratti-gali.jpg</image:loc>
+      <image:title>Rainbow Lake at Domail near Minimarg, Astore, Gilgit-Baltistan, photographed by Asmar Hussain</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours/makran-coast</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/golden-beach-gwadar.jpg</image:loc>
+      <image:title>Golden Beach near Gwadar on the Makran coast of Balochistan, photographed by Asmar Hussain</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/gwadar.jpg</image:loc>
+      <image:title>Gwadar, Balochistan.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/gwadar-beach-balochistan.jpg</image:loc>
+      <image:title>Gwadar Beach.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/pasni-beach-balochistan.jpg</image:loc>
+      <image:title>Pasni Beach, Balochistan.</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours/autumn</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/autumn-river.jpg</image:loc>
+      <image:title>Autumn colour along a river in Ghizer Valley, Gilgit-Baltistan, photographed by Asmar Hussain</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/autumn-indus.jpg</image:loc>
+      <image:title>Autumn on the Indus, Gilgit.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/assets/print-hunza-autumn.jpg</image:loc>
+      <image:title>Hunza in autumn.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/passu-cones-sunset.jpg</image:loc>
+      <image:title>Passu Cones at dusk.</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours/spring-blossom</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/aerial-blossoms.jpg</image:loc>
+      <image:title>Aerial view of a valley in spring blossom at Machulu, Ghanche, Baltistan, photographed by Asmar Hussain</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/spring-passu.jpg</image:loc>
+      <image:title>Spring awakening at Passu.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/spring-blossoms-gulshan-e-kabir.jpg</image:loc>
+      <image:title>Spring blossoms, Gulshan-e-Kabir.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/spring-herding.jpg</image:loc>
+      <image:title>Spring herding, Hunza.</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours/best-time-to-photograph-pakistan</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/autumn-indus.jpg</image:loc>
+      <image:title>Autumn colour on the Indus near Gilgit, Gilgit-Baltistan, photographed by Asmar Hussain</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.asmarphotography.com/pakistan-photography-tours/best-photography-locations-in-pakistan</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/passu-reflection.jpg</image:loc>
+      <image:title>Sunset at the Haldi Cones on the Shyok River near Khaplu, Ghanche, photographed by Asmar Hussain</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/passu-cones-passu.jpg</image:loc>
+      <image:title>Passu Cones, Upper Hunza.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/katpana-desert-skardu.jpg</image:loc>
+      <image:title>Katpana Desert, Skardu.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/bears-deosai.jpg</image:loc>
+      <image:title>Brown bears, Deosai.</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.asmarphotography.com/gallery/thar-journey.jpg</image:loc>
+      <image:title>The daily walk, Thar Desert, Sindh.</image:title>
+    </image:image>
+  </url>
+  <!-- tours:end -->
 </urlset>

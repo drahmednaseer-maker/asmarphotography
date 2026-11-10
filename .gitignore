@@ -23,3 +23,12 @@ _exhibition-qr/
 
 # drone footage for social reels (5 GB, never deployed)
 Drone Autumn/
+
+# local tooling, never deployed
+.claude/
+_tools/
+
+# video projects kept on the drive, never deployed (58 GB)
+HERO VIDEO/
+Pakistan Video/
+Pakistan Highlight Output/
